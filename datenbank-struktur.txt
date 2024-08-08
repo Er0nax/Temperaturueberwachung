@@ -81,4 +81,4 @@ user_settings
 	lang (varchar 2) (default: en)
 	active (true/false) (default: true)
 	updated_at (datetime)
-	created_at (datetime)
+	created_at (datetime) (current)
