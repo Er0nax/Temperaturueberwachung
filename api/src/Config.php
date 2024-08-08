@@ -16,13 +16,6 @@ class Config
                 'DBHOST',
                 'DBNAME',
             ],
-            'rewriteRoutes' => [ // rewrite a route with: from => to
-                'start' => 'index',
-                'home' => 'index',
-                'info' => 'about',
-                'message' => 'contact',
-                'call' => 'api'
-            ],
             'api' => [
                 'cache' => true,
                 'duration' => 60,
@@ -31,17 +24,10 @@ class Config
             'langs' => [
                 'de', 'en'
             ],
-            'versions' => [
-                'css' => '1.0.1',
-                'js' => '1.0.2',
-                'cjs' => '1.0.0',
-                'manifest' => '1.0.3'
-            ],
             'imageFolders' => [
-                'icon' => 'icons',
                 'background' => 'backgrounds',
-                'banner' => 'banners',
-                'link' => 'links',
+                'general' => 'general',
+                'avatar' => 'avatars',
                 'temp' => 'temp'
             ]
         ],
@@ -88,7 +74,6 @@ class Config
         // add custom config variables
         $config['environment'] = $environment;
         $config['isLocal'] = (in_array($_SERVER['REMOTE_ADDR'], ['localhost', '127.0.0.1', '::1']));
-        $config['isLoggedIn'] = !empty($_SESSION['user']['id']);
         $config['lang'] = (!empty($_SESSION['lang'])) ? $_SESSION['lang'] : getenv('LANG') ?? 'en';
 
         // only specific key?
