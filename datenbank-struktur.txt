@@ -1,0 +1,84 @@
+users
+	id (int)
+	username (varchar 100)
+	password (varchar 1000)
+	avatar_id (int)
+	role_id (int) (default: 1)
+	active (true/false) (default: true)
+	last_seen (datetime)
+	updated_at (datetime)
+	created_at (datetime)
+	
+temperatures
+	id (int)
+	sensor_id (int)
+	temperatur (int (in °C))
+	active (true/false) (default: true)
+	updated_at (datetime)
+	created_at (datetime)
+
+sensors
+	id (int)
+	name (varchar 255)
+	active (true/false) (default: true)
+	updated_at (datetime)
+	created_at (datetime)
+
+images
+	id (int)
+	src (varchar 255)
+	active (true/false) (default: true)
+	updated_at (datetime)
+	created_at (datetime)
+
+roles
+	id (int)
+	name (varchar 100)
+	color (varchar 7) (default: #fff)
+	active (true/false) (default: true)
+	updated_at (datetime)
+	created_at (datetime)
+	
+api_tokens
+	id (int)
+	ip (varchar 100)
+	token (varchar 20)
+	uses (int) (default 0)
+	active (true/false) (default: true)
+	updated_at (datetime)
+	created_at (datetime)
+
+pages
+	id (int)
+	index (int)
+	showAlways (true/false) (default: false)
+	hideInHeader (true/false) (default: false)
+	hideInFooter (true/false) (default: false)
+	mustBeLoggedIn (true/false/both) (default: false)
+	active (true/false) (default: true)
+	color (varchar 7) (default: #fff)
+	icon (varchar 255)
+	name (varchar 50)
+	title (varchar 100)
+	headline (varchar 255)
+	subline (varchar 500)
+	updated_at (datetime)
+	created_at (datetime)
+	
+translations
+	id (int)
+	category (varchar 255) (default: site)
+	value (varchar 2000)
+	de (varchar 2000)
+	en (varchar 2000)
+	active (true/false) (default: true)
+	updated_at (datetime)
+	created_at (datetime)
+	
+user_settings
+	id (int)
+	user_id (int)
+	lang (varchar 2) (default: en)
+	active (true/false) (default: true)
+	updated_at (datetime)
+	created_at (datetime)
