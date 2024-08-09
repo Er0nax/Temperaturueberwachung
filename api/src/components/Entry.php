@@ -1,18 +1,18 @@
 <?php
 
-namespace src\controllers;
+namespace src\components;
 
 use PDO;
 use PDOException;
 use PDOStatement;
 use src\Config;
-
+use src\helpers\ResultHelper;
 
 /**
  * entry class
  * @author Tim Zapfe
  */
-class Entry extends BaseController
+class Entry extends BaseComponent
 {
     private ?string $tables = null;
     private ?string $columns = null;
@@ -37,7 +37,7 @@ class Entry extends BaseController
         if (!empty($connection)) {
             $this->con = $connection;
         } else {
-            $this->con = constant('DATABASE')->con;
+            $this->con = constant('Database')->con;
         }
 
         // reset
@@ -744,7 +744,7 @@ class Entry extends BaseController
         // table given?
         if (empty($table)) {
             if ($dump) {
-                $this->render('Unknown table while inserting into db.');
+                ResultHelper::render('Unknown table while inserting into db.');
             }
             return false;
         }
@@ -752,7 +752,7 @@ class Entry extends BaseController
         // values given?
         if (empty($keysAndValues)) {
             if ($dump) {
-                $this->render('Unknown keys and values while inserting into db.');
+                ResultHelper::render('Unknown keys and values while inserting into db.');
             }
             return false;
         }
@@ -764,7 +764,7 @@ class Entry extends BaseController
             // does key do not have a valid name?
             if (is_numeric($key)) {
                 if ($dump) {
-                    $this->render('key "' . $key . '" with value "' . $value . '" is not valid!');
+                    ResultHelper::render('key "' . $key . '" with value "' . $value . '" is not valid!');
                 }
                 return false;
             }
@@ -797,7 +797,7 @@ class Entry extends BaseController
             // entry found?
             if ($exists) {
                 if ($dump) {
-                    $this->render('row already exists while inserting into db.');
+                    ResultHelper::render('row already exists while inserting into db.');
                 }
 
                 $IdOfExistingRow = $existingRowQuery->one();
@@ -840,7 +840,7 @@ class Entry extends BaseController
             return $this->con->lastInsertId();
         } catch (PDOException $e) {
             if ($dump) {
-                $this->render($e->getMessage());
+                ResultHelper::render($e->getMessage());
             }
             return false;
         }
@@ -859,7 +859,7 @@ class Entry extends BaseController
         // table given?
         if (empty($table)) {
             if ($dump) {
-                $this->render('Unknown table while updating in db.');
+                ResultHelper::render('Unknown table while updating in db.');
             }
             return false;
         }
@@ -867,7 +867,7 @@ class Entry extends BaseController
         // values given?
         if (empty($keysAndValues)) {
             if ($dump) {
-                $this->render('Unknown keys and values while updating in db.');
+                ResultHelper::render('Unknown keys and values while updating in db.');
             }
             return false;
         }
@@ -875,7 +875,7 @@ class Entry extends BaseController
         // where conditions given?
         if (empty($whereConditions)) {
             if ($dump) {
-                $this->render('Unknown where conditions while updating in db.');
+                ResultHelper::render('Unknown where conditions while updating in db.');
             }
             return false;
         }
@@ -890,7 +890,7 @@ class Entry extends BaseController
                 // any part not given?
                 if (!isset($key) || !isset($value)) {
                     if ($dump) {
-                        $this->render('Unknown key or value while updating in db.');
+                        ResultHelper::render('Unknown key or value while updating in db.');
                     }
                     return false;
                 }
@@ -904,7 +904,7 @@ class Entry extends BaseController
                 // any part not given?
                 if (!isset($key) || !isset($value)) {
                     if ($dump) {
-                        $this->render('Unknown key or value for where clause while updating in db.');
+                        ResultHelper::render('Unknown key or value for where clause while updating in db.');
                     }
                     return false;
                 }
@@ -949,7 +949,7 @@ class Entry extends BaseController
 
         } catch (PDOException $e) {
             if ($dump) {
-                $this->render($e);
+                ResultHelper::render($e);
             }
             return false;
         }

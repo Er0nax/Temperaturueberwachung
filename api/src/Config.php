@@ -11,10 +11,10 @@ class Config
     public static array $config = [
         '*' => [
             'unsafeEnvVariables' => [ // these variables will be not be added with putenv()
-                'DBUSER',
-                'DBPASS',
-                'DBHOST',
-                'DBNAME',
+                'DB_USER',
+                'DB_PASS',
+                'DB_HOST',
+                'DB_NAME',
             ],
             'api' => [
                 'cache' => true,
