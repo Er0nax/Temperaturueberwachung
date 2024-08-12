@@ -139,7 +139,7 @@
                           Grid.Column='0'
                           Grid.Row='0'>
                 <TextBlock x:Name='sensorText'  
-                           Text='Custom Content Here'
+                           Text='loading...'
                            Padding='10'
                            FontFamily="Consolas"
                            TextWrapping="Wrap"
@@ -162,7 +162,7 @@
                           Grid.Column='1'
                           Grid.Row='0'>
                 <TextBlock x:Name='tempText'
-                           Text='Custom Content Here'
+                           Text='loading...'
                            Padding='10'
                            FontFamily="Consolas"
                            TextWrapping="Wrap"
