@@ -14,7 +14,8 @@
         Topmost='True'
         WindowStartupLocation='CenterScreen'
         FontFamily='Prompt'
-        Loaded='Window_Loaded'>
+        Loaded='Window_Loaded'
+        Unloaded='Window_Unloaded'>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height='30' />
@@ -98,15 +99,62 @@
         <Grid Grid.Column='1'
               Grid.Row='1'>
 
-            <TextBlock x:Name='tempText'
-                       Text='Custom Content Here'
-                       Margin='100'
-                       Padding='10'
-                       FontFamily="Consolas"
-                       TextWrapping="Wrap"
-                       Background='#FF121212'
-                       Foreground='White' />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <Label Content='Sensoren' 
+                   Grid.Row='0'
+                   Grid.Column='0'
+                   HorizontalAlignment='Center'
+                   VerticalAlignment='Top'
+                   Margin='50'
+                   Foreground='White'
+                   FontSize='16'/>
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Auto"
+                          Margin='50 80 50 50'
+                          Grid.Column='0'
+                          Grid.Row='0'>
+                <TextBlock x:Name='sensorText'  
+                           Text='Custom Content Here'
+                           Padding='10'
+                           FontFamily="Consolas"
+                           TextWrapping="Wrap"
+                           Background='#FF121212'
+                           Foreground='White' />
+            </ScrollViewer>
+
+            <Label Content='Temperaturen'
+                   Grid.Row='0'
+                   Grid.Column='1'
+                   HorizontalAlignment='Center'
+                   VerticalAlignment='Top'
+                   Margin='50'
+                   Foreground='White'
+                   FontSize='16' />
+
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Auto"
+                          Margin='50 80 50 50'
+                          Grid.Column='1'
+                          Grid.Row='0'>
+                <TextBlock x:Name='tempText'
+                           Text='Custom Content Here'
+                           Padding='10'
+                           FontFamily="Consolas"
+                           TextWrapping="Wrap"
+                           Background='#FF121212'
+                           Foreground='White' />
+            </ScrollViewer>
+            
         </Grid>
     </Grid>
 

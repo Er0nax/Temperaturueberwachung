@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Text.Json;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using Temperaturueberwachung.controllers;
 
 namespace Temperaturueberwachung
@@ -23,15 +25,11 @@ namespace Temperaturueberwachung
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Api Api;
+        private Api Api = new Api();
+        private DispatcherTimer _timer = new DispatcherTimer();
         public MainWindow()
         {
             InitializeComponent();
-
-            // new api class
-            this.Api = new Api();
-
-            this.setApiStatus();
         }
 
         // Close the window
@@ -74,28 +72,54 @@ namespace Temperaturueberwachung
             }
         }
 
-        // Window was loaded
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        // set test content to field
+        private async void setTempContent(object sender, EventArgs e)
         {
-            string content = await this.Api.getResponse("sensors/all");
+            string sensors = await this.Api.getResponse("sensors/all");
+            sensorText.Text = this.FormatJson(sensors);
 
-            if(content != null)
-            {
-                // JSON formatieren
-                string formattedJson = this.FormatJson(content);
+            string temperatures = await this.Api.getResponse("temperatures/latest");
+            tempText.Text = this.FormatJson(temperatures);
+        }
 
-                // JSON im TextBlock anzeigen
-                tempText.Text = formattedJson;
-            }
+        // Window was loaded
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            // update api info status
+            setApiStatus();
+
+            StartTimer();
         }
 
         // convert json
         private string FormatJson(string json)
         {
-            using (JsonDocument doc = JsonDocument.Parse(json))
+            try
             {
-                return JsonSerializer.Serialize(doc, new JsonSerializerOptions { WriteIndented = true });
+                using (JsonDocument doc = JsonDocument.Parse(json))
+                {
+                    return JsonSerializer.Serialize(doc, new JsonSerializerOptions { WriteIndented = true });
+                }
+
+            } catch(Exception ex)
+            {
+                return json;
             }
+        }
+
+        // timer start
+        private void StartTimer()
+        {
+            this._timer.Interval = TimeSpan.FromSeconds(2);
+            this._timer.Tick += setTempContent;
+            this._timer.Start();
+        }
+
+        // window unload
+        private void Window_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // stop the timer
+            this._timer.Stop();
         }
     }
 }

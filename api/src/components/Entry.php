@@ -341,11 +341,10 @@ class Entry extends BaseComponent
      * @return $this
      * @author Tim Zapfe
      */
-    public function columns($columns, $distinct = false): static
+    public function columns($columns): static
     {
         // set query string
         $columnsString = '';
-        $this->distinct = $distinct;
 
         // check if colmuns are defined
         if (!empty($columns)) {
@@ -1029,6 +1028,19 @@ class Entry extends BaseComponent
     public function cache(bool $cache = false): static
     {
         $this->cache = $cache;
+
+        return $this;
+    }
+
+    /**
+     * Whether the query should contain the distinct attribute or not
+     * @param bool $distinct
+     * @return $this
+     * @author Tim Zapfe
+     */
+    public function distinct(bool $distinct = true): static
+    {
+        $this->distinct = $distinct;
 
         return $this;
     }

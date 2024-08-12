@@ -8,24 +8,19 @@
     "net7.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Tim\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\tzapf\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\xampp\\htdocs\\Temperaturueberwachung\\desktop\\Temperaturueberwachung\\Temperaturueberwachung.csproj",
+      "projectUniqueName": "C:\\xampp\\htdocs\\temperaturueberwachung\\desktop\\Temperaturueberwachung\\Temperaturueberwachung.csproj",
       "projectName": "Temperaturueberwachung",
-      "projectPath": "C:\\xampp\\htdocs\\Temperaturueberwachung\\desktop\\Temperaturueberwachung\\Temperaturueberwachung.csproj",
-      "packagesPath": "C:\\Users\\Tim\\.nuget\\packages\\",
-      "outputPath": "C:\\xampp\\htdocs\\Temperaturueberwachung\\desktop\\Temperaturueberwachung\\obj\\",
+      "projectPath": "C:\\xampp\\htdocs\\temperaturueberwachung\\desktop\\Temperaturueberwachung\\Temperaturueberwachung.csproj",
+      "packagesPath": "C:\\Users\\tzapf\\.nuget\\packages\\",
+      "outputPath": "C:\\xampp\\htdocs\\temperaturueberwachung\\desktop\\Temperaturueberwachung\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Tim\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\tzapf\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
