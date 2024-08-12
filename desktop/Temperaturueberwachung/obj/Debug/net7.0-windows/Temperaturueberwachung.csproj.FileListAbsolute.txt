@@ -20,3 +20,4 @@ C:\xampp\htdocs\Temperaturueberwachung\desktop\Temperaturueberwachung\obj\Debug\
 C:\xampp\htdocs\Temperaturueberwachung\desktop\Temperaturueberwachung\obj\Debug\net7.0-windows\Temperaturueberwachung.genruntimeconfig.cache
 C:\xampp\htdocs\Temperaturueberwachung\desktop\Temperaturueberwachung\obj\Debug\net7.0-windows\ref\Temperaturueberwachung.dll
 C:\xampp\htdocs\Temperaturueberwachung\desktop\Temperaturueberwachung\bin\Debug\net7.0-windows\.env
+C:\xampp\htdocs\temperaturueberwachung\desktop\Temperaturueberwachung\bin\Debug\net7.0-windows\assets\images\logo.png

@@ -121,5 +121,11 @@ namespace Temperaturueberwachung
             // stop the timer
             this._timer.Stop();
         }
+
+        // minimize the window
+        private void minimizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
     }
 }

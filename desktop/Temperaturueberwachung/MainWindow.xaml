@@ -15,7 +15,8 @@
         WindowStartupLocation='CenterScreen'
         FontFamily='Prompt'
         Loaded='Window_Loaded'
-        Unloaded='Window_Unloaded'>
+        Unloaded='Window_Unloaded'
+        Icon='/assets/images/logo.ico'>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height='30' />
@@ -80,6 +81,20 @@
                      Fill="Red"
                      StrokeThickness="1"
                      Stroke="#FFD4D4D4" />
+
+            <Button x:Name='minimizeBtn'
+                    Grid.Column='5'
+                    Content='___'
+                    Background='Transparent'
+                    Foreground='LightGray'
+                    BorderBrush='Transparent'
+                    HorizontalContentAlignment='Center'
+                    VerticalContentAlignment='Center'
+                    ToolTip='Fenster schließen'
+                    Margin='0'
+                    Padding='0 0 0 5'
+                    FontSize='20'
+                    Click='minimizeBtn_Click' />
 
             <Button x:Name='closeBtn'
                     Grid.Column='6'
