@@ -1,9 +1,0 @@
-C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\Temperaturueberwachung.pdb
-C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\.env
-C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\assets\images\logo.png
-C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\D3DCompiler_47_cor3.dll
-C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\PenImc_cor3.dll
-C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\PresentationNative_cor3.dll
-C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\vcruntime140_cor3.dll
-C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\wpfgfx_cor3.dll
-C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\Temperaturueberwachung.exe

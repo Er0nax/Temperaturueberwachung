@@ -1,7 +1,0 @@
-C:\xampp\htdocs\temperaturueberwachung\test\.env
-C:\xampp\htdocs\temperaturueberwachung\test\assets\images\logo.png
-C:\xampp\htdocs\temperaturueberwachung\test\Temperaturueberwachung.exe
-C:\xampp\htdocs\temperaturueberwachung\test\Temperaturueberwachung.dll
-C:\xampp\htdocs\temperaturueberwachung\test\Temperaturueberwachung.deps.json
-C:\xampp\htdocs\temperaturueberwachung\test\Temperaturueberwachung.runtimeconfig.json
-C:\xampp\htdocs\temperaturueberwachung\test\Temperaturueberwachung.pdb
