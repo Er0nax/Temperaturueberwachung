@@ -60,13 +60,13 @@ class BaseController
             }
 
             ResultHelper::render([
-                'info' => 'This is the default action. Please provide a valid controller with a valid action. If you do not know any available actions, just call the controller and it will display all.',
+                'info' => ResultHelper::t('This is the default action. Please provide a valid controller with a valid action. If you do not know any available actions, just call the controller and it will display all.'),
                 'controllers' => $controllers
             ]);
         }
 
         ResultHelper::render([
-            'info' => 'You can call the following functions.',
+            'info' => ResultHelper::t('You can call the following functions.'),
             'functions' => $functions
         ]);
     }

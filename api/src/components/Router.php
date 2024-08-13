@@ -46,7 +46,9 @@ class Router extends BaseComponent
         $classObject->$actionName();
 
         // usually the action should have returned something so this code should not be reached.
-        ResultHelper::render('Seems like nothing was returned.', 500);
+        ResultHelper::render('Seems like nothing was returned.', 500, [
+            'translate' => true
+        ]);
     }
 
     /**
@@ -58,7 +60,9 @@ class Router extends BaseComponent
     {
         // check if file exists
         if (!FileHelper::exist('src/controllers/' . $this->urlParts['controller'] . '.php')) {
-            ResultHelper::render('Controller not found.', 400);
+            ResultHelper::render('Controller not found.', 500, [
+                'translate' => true
+            ]);
         }
     }
 
@@ -71,7 +75,9 @@ class Router extends BaseComponent
     private function checkAction(object $classObject): void
     {
         if (!method_exists($classObject, $this->urlParts['action'])) {
-            ResultHelper::render('Action not found.', 400);
+            ResultHelper::render('Action not found.', 500, [
+                'translate' => true
+            ]);
         }
     }
 

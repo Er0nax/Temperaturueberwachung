@@ -731,6 +731,7 @@ class Entry extends BaseComponent
     }
 
     /**
+     * Insers new row into DB. Returns false on error and ID on success.
      * @param string $table
      * @param array $keysAndValues
      * @param bool $checkForExisting

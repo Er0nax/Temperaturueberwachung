@@ -44,12 +44,16 @@ class AppController extends BaseController
 
         // latest version found?
         if (empty($application)) {
-            ResultHelper::render('No application is available to download.', 500);
+            ResultHelper::render('No application is available to download.', 500, [
+                'translate' => true
+            ]);
         }
 
         // version found as zip?
         if (!FileHelper::exist('web/assets/app/versions/' . $application['version'] . '.zip')) {
-            ResultHelper::render('The latest version could not be found.', 500);
+            ResultHelper::render('The latest version could not be found.', 500, [
+                'translate' => true
+            ]);
         }
 
         // update download counter
