@@ -8,19 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".env" />
     <None Remove="assets\images\logo.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update=".env">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="assets\images\logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include=".env">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="assets\images\logo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
