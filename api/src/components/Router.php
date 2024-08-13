@@ -145,7 +145,7 @@ class Router extends BaseComponent
         array_shift($parts);
 
         // parts empty?
-        if (empty($parts)) {
+        if (empty($parts) && empty($_GET) && empty($_POST) && empty($_FILES)) {
             return;
         }
 

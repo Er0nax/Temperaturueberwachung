@@ -70,4 +70,29 @@ class BaseController
             'functions' => $functions
         ]);
     }
+
+    /**
+     * Returns the value of a param with default variable
+     * @param int $index
+     * @param string|null $name
+     * @param mixed|null $default
+     * @return mixed|null
+     * @author Tim Zapfe
+     */
+    protected function getParam(int $index, string $name = null, mixed $default = null): mixed
+    {
+        $param = $default;
+
+        // check if index is given
+        if (isset($this->params[$index])) {
+            $param = $this->params[$index];
+        }
+
+        // check if is given by name
+        if (!empty($name) && isset($this->params[$name])) {
+            $param = $this->params[$name];
+        }
+
+        return $param;
+    }
 }

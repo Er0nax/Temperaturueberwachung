@@ -59,15 +59,17 @@ INSERT INTO `applications` (`id`, `name`, `version`, `downloads`, `active`, `upd
 DROP TABLE IF EXISTS `images`;
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `src` varchar(255) NOT NULL,
+  `src` varchar(255) NOT NULL DEFAULT 'default.png',
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.images: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.images: ~1 rows (ungefähr)
 DELETE FROM `images`;
+INSERT INTO `images` (`id`, `src`, `active`, `updated_at`, `created_at`) VALUES
+	(1, 'default.png', 'true', '2024-08-13 12:26:26', '2024-08-13 12:26:26');
 
 -- Exportiere Struktur von Tabelle temperatur.pages
 DROP TABLE IF EXISTS `pages`;
@@ -93,6 +95,24 @@ CREATE TABLE IF NOT EXISTS `pages` (
 
 -- Exportiere Daten aus Tabelle temperatur.pages: ~0 rows (ungefähr)
 DELETE FROM `pages`;
+
+-- Exportiere Struktur von Tabelle temperatur.roles
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `color` varchar(7) NOT NULL DEFAULT '#ffffff',
+  `active` enum('true','false') NOT NULL DEFAULT 'true',
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+
+-- Exportiere Daten aus Tabelle temperatur.roles: ~2 rows (ungefähr)
+DELETE FROM `roles`;
+INSERT INTO `roles` (`id`, `name`, `color`, `active`, `updated_at`, `created_at`) VALUES
+	(1, 'User', '#ffffff', 'true', '2024-08-13 12:28:32', '2024-08-13 12:28:32'),
+	(2, 'Admin', '#ffffff', 'true', '2024-08-13 12:28:37', '2024-08-13 12:28:37');
 
 -- Exportiere Struktur von Tabelle temperatur.sensors
 DROP TABLE IF EXISTS `sensors`;
@@ -125,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `temperatures` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=209 DEFAULT CHARSET=utf8mb4 COMMENT='Aufnahme der Temperatur';
 
--- Exportiere Daten aus Tabelle temperatur.temperatures: ~207 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.temperatures: ~208 rows (ungefähr)
 DELETE FROM `temperatures`;
 INSERT INTO `temperatures` (`id`, `sensor_id`, `temperature`, `active`, `updatetd_at`, `created_at`) VALUES
 	(1, 1, 23, 'true', '2024-08-12 00:00:00', '2024-08-12 00:00:00'),
@@ -349,9 +369,9 @@ CREATE TABLE IF NOT EXISTS `translations` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.translations: ~8 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.translations: ~17 rows (ungefähr)
 DELETE FROM `translations`;
 INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'site', 'controller not found.', 'Der Controller wurde nicht gefunden.', 'Controller not found.', 'true', '2024-08-13 10:35:53', '2024-08-13 10:27:19'),
@@ -361,11 +381,20 @@ INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `active`, `up
 	(5, 'site', 'action not found.', 'Funktion nicht gefunden.', 'Action not found.', 'true', '2024-08-13 10:38:20', '2024-08-13 10:34:09'),
 	(6, 'site', 'invalid sensor_id (first param) provided.', 'Falsche "sensor_id" (erster Param) gegeben.', 'Invalid "sensor_id" (first param) provided.', 'true', '2024-08-13 10:38:49', '2024-08-13 10:34:32'),
 	(7, 'site', 'invalid temperature (second param) provided.', 'Falsche "temperatur" (zweiter Param) gegeben.', 'Invalid temperature (second param) provided.', 'true', '2024-08-13 10:39:00', '2024-08-13 10:34:35'),
-	(8, 'site', 'temperature inserted.', 'Temperatur wurde gespeichert.', 'Temperature inserted.', 'true', '2024-08-13 10:39:17', '2024-08-13 10:34:43');
+	(8, 'site', 'temperature inserted.', 'Temperatur wurde gespeichert.', 'Temperature inserted.', 'true', '2024-08-13 10:39:17', '2024-08-13 10:34:43'),
+	(9, 'site', 'invalid "username" (first param) given.', NULL, 'Invalid "username" (first param) given.', 'true', '2024-08-13 11:59:36', '2024-08-13 11:59:36'),
+	(10, 'site', 'invalid "password" (second param) given.', NULL, 'Invalid "password" (second param) given.', 'true', '2024-08-13 11:59:41', '2024-08-13 11:59:41'),
+	(11, 'site', 'invalid "passwordrepeat" (third param) given.', NULL, 'Invalid "passwordRepeat" (third param) given.', 'true', '2024-08-13 11:59:44', '2024-08-13 11:59:44'),
+	(12, 'site', 'passwords do not match.', NULL, 'Passwords do not match.', 'true', '2024-08-13 11:59:47', '2024-08-13 11:59:47'),
+	(13, 'site', 'account created.', NULL, 'Account created.', 'true', '2024-08-13 11:59:49', '2024-08-13 11:59:49'),
+	(14, 'site', 'there was an error while creating a new user', NULL, 'There was an error while creating a new user', 'true', '2024-08-13 12:05:26', '2024-08-13 12:05:26'),
+	(15, 'site', 'username already exists.', NULL, 'Username already exists.', 'true', '2024-08-13 12:11:21', '2024-08-13 12:11:21'),
+	(16, 'site', 'your password is not correct.', NULL, 'Your password is not correct.', 'true', '2024-08-13 12:20:56', '2024-08-13 12:20:56'),
+	(17, 'site', 'welcome back, {username}', NULL, 'Welcome back, {username}', 'true', '2024-08-13 12:21:33', '2024-08-13 12:21:33');
 
--- Exportiere Struktur von Tabelle temperatur.user
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
+-- Exportiere Struktur von Tabelle temperatur.users
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
   `password` varchar(1000) NOT NULL,
@@ -375,11 +404,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_seen` datetime NOT NULL DEFAULT current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Datenbank für User in Temperaturüberwachung';
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='Datenbank für User in Temperaturüberwachung';
 
--- Exportiere Daten aus Tabelle temperatur.user: ~0 rows (ungefähr)
-DELETE FROM `user`;
+-- Exportiere Daten aus Tabelle temperatur.users: ~1 rows (ungefähr)
+DELETE FROM `users`;
+INSERT INTO `users` (`id`, `username`, `password`, `avatar_id`, `role_id`, `active`, `last_seen`, `created_at`, `updated_at`) VALUES
+	(1, 'Tim', '$2y$10$nR1D9b4KimC.ULiDt1KHWuBRyJSCr9.XVHvOa9spnmwEhTFSZkpg.', 1, 2, 'true', '2024-08-13 12:26:26', '2024-08-13 12:31:34', '2024-08-13 12:26:26');
 
 -- Exportiere Struktur von Tabelle temperatur.user_settings
 DROP TABLE IF EXISTS `user_settings`;
