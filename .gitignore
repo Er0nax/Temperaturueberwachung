@@ -1,1 +1,4 @@
-.idea
+api/.idea
+desktop/Temperaturueberwachung/bin/Release/*
+desktop/Temperaturueberwachung/obj/publish/*
+desktop/Temperaturueberwachung/obj/Release/*
