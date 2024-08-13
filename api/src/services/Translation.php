@@ -12,7 +12,6 @@ use src\helpers\CacheHelper;
  */
 class Translation extends BaseService
 {
-    private string $lang;
     public array $translations = [];
 
     /**
@@ -22,7 +21,7 @@ class Translation extends BaseService
     public function __construct()
     {
         // get lang
-        $this->lang = $this->getLanguage();
+        $GLOBALS['API_LANGUAGE'] = $this->getLanguage();
 
         // get all translations from db
         $this->translations = $this->getTranslationsFromDBOrSession();
@@ -99,10 +98,10 @@ class Translation extends BaseService
         if (!empty($this->translations[$category][$value])) {
 
             // check if lang is given
-            if (!empty($this->translations[$category][$value][$this->lang])) {
+            if (!empty($this->translations[$category][$value][$GLOBALS['API_LANGUAGE']])) {
 
                 // return the translation from the array
-                return $this->insertVariables($this->translations[$category][$value][$this->lang], $variables);
+                return $this->insertVariables($this->translations[$category][$value][$GLOBALS['API_LANGUAGE']], $variables);
             }
         } else {
             // add it to db/object

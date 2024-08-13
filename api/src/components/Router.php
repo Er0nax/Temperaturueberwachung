@@ -25,11 +25,15 @@ class Router extends BaseComponent
      */
     public function __construct()
     {
+        // set default language
+        $this->urlParts['lang'] = $GLOBALS['API_LANGUAGE'];
+
         // get url parts
         $this->setUrlParts();
 
-        // define global
+        // define globals
         define('URL_PARTS', $this->urlParts);
+        $GLOBALS['API_LANGUAGE'] = $this->urlParts['lang'];
 
         // check controller and methods
         $this->checkController();
