@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server Version:               10.4.24-MariaDB - mariadb.org binary distribution
--- Server Betriebssystem:        Win64
--- HeidiSQL Version:             12.1.0.6537
+-- Server-Version:               10.4.24-MariaDB - mariadb.org binary distribution
+-- Server-Betriebssystem:        Win64
+-- HeidiSQL Version:             12.6.0.6765
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -15,7 +15,7 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
--- Exportiere Datenbank Struktur für temperatur
+-- Exportiere Datenbank-Struktur für temperatur
 DROP DATABASE IF EXISTS `temperatur`;
 CREATE DATABASE IF NOT EXISTS `temperatur` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `temperatur`;
@@ -47,13 +47,14 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.applications: ~2 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.applications: ~3 rows (ungefähr)
 DELETE FROM `applications`;
 INSERT INTO `applications` (`id`, `name`, `version`, `downloads`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'Syntax-Sabberer', 'v.1.0.0', 1, 'true', '2024-08-13 07:13:52', '2024-08-13 06:59:34'),
-	(2, 'Syntax-Sabberer', 'v.1.0.1', 3, 'true', '2024-08-13 09:24:41', '2024-08-13 07:27:16');
+	(2, 'Syntax-Sabberer', 'v.1.0.1', 5, 'true', '2024-08-13 19:13:00', '2024-08-13 07:27:16'),
+	(3, 'Syntax-Sabberer', 'v.1.0.2', 1, 'true', '2024-08-13 19:13:48', '2024-08-13 19:13:36');
 
 -- Exportiere Struktur von Tabelle temperatur.images
 DROP TABLE IF EXISTS `images`;

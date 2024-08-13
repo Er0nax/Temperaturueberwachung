@@ -4,174 +4,134 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Temperaturueberwachung"
+        xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
+        xmlns:Menu="clr-namespace:Page_Navigation_App.Utilities"
         mc:Ignorable="d"
         Title="Temeperaturueberwachung"
         Height="600"
         Width="1000"
-        Background='#FF1B1B1B'
+        Background='Transparent'
         WindowStyle='None'
-        ResizeMode='NoResize'
-        Topmost='True'
         WindowStartupLocation='CenterScreen'
-        FontFamily='Prompt'
-        Loaded='Window_Loaded'
-        Unloaded='Window_Unloaded'
+        AllowsTransparency='True'
         Icon='/assets/images/logo.ico'>
+
+    <Window.DataContext>
+        <vm:NavigationVM />
+    </Window.DataContext>
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height='30' />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width='100' />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
 
-        <Grid x:Name='topbar'
-              Grid.Column='0'
-              Grid.Row='0'
-              Grid.ColumnSpan='2'>
+        <Border Background="#FF111215"
+                CornerRadius="20"
+                MouseDown='Border_MouseDown' />
 
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width='100' />
-                <ColumnDefinition Width='10'/>
-                <ColumnDefinition Width='80'/>
-                <ColumnDefinition Width='60'/>
-                <ColumnDefinition />
-                <ColumnDefinition Width='30' />
-                <ColumnDefinition Width='30' />
-            </Grid.ColumnDefinitions>
-
-            <Border CornerRadius='5 5 0 0'
-                    Grid.Column='0'
-                    Grid.ColumnSpan='10'
-                    Background='#FF101010'
-                    MouseDown='Border_MouseDown' />
-            
-            <TextBlock Text='Syntax Sabberer'
-                       Grid.Column='0'
-                       HorizontalAlignment='Center'
-                       VerticalAlignment='Center'
-                       ToolTip='Projekt: Temperaturueberwachung'
-                       Foreground='White'/>
-
-            <TextBlock x:Name='api_status_text' 
-                       Text='Api Status:'
-                       Grid.Column='2'
-                       HorizontalAlignment='Center'
-                       VerticalAlignment='Center'
-                       Foreground='#FFD4D4D4' />
-
-            <Ellipse x:Name='api_status_green'
-                     Grid.Column="3"
-                     Width='20'
-                     Height='20'
-                     HorizontalAlignment='Left'
-                     Margin='5 0 0 0'
-                     Fill="#FF506952"
-                     StrokeThickness="1"
-                     Stroke="#FFD4D4D4" />
-
-            <Ellipse x:Name='api_status_red'
-                     Grid.Column="3"
-                     Width='20'
-                     Height='20'
-                     HorizontalAlignment='Right'
-                     Margin='0 0 5 0'
-                     Fill="Red"
-                     StrokeThickness="1"
-                     Stroke="#FFD4D4D4" />
-
-            <Button x:Name='minimizeBtn'
-                    Grid.Column='5'
-                    Content='___'
-                    Background='Transparent'
-                    Foreground='LightGray'
-                    BorderBrush='Transparent'
-                    HorizontalContentAlignment='Center'
-                    VerticalContentAlignment='Center'
-                    ToolTip='Fenster schließen'
-                    Margin='0'
-                    Padding='0 0 0 5'
-                    FontSize='20'
-                    Click='minimizeBtn_Click' />
-
-            <Button x:Name='closeBtn'
-                    Grid.Column='6'
-                    Content='X'
-                    Background='Transparent'
-                    Foreground='Red'
-                    BorderBrush='Transparent'
-                    HorizontalContentAlignment='Center'
-                    VerticalContentAlignment='Center'
-                    ToolTip='Fenster schließen'
-                    Margin='0'
-                    Padding='0'
-                    FontSize='20'
-                    Click='closeBtn_Click' />
-        </Grid>
-
-        <Grid Grid.Column='1'
-              Grid.Row='1'>
-
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width='220' />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition />
+                <RowDefinition Height='30' />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <Label Content='Sensoren' 
-                   Grid.Row='0'
-                   Grid.Column='0'
-                   HorizontalAlignment='Center'
-                   VerticalAlignment='Top'
-                   Margin='50'
-                   Foreground='White'
-                   FontSize='16'/>
+            <Grid x:Name='topbar'
+                  Grid.Row='0'
+                  Grid.Column='0'
+                  Grid.ColumnSpan='2'>
+                
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width='30' />
+                    <ColumnDefinition Width='30' />
+                    <ColumnDefinition Width='5' />
+                </Grid.ColumnDefinitions>
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          HorizontalScrollBarVisibility="Auto"
-                          Margin='50 80 50 50'
-                          Grid.Column='0'
-                          Grid.Row='0'>
-                <TextBlock x:Name='sensorText'  
-                           Text='loading...'
-                           Padding='10'
-                           FontFamily="Consolas"
-                           TextWrapping="Wrap"
-                           Background='#FF121212'
-                           Foreground='White' />
-            </ScrollViewer>
+                <Button x:Name='minimizeBtn'
+                        Grid.Column='1'
+                        Background='Transparent'
+                        Foreground='#FFEAEAEA'
+                        Margin='0'
+                        Padding='0 0 0 3'
+                        FontSize='15'
+                        Content='___'
+                        BorderBrush='Transparent'
+                        Click='minimizeBtn_Click' />
 
-            <Label Content='Temperaturen'
-                   Grid.Row='0'
-                   Grid.Column='1'
-                   HorizontalAlignment='Center'
-                   VerticalAlignment='Top'
-                   Margin='50'
-                   Foreground='White'
-                   FontSize='16' />
+                <Button x:Name='closeBtn'
+                        Grid.Column='2'
+                        Background='Transparent'
+                        Foreground='Red'
+                        Margin='0'
+                        Padding='0 0 0 5'
+                        FontSize='20'
+                        Content='X'
+                        Click='closeBtn_Click'
+                        BorderBrush='Transparent' />
 
-            <ScrollViewer VerticalScrollBarVisibility="Auto"
-                          HorizontalScrollBarVisibility="Auto"
-                          Margin='50 80 50 50'
-                          Grid.Column='1'
-                          Grid.Row='0'>
-                <TextBlock x:Name='tempText'
-                           Text='loading...'
-                           Padding='10'
-                           FontFamily="Consolas"
-                           TextWrapping="Wrap"
-                           Background='#FF121212'
-                           Foreground='White' />
-            </ScrollViewer>
-            
+            </Grid>
+
+            <Grid x:Name='sidebar'
+                  Grid.Row='1'
+                  Grid.Column='0'>
+
+                <StackPanel HorizontalAlignment='Center'
+                            VerticalAlignment='Top'>
+
+                    <!--// Home //-->
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding HomeCommand}"
+                              IsChecked="True">
+
+                        <Grid>
+
+                            <Image Source="Assets/Images/Icons/home.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Home"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+
+                    <!--// Settings //-->
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Command="{Binding SettingsCommand}"
+                              Checked='Btn_Checked'>
+
+                        <Grid>
+
+                            <Image Source="Assets/Images/Icons/settings.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Settings"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+
+                </StackPanel>
+
+            </Grid>
+
+            <Grid x:Name='contenttab'
+                  Grid.Column='1'
+                  Grid.Row='1'
+                  Margin='10'>
+                
+                <ContentControl x:Name="Pages"
+                                Content="{Binding CurrentView}" />
+
+            </Grid>
+
         </Grid>
-    </Grid>
 
+    </Grid>
 
 </Window>

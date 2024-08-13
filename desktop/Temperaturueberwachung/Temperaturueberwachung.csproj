@@ -8,21 +8,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove=".env" />
-    <None Remove="assets\images\logo.ico" />
+    <None Remove="Assets\Images\Icons\home.png" />
+    <None Remove="Assets\Images\Icons\settings.png" />
+    <None Remove="Assets\Images\logo.ico" />
+    <None Remove="Assets\Images\logo.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="assets\images\logo.png">
+    <Resource Include="Assets\Images\Icons\home.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include=".env">
+    </Resource>
+    <Resource Include="Assets\Images\Icons\settings.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="assets\images\logo.ico">
+    </Resource>
+    <Resource Include="Assets\Images\logo.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\logo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
