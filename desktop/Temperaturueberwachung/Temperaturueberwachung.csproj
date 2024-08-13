@@ -10,8 +10,16 @@
   <ItemGroup>
     <None Remove="Assets\Images\Icons\home.png" />
     <None Remove="Assets\Images\Icons\settings.png" />
+    <None Remove="Assets\Images\Icons\shutdown_def.png" />
+    <None Remove="Assets\Images\Icons\shutdown_mo.png" />
     <None Remove="Assets\Images\logo.ico" />
     <None Remove="Assets\Images\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <CodeAnalysisDictionary Include="Assets\Images\Icons\shutdown_mo.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </CodeAnalysisDictionary>
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +27,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Images\Icons\settings.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\Icons\shutdown_def.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Assets\Images\logo.ico">
