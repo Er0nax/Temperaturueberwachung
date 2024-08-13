@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "7sYfZEY+6b5xLfAPh6SJUxKeXiMB11d4gmthgHmbPQuPSiEcd+5egFh+CvmNp2FzM6yS2l+W33ARaTCDoCELog==",
+  "success": true,
+  "projectFilePath": "C:\\xampp\\htdocs\\temperaturueberwachung\\desktop\\Temperaturueberwachung\\Temperaturueberwachung.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tzapf\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\7.0.20\\microsoft.netcore.app.runtime.win-x86.7.0.20.nupkg.sha512",
+    "C:\\Users\\tzapf\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\7.0.20\\microsoft.windowsdesktop.app.runtime.win-x86.7.0.20.nupkg.sha512",
+    "C:\\Users\\tzapf\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\7.0.20\\microsoft.aspnetcore.app.runtime.win-x86.7.0.20.nupkg.sha512"
+  ],
+  "logs": []
+}

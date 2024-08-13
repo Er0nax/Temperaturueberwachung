@@ -8,6 +8,7 @@ use src\helpers\ResultHelper;
 
 /**
  * Temperatur Controller
+ * @author Tim Zapfe
  */
 class TemperaturesController extends BaseController
 {
@@ -64,5 +65,15 @@ class TemperaturesController extends BaseController
 
         // return content as json
         ResultHelper::render($latestTemps);
+    }
+
+    /**
+     * Inserts a new temperature value into the database.
+     * Requires sensor_id as first param and temperature (as °C) as second param.
+     * @return void
+     */
+    public function actionCreateTemperature()
+    {
+
     }
 }

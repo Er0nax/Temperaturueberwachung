@@ -2,6 +2,7 @@
 
 namespace src\controllers;
 
+use ECSPrefix202206\Doctrine\Common\Annotations\Annotation\Required;
 use src\components\Entry;
 use src\controllers\BaseController;
 use src\helpers\ResultHelper;
@@ -28,5 +29,26 @@ class SensorsController extends BaseController
         $sensors = $entry->all();
 
         ResultHelper::render($sensors);
+    }
+
+    /**
+     * Creates a new sensor into the database.
+     * Requires "name" as first param. Optionally "color" as second param.
+     * @return void
+     */
+    public function actionCreate()
+    {
+
+    }
+
+    /**
+     * Updates a sensor.
+     * Requires "id" as first param.
+     * Optionally "color" as second param, "active" as third param.
+     * @return void
+     */
+    public function actionUpdate()
+    {
+
     }
 }

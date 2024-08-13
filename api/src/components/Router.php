@@ -44,6 +44,9 @@ class Router extends BaseComponent
         // call action
         $actionName = $this->urlParts['action'];
         $classObject->$actionName();
+
+        // usually the action should have returned something so this code should not be reached.
+        ResultHelper::render('Seems like nothing was returned.', 500);
     }
 
     /**
@@ -128,7 +131,7 @@ class Router extends BaseComponent
         }
 
         // set next key as action
-        $this->urlParts['action'] = 'action' . ucfirst($parts[0]);
+        $this->urlParts['action'] = $this->createMethodName($parts[0]);
         array_shift($parts);
 
         // parts empty?
@@ -138,6 +141,26 @@ class Router extends BaseComponent
 
         // set additional parts as params
         $this->urlParts['params'] = $this->getParams($parts);
+    }
+
+    /**
+     * Returns the right method name
+     * @param string $string
+     * @return string
+     * @author Tim Zapfe
+     */
+    private function createMethodName(string $string): string
+    {
+        // Erster Teil: 'action' hinzufügen
+        $output = 'action';
+
+        // Zweiter Teil: Teile des Strings nach dem Bindestrich groß schreiben
+        $parts = explode('-', $string);
+        foreach ($parts as $part) {
+            $output .= ucfirst($part);
+        }
+
+        return $output;
     }
 
     /**
