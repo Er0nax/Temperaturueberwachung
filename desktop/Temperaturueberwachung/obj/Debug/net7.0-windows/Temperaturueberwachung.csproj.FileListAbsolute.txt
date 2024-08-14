@@ -34,3 +34,5 @@ C:\xampp\htdocs\temperaturueberwachung\desktop\Temperaturueberwachung\obj\Debug\
 C:\xampp\htdocs\temperaturueberwachung\desktop\Temperaturueberwachung\obj\Debug\net7.0-windows\ref\Temperaturueberwachung.dll
 C:\xampp\htdocs\temperaturueberwachung\desktop\Temperaturueberwachung\bin\Debug\net7.0-windows\Newtonsoft.Json.dll
 C:\xampp\htdocs\temperaturueberwachung\desktop\Temperaturueberwachung\obj\Debug\net7.0-windows\Temperaturueberwachung.csproj.CopyComplete
+C:\xampp\htdocs\temperaturueberwachung\desktop\Temperaturueberwachung\obj\Debug\net7.0-windows\Login.g.cs
+C:\xampp\htdocs\temperaturueberwachung\desktop\Temperaturueberwachung\obj\Debug\net7.0-windows\Login.baml

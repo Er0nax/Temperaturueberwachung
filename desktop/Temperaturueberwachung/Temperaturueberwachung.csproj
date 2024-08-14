@@ -45,6 +45,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="info.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Update="Properties\config.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>

@@ -46,5 +46,137 @@ namespace Temperaturueberwachung.Properties {
                 this["api_status"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int userID {
+            get {
+                return ((int)(this["userID"]));
+            }
+            set {
+                this["userID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string username {
+            get {
+                return ((string)(this["username"]));
+            }
+            set {
+                this["username"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int avatar_id {
+            get {
+                return ((int)(this["avatar_id"]));
+            }
+            set {
+                this["avatar_id"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int role_id {
+            get {
+                return ((int)(this["role_id"]));
+            }
+            set {
+                this["role_id"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool active {
+            get {
+                return ((bool)(this["active"]));
+            }
+            set {
+                this["active"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("08/14/2024 12:46:00")]
+        public global::System.DateTime last_seen {
+            get {
+                return ((global::System.DateTime)(this["last_seen"]));
+            }
+            set {
+                this["last_seen"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("08/14/2024 12:46:00")]
+        public global::System.DateTime created_at {
+            get {
+                return ((global::System.DateTime)(this["created_at"]));
+            }
+            set {
+                this["created_at"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("08/14/2024 12:47:00")]
+        public global::System.DateTime updated_at {
+            get {
+                return ((global::System.DateTime)(this["updated_at"]));
+            }
+            set {
+                this["updated_at"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string avatar {
+            get {
+                return ((string)(this["avatar"]));
+            }
+            set {
+                this["avatar"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("User")]
+        public string role_name {
+            get {
+                return ((string)(this["role_name"]));
+            }
+            set {
+                this["role_name"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("#ffffff")]
+        public string role_color {
+            get {
+                return ((string)(this["role_color"]));
+            }
+            set {
+                this["role_color"] = value;
+            }
+        }
     }
 }

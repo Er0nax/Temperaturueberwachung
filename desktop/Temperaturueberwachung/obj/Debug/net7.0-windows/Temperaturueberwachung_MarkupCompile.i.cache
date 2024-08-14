@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
 C:\xampp\htdocs\temperaturueberwachung\desktop\Temperaturueberwachung\App.xaml
-8-260218279
+91250926358
 
-18-1361061184
+19-62636826
 1991166065955
-MainWindow.xaml;Styles\Button.xaml;Styles\Image.xaml;Styles\Page.xaml;Styles\Text.xaml;Utilities\DataTemplate.xaml;View\Home.xaml;View\Settings.xaml;
+Login.xaml;MainWindow.xaml;Styles\Button.xaml;Styles\Image.xaml;Styles\Page.xaml;Styles\Text.xaml;Utilities\DataTemplate.xaml;View\Home.xaml;View\Settings.xaml;
 
-True
+False
 
