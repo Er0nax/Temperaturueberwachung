@@ -14,7 +14,9 @@
         WindowStyle='None'
         WindowStartupLocation='CenterScreen'
         AllowsTransparency='True'
-        Icon='Assets/Images/logo.ico'>
+        Icon='Assets/Images/logo.ico'
+        Loaded='Window_Loaded'
+        FontFamily='Dubai Medium'>
 
     <Window.DataContext>
         <vm:NavigationVM />
@@ -23,7 +25,7 @@
     <Grid>
 
         <Border Background="#FF111215"
-                CornerRadius="20"
+                CornerRadius="5"
                 MouseDown='Border_MouseDown' />
 
         <Grid>
@@ -41,16 +43,53 @@
                   Grid.Row='0'
                   Grid.Column='0'
                   Grid.ColumnSpan='2'>
-                
+
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width='60' />
                     <ColumnDefinition />
                     <ColumnDefinition Width='30' />
                     <ColumnDefinition Width='30' />
-                    <ColumnDefinition Width='5' />
                 </Grid.ColumnDefinitions>
 
-                <Button x:Name='minimizeBtn'
+                <TextBlock Grid.Row='0'
+                           Grid.Column='0'
+                           Text='API'
+                           FontSize='14'
+                           Margin='5 0 0 0'
+                           Foreground='LightGray'
+                           VerticalAlignment='Center'
+                           HorizontalAlignment='Left' />
+
+                <Ellipse x:Name='api_status'
+                         Grid.Column='0'
+                         Grid.Row='0'
+                         HorizontalAlignment='Left'
+                         Margin='35 5 0 5'
+                         ToolTip='Not connected. Please set a valid api url in the settings.'
+                         Width='20'
+                         Fill='#FFAB1616'
+                         Stroke='DarkGray' />
+
+                <Border x:Name='info_background'
                         Grid.Column='1'
+                        Visibility='Hidden'
+                        HorizontalAlignment='Center'
+                        VerticalAlignment='Center'
+                        Margin='0 0 0 0'
+                        CornerRadius='5'
+                        Padding='5 1 5 1'
+                        Background='#FFB7531A'
+                        MouseDown='info_background_MouseDown'>
+
+                    <TextBlock x:Name='info_text'
+                               Foreground='LightGray'
+                               FontSize='14'
+                               Text='Info can be here yeeee'
+                               Background='Transparent' />
+                </Border>
+
+                <Button x:Name='minimizeBtn'
+                        Grid.Column='2'
                         Background='Transparent'
                         Foreground='#FFEAEAEA'
                         Margin='0'
@@ -61,7 +100,7 @@
                         Click='minimizeBtn_Click' />
 
                 <Button x:Name='closeBtn'
-                        Grid.Column='2'
+                        Grid.Column='3'
                         Background='Transparent'
                         Foreground='Red'
                         Margin='0'
@@ -101,8 +140,7 @@
                     <!--// Settings //-->
 
                     <Menu:Btn Style="{StaticResource BtnStyle}"
-                              Command="{Binding SettingsCommand}"
-                              Checked='Btn_Checked'>
+                              Command="{Binding SettingsCommand}">
 
                         <Grid>
 
@@ -124,7 +162,7 @@
                   Grid.Column='1'
                   Grid.Row='1'
                   Margin='10'>
-                
+
                 <ContentControl x:Name="Pages"
                                 Content="{Binding CurrentView}" />
 

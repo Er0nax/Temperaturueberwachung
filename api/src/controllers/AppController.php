@@ -64,9 +64,16 @@ class AppController extends BaseController
         $filename = $application['name'] . '-' . $application['version'] . '.zip';
         $file = ASSET_PATH . '\\app\\versions\\' . $application['version'] . '.zip';
 
+        // Send the download headers
         header("Content-disposition: attachment;filename=$filename");
         readfile($file);
+
+        // Output the JavaScript to close the window
+        echo '<script type="text/javascript">';
+        echo 'window.close();';
+        echo '</script>';
     }
+
 
     /**
      * Returns the info about the latest application.

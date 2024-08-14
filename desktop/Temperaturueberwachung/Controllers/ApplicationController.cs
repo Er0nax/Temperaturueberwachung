@@ -1,0 +1,65 @@
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Threading.Tasks;
+using System.Windows;
+using Temperaturueberwachung.controllers;
+using Temperaturueberwachung.Properties;
+
+namespace Temperaturueberwachung.Controllers
+{
+    internal class ApplicationController
+    {
+        private class Application
+        {
+            public int id { get; set; }
+            public string name { get; set; }
+            public string version { get; set; }
+            public int downloads { get; set; }
+            public bool active { get; set; }
+            public string updated_at { get; set; }
+            public string created_at { get; set; }
+        }
+
+        public static async Task<bool> getUpdateAsync()
+        {
+            // get data
+            var data = await ApiController.getResponse("app/info");
+
+            // data empty?
+            if(string.IsNullOrEmpty(data))
+            {
+                return false; // as we can not validate the api info
+            }
+
+            // try to convert the json data
+            JObject json = JObject.Parse(data);
+
+            // check if respone is empty
+            if (String.IsNullOrEmpty(json["response"].ToString())) {
+                return true;
+            }
+
+            // set response
+            string response = json["response"].ToString();
+
+            // create new application by json data
+            Application application = JsonSerializer.Deserialize<Application>(response);
+
+            // get current version
+            string currentVersion = info.version;
+            string newVersion = application.version;
+
+            // check if they differ
+            if (currentVersion.Equals(newVersion))
+            {
+                return false;
+            }
+
+            return true;
+        }
+    }
+}

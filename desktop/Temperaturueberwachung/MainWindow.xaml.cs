@@ -1,5 +1,10 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using Temperaturueberwachung.controllers;
+using Temperaturueberwachung.Controllers;
+using Temperaturueberwachung.Properties;
 
 namespace Temperaturueberwachung
 {
@@ -8,6 +13,7 @@ namespace Temperaturueberwachung
     /// </summary>
     public partial class MainWindow : Window
     {
+        private bool hasUpdate = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,9 +34,40 @@ namespace Temperaturueberwachung
             this.DragMove();
         }
 
-        private void Btn_Checked(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // check if api could be connected
+            bool status = ApiController.getStatus();
 
+            if (status)
+            {
+                api_status.ToolTip = "Connected";
+                api_status.Fill = Brushes.LightGreen;
+            }
+
+            // check if update is requiered
+            hasUpdate = await ApplicationController.getUpdateAsync();
+
+            if (hasUpdate)
+            {
+                info_text.Text = "There is a new version available. Please update.";
+                info_background.Visibility= Visibility.Visible;
+            }
+        }
+
+        private void info_background_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // check if has update
+            if (hasUpdate)
+            {
+                string url = config.Default.api_url + "app/download";
+      
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = url,
+                    UseShellExecute = true
+                });
+            }
         }
     }
 }

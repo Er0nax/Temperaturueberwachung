@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "JjjCfrgwT+O1OpGoCPVhRM9nLrzSxInzH8UXH2wybr/mURx+oZLBqChxkMcvZNFmNixcqcXw43rq+WZwh7T+rA==",
+  "dgSpecHash": "AEHObvuqEbNGxNi2T9sL0xkncK1+K/EwOaboun0cWLYcSnjALkBs9jv1NSSxr8/wple6lXeTjalTRpmrMiCLow==",
   "success": true,
-  "projectFilePath": "C:\\xampp\\htdocs\\Temperaturueberwachung\\desktop\\Temperaturueberwachung\\Temperaturueberwachung.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\xampp\\htdocs\\temperaturueberwachung\\desktop\\Temperaturueberwachung\\Temperaturueberwachung.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\tzapf\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
   "logs": []
 }
