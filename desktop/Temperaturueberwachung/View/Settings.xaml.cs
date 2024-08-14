@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using Temperaturueberwachung;
 using Temperaturueberwachung.Properties;
 
 namespace Page_Navigation_App.View
@@ -30,6 +31,7 @@ namespace Page_Navigation_App.View
         private void UserControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
             api_url_text.Text = config.Default.api_url;
+            username_text.Text = config.Default.username;
         }
     }
 }

@@ -163,6 +163,31 @@ class UserController extends BaseController
      */
     public function actionInfo()
     {
+        $userID = $this->getParam(0, 'id');
+        $username = $this->getParam(0, 'username');
 
+        if(empty($userID) && empty($username)) {
+            ResultHelper::render('Invalid "id" or "username" (first param) given.', 500, [
+                'translate' => true
+            ]);
+        }
+
+        $entry = new Entry();
+
+        // fetch full user information
+        $user = $entry->columns(['users' => ['*'], 'images' => ["src AS 'avatar'"], 'roles' => ["name AS 'role_name'", "color AS 'role_color'"]])
+            ->tables(['users', ['images', 'images.id', 'users.avatar_id'], ['roles', 'roles.id', 'users.role_id']])
+            ->where(['users' => [['username', $username], ['id', $userID]]], 'OR')
+            ->one();
+
+        // user found?
+        if (empty($user)) {
+            ResultHelper::render('Could not find user.', 500, [
+                'translate' => true
+            ]);
+        }
+
+        // return user
+        ResultHelper::render($user);
     }
 }

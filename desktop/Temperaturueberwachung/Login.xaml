@@ -21,6 +21,7 @@
                 MouseDown='Border_MouseDown' />
 
         <Grid>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
@@ -28,9 +29,10 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height='30' />
                 <RowDefinition />
-                <RowDefinition Height='70'/>
                 <RowDefinition Height='70' />
-                <RowDefinition Height='50'/>
+                <RowDefinition Height='70' />
+                <RowDefinition Height='70' />
+                <RowDefinition Height='50' />
                 <RowDefinition />
             </Grid.RowDefinitions>
 
@@ -40,6 +42,26 @@
                     <ColumnDefinition Width='30' />
                     <ColumnDefinition Width='30' />
                 </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row='0'
+                           Grid.Column='0'
+                           Text='API'
+                           FontSize='14'
+                           Margin='5 0 0 0'
+                           Foreground='LightGray'
+                           VerticalAlignment='Center'
+                           HorizontalAlignment='Left' />
+
+                <Ellipse x:Name='api_status'
+                         Grid.Column='0'
+                         Grid.Row='0'
+                         Cursor='Help'
+                         HorizontalAlignment='Left'
+                         Margin='35 5 0 5'
+                         ToolTip='Not connected. Please set the correct API url inside the settings file.'
+                         Width='20'
+                         Fill='#FFAB1616'
+                         Stroke='DarkGray' />
 
                 <Button x:Name='minimizeBtn'
                         Grid.Column='1'
@@ -69,7 +91,7 @@
                    Source='/Assets/Images/logo.png'
                    HorizontalAlignment='Center'
                    VerticalAlignment='Center'
-                   Height='100'/>
+                   Height='100' />
 
             <Label Content='Username'
                    Grid.Row='2'
@@ -117,8 +139,34 @@
                          Background='Transparent'
                          BorderBrush='#FF216BAE' />
 
+            <Label x:Name='passwordRepeat_label'
+                   Content='Password Repeat'
+                   Grid.Row='4'
+                   Visibility='Hidden'
+                   Foreground='LightGray'
+                   HorizontalContentAlignment='Center'
+                   VerticalAlignment='Center'
+                   VerticalContentAlignment='Center'
+                   HorizontalAlignment='Left'
+                   Margin='25 0 0 30' />
+
+            <PasswordBox x:Name='passwordRepeat_text'
+                         Grid.Row='4'
+                         Visibility='Hidden'
+                         HorizontalAlignment='Center'
+                         VerticalAlignment='Center'
+                         HorizontalContentAlignment='Center'
+                         VerticalContentAlignment='Center'
+                         Margin='0 30 0 0'
+                         Foreground='LightGray'
+                         CaretBrush='White'
+                         Width='300'
+                         Height='30'
+                         Background='Transparent'
+                         BorderBrush='#FF216BAE' />
+
             <Border x:Name='msg_background'
-                    Grid.Row='4'
+                    Grid.Row='5'
                     Visibility='Hidden'
                     Background='OrangeRed'
                     HorizontalAlignment='Center'
@@ -133,7 +181,7 @@
             </Border>
 
             <Border x:Name='btn'
-                    Grid.Row='5'
+                    Grid.Row='6'
                     Background='#FF216BAE'
                     CornerRadius='5'
                     HorizontalAlignment='Center'
@@ -143,9 +191,11 @@
                     Padding='20 0 20 3'
                     Cursor='Hand'
                     Height='30'
+                    Margin='0 0 0 20'
                     MouseDown='btn_MouseDown'>
 
-                <TextBlock Text='Login'
+                <TextBlock x:Name='btn_text'
+                           Text='Login'
                            FontSize='16'
                            Margin='0'
                            Padding='0'
@@ -155,6 +205,15 @@
 
             </Border>
 
+            <Label x:Name='btnText_text'
+                   Grid.Row='6'
+                   HorizontalAlignment='Center'
+                   VerticalAlignment='Bottom'
+                   Foreground='Gray'
+                   Cursor='Hand'
+                   Content='No account yet? Create one here.'
+                   Margin='10 10 10 20'
+                   MouseDown='btnText_text_MouseDown' />
 
         </Grid>
     </Grid>

@@ -63,6 +63,7 @@
                 <Ellipse x:Name='api_status'
                          Grid.Column='0'
                          Grid.Row='0'
+                         Cursor='Help'
                          HorizontalAlignment='Left'
                          Margin='35 5 0 5'
                          ToolTip='Not connected. Please set a valid api url in the settings.'
@@ -72,7 +73,7 @@
 
                 <Border x:Name='info_background'
                         Grid.Column='1'
-                        Visibility='Hidden'
+                        Visibility='Visible'
                         HorizontalAlignment='Center'
                         VerticalAlignment='Center'
                         Margin='0 0 0 0'
@@ -148,6 +149,23 @@
                                    Style="{StaticResource Image_Style}" />
 
                             <TextBlock Text="Settings"
+                                       Style="{StaticResource Text_Style}" />
+
+                        </Grid>
+
+                    </Menu:Btn>
+
+                    <!--// Logout //-->
+
+                    <Menu:Btn Style="{StaticResource BtnStyle}"
+                              Click='Logout_Click'>
+
+                        <Grid>
+
+                            <Image Source="/Assets/Images/Icons/shutdown_mo.png"
+                                   Style="{StaticResource Image_Style}" />
+
+                            <TextBlock Text="Logout"
                                        Style="{StaticResource Text_Style}" />
 
                         </Grid>

@@ -110,9 +110,9 @@ namespace Temperaturueberwachung.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("08/14/2024 12:46:00")]
-        public global::System.DateTime last_seen {
+        public string last_seen {
             get {
-                return ((global::System.DateTime)(this["last_seen"]));
+                return ((string)(this["last_seen"]));
             }
             set {
                 this["last_seen"] = value;
@@ -122,9 +122,9 @@ namespace Temperaturueberwachung.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("08/14/2024 12:46:00")]
-        public global::System.DateTime created_at {
+        public string created_at {
             get {
-                return ((global::System.DateTime)(this["created_at"]));
+                return ((string)(this["created_at"]));
             }
             set {
                 this["created_at"] = value;
@@ -134,9 +134,9 @@ namespace Temperaturueberwachung.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("08/14/2024 12:47:00")]
-        public global::System.DateTime updated_at {
+        public string updated_at {
             get {
-                return ((global::System.DateTime)(this["updated_at"]));
+                return ((string)(this["updated_at"]));
             }
             set {
                 this["updated_at"] = value;

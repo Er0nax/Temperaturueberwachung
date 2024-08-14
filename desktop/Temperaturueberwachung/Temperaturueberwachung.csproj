@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <CodeAnalysisDictionary Include="Assets\Images\Icons\shutdown_mo.png">
+    <Resource Include="Assets\Images\Icons\shutdown_mo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </CodeAnalysisDictionary>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
@@ -46,7 +46,7 @@
 
   <ItemGroup>
     <Compile Update="info.cs">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Compile>
     <Compile Update="Properties\config.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

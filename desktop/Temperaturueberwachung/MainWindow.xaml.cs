@@ -69,5 +69,23 @@ namespace Temperaturueberwachung
                 });
             }
         }
+
+        // logout user
+        private void Logout_Click(object sender, RoutedEventArgs e)
+        {
+            // remove userid and username
+            config.Default.userID = 0;
+            config.Default.username = null;
+
+            // save settings
+            config.Default.Save();
+
+            // open login window
+            Login login = new Login();
+            login.Show();
+
+            // close login window
+            this.Close();
+        }
     }
 }

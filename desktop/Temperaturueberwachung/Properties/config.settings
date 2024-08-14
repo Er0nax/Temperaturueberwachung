@@ -23,13 +23,13 @@
     <Setting Name="active" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="last_seen" Type="System.DateTime" Scope="User">
+    <Setting Name="last_seen" Type="System.String" Scope="User">
       <Value Profile="(Default)">08/14/2024 12:46:00</Value>
     </Setting>
-    <Setting Name="created_at" Type="System.DateTime" Scope="User">
+    <Setting Name="created_at" Type="System.String" Scope="User">
       <Value Profile="(Default)">08/14/2024 12:46:00</Value>
     </Setting>
-    <Setting Name="updated_at" Type="System.DateTime" Scope="User">
+    <Setting Name="updated_at" Type="System.String" Scope="User">
       <Value Profile="(Default)">08/14/2024 12:47:00</Value>
     </Setting>
     <Setting Name="avatar" Type="System.String" Scope="User">
