@@ -2,8 +2,8 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
-using Temperaturueberwachung.controllers;
 using Temperaturueberwachung.Controllers;
+using Temperaturueberwachung.Helpers;
 using Temperaturueberwachung.Properties;
 
 namespace Temperaturueberwachung
@@ -37,7 +37,7 @@ namespace Temperaturueberwachung
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             // check if api could be connected
-            bool status = ApiController.getStatus();
+            bool status = await ApiHelper.getStatusAsync();
 
             if (status)
             {
@@ -51,7 +51,7 @@ namespace Temperaturueberwachung
             if (hasUpdate)
             {
                 info_text.Text = "There is a new version available. Please update.";
-                info_background.Visibility= Visibility.Visible;
+                info_background.Visibility = Visibility.Visible;
             }
         }
 
@@ -60,8 +60,8 @@ namespace Temperaturueberwachung
             // check if has update
             if (hasUpdate)
             {
-                string url = config.Default.api_url + "app/download";
-      
+                string url = EnvReader.GetEnv("API_URL") + "app/download";
+
                 Process.Start(new ProcessStartInfo
                 {
                     FileName = url,

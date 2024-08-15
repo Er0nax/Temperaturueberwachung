@@ -2,9 +2,6 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Temperaturueberwachung.Properties" GeneratedClassName="config">
   <Profiles />
   <Settings>
-    <Setting Name="api_url" Type="System.String" Scope="User">
-      <Value Profile="(Default)">http://localhost/temperaturueberwachung/api/web/</Value>
-    </Setting>
     <Setting Name="api_status" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
@@ -40,6 +37,15 @@
     </Setting>
     <Setting Name="role_color" Type="System.String" Scope="User">
       <Value Profile="(Default)">#ffffff</Value>
+    </Setting>
+    <Setting Name="env" Type="System.Collections.Specialized.StringCollection" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="password" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="token" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>

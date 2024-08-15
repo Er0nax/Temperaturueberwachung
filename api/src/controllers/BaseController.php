@@ -79,12 +79,12 @@ class BaseController
      * @return mixed|null
      * @author Tim Zapfe
      */
-    protected function getParam(int $index, string $name = null, mixed $default = null): mixed
+    protected function getParam(int $index, string $name = null, mixed $default = null, bool $mustBeName = false): mixed
     {
         $param = $default;
 
-        // check if index is given
-        if (isset($this->params[$index])) {
+        // check if index is given / and it can use the index
+        if (isset($this->params[$index]) && !$mustBeName) {
             $param = $this->params[$index];
         }
 

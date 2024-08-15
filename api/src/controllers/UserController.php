@@ -2,6 +2,7 @@
 
 namespace src\controllers;
 
+use Random\RandomException;
 use src\components\Entry;
 use src\helpers\ResultHelper;
 
@@ -58,6 +59,9 @@ class UserController extends BaseController
             ->tables(['users', ['images', 'images.id', 'users.avatar_id'], ['roles', 'roles.id', 'users.role_id']])
             ->where(['users' => [['username', $username]]])
             ->one();
+
+        $user['password'] = $password;
+        $user['token'] = $this->getApiToken($user['id']);
 
         // return user
         ResultHelper::render([
@@ -137,6 +141,9 @@ class UserController extends BaseController
             ->where(['users' => [['username', $username]]])
             ->one();
 
+        $user['password'] = $password;
+        $user['token'] = $this->getApiToken($user['id']);
+
         ResultHelper::render([
             'msg' => 'Account created successfully.',
             'info' => $user
@@ -150,9 +157,79 @@ class UserController extends BaseController
      * @return void
      * @author Tim Zapfe
      */
-    public function actionUpdate()
+    public function actionUpdate(): void
     {
+        // get username and password
+        $userID = $this->getParam(0, 'id');
 
+        // get token
+        $token = $this->getParam(0, 'token', null, true);
+
+        $config = [
+            'translate' => true
+        ];
+
+        // check if user id given
+        if (!is_numeric($userID) || !isset($userID)) {
+            ResultHelper::render('Invalid user id given.', 500, $config);
+        }
+
+        // check if token is given
+        if (empty($token)) {
+            ResultHelper::render('No token provided!', 500);
+        }
+
+        // get user token
+        $userToken = $this->getApiToken($userID);
+
+        // check if provided token is same as user token
+        if ($userToken !== $token) {
+            ResultHelper::render('Invalid token provided!', 500, $config);
+        }
+
+        // get updates
+        $username = $this->getParam(1, 'username', null, true);
+        $password = $this->getParam(2, 'password', null, true);
+
+        $entry = new Entry();
+        $updates = [];
+
+        // username exists?
+        if (!empty($username)) {
+
+            // check if username exists
+            $entry->columns(['users' => ['username']])->tables('users')->where(['users' => [['username', $username]]]);
+
+            // username exists?
+            if ($entry->exists()) {
+                ResultHelper::render('Username already exists.', 500, $config);
+            }
+
+            // update username
+            $updates['username'] = $username;
+        }
+
+        // password exists?
+        if (!empty($password)) {
+
+            // add password
+            $updates['password'] = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        // no values given
+        if(empty($updates)){
+            ResultHelper::render('Nothing to update.', 500, $config);
+        }
+
+        // update user
+        $updated = $entry->update('users', $updates, ['id' => $userID]);
+
+        // was updated?
+        if ($updated) {
+            ResultHelper::render('Account updated successfully.', 200, $config);
+        }
+
+        ResultHelper::render('Error while updating account.', 500, $config);
     }
 
     /**
@@ -161,12 +238,12 @@ class UserController extends BaseController
      * @return void
      * @author Tim Zapfe
      */
-    public function actionInfo()
+    public function actionInfo(): void
     {
         $userID = $this->getParam(0, 'id');
         $username = $this->getParam(0, 'username');
 
-        if(empty($userID) && empty($username)) {
+        if (empty($userID) && empty($username)) {
             ResultHelper::render('Invalid "id" or "username" (first param) given.', 500, [
                 'translate' => true
             ]);
@@ -189,5 +266,60 @@ class UserController extends BaseController
 
         // return user
         ResultHelper::render($user);
+    }
+
+    /**
+     * Returns the API token for a user
+     */
+    private function getApiToken(string|int $userID): string
+    {
+        $entry = new Entry();
+
+        // check if token with user id exists
+        $entry->columns(['api_tokens' => ['*']])
+            ->tables('api_tokens')
+            ->where(['api_tokens' => [
+                ['active', true],
+                ['user_id', $userID]
+            ]]);
+
+        $tokenExists = $entry->exists();
+
+        // does exist?
+        if ($tokenExists) {
+            $info = $entry->one();
+
+            return $info['token'];
+        }
+
+        $token = $this->generateApiToken();
+        $ip = $_SERVER['REMOTE_ADDR'];
+
+        // create new token
+        $entry->insert('api_tokens', [
+            'user_id' => $userID,
+            'ip' => $ip,
+            'token' => $token
+        ], false);
+
+        return $token;
+    }
+
+    /**
+     * Returns a new random Api Token
+     * @author Tim Zapfe
+     */
+    private function generateApiToken(): string
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = [];
+
+        for ($i = 0; $i < 20; $i++) {
+            $randomIndex = mt_rand(0, $charactersLength - 1);
+            $randomString[] = $characters[$randomIndex];
+        }
+
+        return implode('', $randomString);
     }
 }

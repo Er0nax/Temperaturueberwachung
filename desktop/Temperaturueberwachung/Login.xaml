@@ -13,8 +13,8 @@
         WindowStyle='None'
         ResizeMode='NoResize'
         WindowStartupLocation='CenterScreen'
-        Icon='/Assets/Images/logo.ico'
-        Loaded='Window_Loaded'>
+        Icon='Assets/Images/logo.ico'
+        Initialized='Window_Initialized'>
     <Grid>
         <Border Background='#FF111215'
                 CornerRadius='5'
@@ -93,77 +93,79 @@
                    VerticalAlignment='Center'
                    Height='100' />
 
-            <Label Content='Username'
-                   Grid.Row='2'
-                   Foreground='LightGray'
-                   HorizontalContentAlignment='Center'
-                   VerticalAlignment='Center'
-                   VerticalContentAlignment='Center'
-                   HorizontalAlignment='Left'
-                   Margin='25 0 0 30' />
+            <Border Grid.Row='2'
+                    BorderBrush='#FF216BAE'
+                    HorizontalAlignment='Center'
+                    VerticalAlignment='Center'
+                    MinWidth='300'
+                    CornerRadius='5'
+                    MinHeight='30'
+                    BorderThickness='0 0 0 2'>
 
-            <TextBox x:Name='username_text'
-                     Grid.Row='2'
-                     HorizontalAlignment='Center'
-                     VerticalAlignment='Center'
-                     HorizontalContentAlignment='Center'
-                     VerticalContentAlignment='Center'
-                     Margin='0 30 0 0'
-                     Foreground='LightGray'
-                     CaretBrush='White'
-                     Width='300'
-                     Height='30'
-                     Background='Transparent'
-                     BorderBrush='#FF216BAE' />
-
-            <Label Content='Password'
-                   Grid.Row='3'
-                   Foreground='LightGray'
-                   HorizontalContentAlignment='Center'
-                   VerticalAlignment='Center'
-                   VerticalContentAlignment='Center'
-                   HorizontalAlignment='Left'
-                   Margin='25 0 0 30' />
-
-            <PasswordBox x:Name='password_text'
-                         Grid.Row='3'
-                         HorizontalAlignment='Center'
-                         VerticalAlignment='Center'
+                <TextBox x:Name='username_text'
+                         Background='Transparent'
+                         BorderBrush='Transparent'
+                         CaretBrush='White'
+                         SelectionBrush='Transparent'
+                         Text='Username'
+                         Foreground='White'
+                         Cursor='Hand'
+                         ToolTip='Your username here.'
                          HorizontalContentAlignment='Center'
                          VerticalContentAlignment='Center'
-                         Margin='0 30 0 0'
-                         Foreground='LightGray'
-                         CaretBrush='White'
-                         Width='300'
-                         Height='30'
-                         Background='Transparent'
-                         BorderBrush='#FF216BAE' />
+                         GotFocus='username_text_GotFocus' />
 
-            <Label x:Name='passwordRepeat_label'
-                   Content='Password Repeat'
-                   Grid.Row='4'
-                   Visibility='Hidden'
-                   Foreground='LightGray'
-                   HorizontalContentAlignment='Center'
-                   VerticalAlignment='Center'
-                   VerticalContentAlignment='Center'
-                   HorizontalAlignment='Left'
-                   Margin='25 0 0 30' />
+            </Border>
 
-            <PasswordBox x:Name='passwordRepeat_text'
-                         Grid.Row='4'
-                         Visibility='Hidden'
-                         HorizontalAlignment='Center'
-                         VerticalAlignment='Center'
-                         HorizontalContentAlignment='Center'
-                         VerticalContentAlignment='Center'
-                         Margin='0 30 0 0'
-                         Foreground='LightGray'
-                         CaretBrush='White'
-                         Width='300'
-                         Height='30'
-                         Background='Transparent'
-                         BorderBrush='#FF216BAE' />
+            <Border Grid.Row='3'
+                    BorderBrush='#FF216BAE'
+                    HorizontalAlignment='Center'
+                    VerticalAlignment='Center'
+                    MinWidth='300'
+                    CornerRadius='5'
+                    MinHeight='30'
+                    BorderThickness='0 0 0 2'>
+
+                <PasswordBox x:Name='password_text'
+                             Background='Transparent'
+                             BorderBrush='Transparent'
+                             CaretBrush='White'
+                             SelectionBrush='Transparent'
+                             Password='admin'
+                             Foreground='White'
+                             Cursor='Hand'
+                             ToolTip='Your username here.'
+                             HorizontalContentAlignment='Center'
+                             VerticalContentAlignment='Center'
+                             GotFocus='password_text_GotFocus' />
+
+            </Border>
+
+            <Border Grid.Row='4'
+                    x:Name='passwordRepeat_border'
+                    Visibility='Hidden'
+                    BorderBrush='#FF216BAE'
+                    HorizontalAlignment='Center'
+                    VerticalAlignment='Center'
+                    MinWidth='300'
+                    CornerRadius='5'
+                    MinHeight='30'
+                    BorderThickness='0 0 0 2'>
+
+                <PasswordBox x:Name='passwordRepeat_text'
+                             Background='Transparent'
+                             BorderBrush='Transparent'
+                             CaretBrush='White'
+                             SelectionBrush='Transparent'
+                             Password='admin'
+                             Foreground='White'
+                             Cursor='Hand'
+                             ToolTip='Your username here.'
+                             HorizontalContentAlignment='Center'
+                             VerticalContentAlignment='Center'
+                             GotFocus='passwordRepeat_text_GotFocus' />
+
+            </Border>
 
             <Border x:Name='msg_background'
                     Grid.Row='5'

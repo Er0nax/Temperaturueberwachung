@@ -53,32 +53,6 @@
 
             <Label Grid.Column='0'
                    Grid.Row='0'
-                   Grid.ColumnSpan='2'
-                   HorizontalAlignment='Center'
-                   VerticalAlignment='Center'
-                   Margin='0 0 0 30'
-                   Foreground='White'
-                   FontSize='16'
-                   Content='API Url' />
-
-            <TextBox x:Name='api_url_text'
-                     Grid.ColumnSpan='2'
-                     HorizontalAlignment='Center'
-                     VerticalAlignment='Center'
-                     HorizontalContentAlignment='Left'
-                     VerticalContentAlignment='Center'
-                     Margin='0 30 0 0'
-                     Foreground='LightGray'
-                     Text='loading...'
-                     CaretBrush='White'
-                     Width='690'
-                     Padding='10 0 10 0'
-                     Height='30'
-                     Background='Transparent'
-                     BorderBrush='#FF216BAE' />
-
-            <Label Grid.Column='0'
-                   Grid.Row='1'
                    HorizontalAlignment='Center'
                    VerticalAlignment='Center'
                    Margin='0 0 0 30'
@@ -87,7 +61,7 @@
                    Content='Username' />
 
             <TextBox x:Name='username_text'
-                     Grid.Row='1'
+                     Grid.Row='0'
                      Grid.Column='0'
                      Padding='10 0 10 0'
                      HorizontalAlignment='Center'
@@ -102,7 +76,34 @@
                      Height='30'
                      Background='Transparent'
                      BorderBrush='#FF216BAE'
-                     IsEnabled='False' />
+                     IsEnabled='True' />
+
+            <Label Grid.Column='1'
+                   Grid.Row='0'
+                   HorizontalAlignment='Center'
+                   VerticalAlignment='Center'
+                   Margin='0 0 0 30'
+                   Foreground='White'
+                   FontSize='16'
+                   Content='Password' />
+
+            <PasswordBox x:Name='password_text'
+                         Grid.Row='0'
+                         Grid.Column='1'
+                         Padding='10 0 10 0'
+                         HorizontalAlignment='Center'
+                         VerticalAlignment='Center'
+                         HorizontalContentAlignment='Left'
+                         VerticalContentAlignment='Center'
+                         Margin='0 30 0 0'
+                         Foreground='LightGray'
+                         Password='loading...'
+                         CaretBrush='White'
+                         Width='300'
+                         Height='30'
+                         Background='Transparent'
+                         BorderBrush='#FF216BAE'
+                         IsEnabled='True' />
 
             <Border Grid.Row='5'
                     Grid.Column='1'
@@ -120,8 +121,8 @@
                        Foreground='White'
                        HorizontalAlignment='Center'
                        VerticalAlignment='Center'
-                       FontSize='16'/>
-                
+                       FontSize='16' />
+
             </Border>
 
         </Grid>

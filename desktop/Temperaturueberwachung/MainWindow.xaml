@@ -7,7 +7,7 @@
         xmlns:vm="clr-namespace:Page_Navigation_App.ViewModel"
         xmlns:Menu="clr-namespace:Page_Navigation_App.Utilities"
         mc:Ignorable="d"
-        Title="Temeperaturueberwachung"
+        Title="Home"
         Height="600"
         Width="1000"
         Background='Transparent'
@@ -73,7 +73,7 @@
 
                 <Border x:Name='info_background'
                         Grid.Column='1'
-                        Visibility='Visible'
+                        Visibility='Hidden'
                         HorizontalAlignment='Center'
                         VerticalAlignment='Center'
                         Margin='0 0 0 0'

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Page_Navigation_App.Model
+﻿namespace Page_Navigation_App.Model
 {
     public class PageModel
     {
