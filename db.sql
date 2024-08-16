@@ -32,12 +32,14 @@ CREATE TABLE IF NOT EXISTS `api_tokens` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='Tabelle für Token';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='Tabelle für Token';
 
--- Exportiere Daten aus Tabelle temperatur.api_tokens: ~1 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.api_tokens: ~3 rows (ungefähr)
 DELETE FROM `api_tokens`;
 INSERT INTO `api_tokens` (`id`, `user_id`, `ip`, `token`, `uses`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 0, 'true', '2024-08-15 11:45:40', '2024-08-15 11:45:40');
+	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 0, 'true', '2024-08-15 11:45:40', '2024-08-15 11:45:40'),
+	(2, 4, '10.204.193.170', '8l1Zyohk4V8s0XkPbqlE', 0, 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
+	(3, 5, '10.204.193.170', '0MVWT7bHr1qstx3GL8LR', 0, 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22');
 
 -- Exportiere Struktur von Tabelle temperatur.applications
 DROP TABLE IF EXISTS `applications`;
@@ -50,9 +52,9 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.applications: ~9 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.applications: ~11 rows (ungefähr)
 DELETE FROM `applications`;
 INSERT INTO `applications` (`id`, `name`, `version`, `downloads`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'Syntax-Sabberer', 'v.1.0.0', 1, 'true', '2024-08-13 07:13:52', '2024-08-13 06:59:34'),
@@ -63,7 +65,9 @@ INSERT INTO `applications` (`id`, `name`, `version`, `downloads`, `active`, `upd
 	(6, 'Syntax-Sabberer', 'v.1.0.5', 1, 'true', '2024-08-14 09:48:38', '2024-08-14 09:09:45'),
 	(7, 'Syntax-Sabberer', 'v.1.0.6', 2, 'true', '2024-08-14 09:55:01', '2024-08-14 09:50:56'),
 	(8, 'Syntax-Sabberer', 'v.2.0.0', 2, 'true', '2024-08-15 09:01:24', '2024-08-15 08:56:39'),
-	(9, 'Syntax-Sabberer', 'v.2.0.1', 0, 'true', '2024-08-15 10:26:33', '2024-08-15 10:26:33');
+	(9, 'Syntax-Sabberer', 'v.2.0.1', 1, 'true', '2024-08-16 07:14:37', '2024-08-15 10:26:33'),
+	(10, 'Syntax-Sabberer', 'v.2.0.2', 1, 'true', '2024-08-16 08:27:56', '2024-08-16 08:26:58'),
+	(11, 'Syntax-Sabberer', 'v.2.0.3', 0, 'true', '2024-08-16 08:47:45', '2024-08-16 08:47:45');
 
 -- Exportiere Struktur von Tabelle temperatur.images
 DROP TABLE IF EXISTS `images`;
@@ -74,14 +78,16 @@ CREATE TABLE IF NOT EXISTS `images` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.images: ~3 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.images: ~5 rows (ungefähr)
 DELETE FROM `images`;
 INSERT INTO `images` (`id`, `src`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'default.png', 'true', '2024-08-13 12:26:26', '2024-08-13 12:26:26'),
 	(2, 'default.png', 'true', '2024-08-15 07:59:34', '2024-08-15 07:59:34'),
-	(3, 'default.png', 'true', '2024-08-15 11:02:49', '2024-08-15 11:02:49');
+	(3, 'default.png', 'true', '2024-08-15 11:02:49', '2024-08-15 11:02:49'),
+	(4, 'default.png', 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
+	(5, 'default.png', 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22');
 
 -- Exportiere Struktur von Tabelle temperatur.pages
 DROP TABLE IF EXISTS `pages`;
@@ -381,9 +387,9 @@ CREATE TABLE IF NOT EXISTS `translations` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.translations: ~20 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.translations: ~27 rows (ungefähr)
 DELETE FROM `translations`;
 INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'site', 'controller not found.', 'Der Controller wurde nicht gefunden.', 'Controller not found.', 'true', '2024-08-13 10:35:53', '2024-08-13 10:27:19'),
@@ -410,7 +416,9 @@ INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `active`, `up
 	(22, 'site', 'invalid token provided!', NULL, 'Invalid token provided!', 'true', '2024-08-15 11:49:24', '2024-08-15 11:49:24'),
 	(23, 'site', 'error while updating account.', NULL, 'Error while updating account.', 'true', '2024-08-15 11:54:33', '2024-08-15 11:54:33'),
 	(24, 'site', 'account updated successfully.', NULL, 'Account updated successfully.', 'true', '2024-08-15 11:55:48', '2024-08-15 11:55:48'),
-	(25, 'site', 'no "password" given.', NULL, 'No "password" given.', 'true', '2024-08-15 11:57:48', '2024-08-15 11:57:48');
+	(25, 'site', 'no "password" given.', NULL, 'No "password" given.', 'true', '2024-08-15 11:57:48', '2024-08-15 11:57:48'),
+	(26, 'site', 'your account is not active.', NULL, 'Your account is not active.', 'true', '2024-08-16 10:24:52', '2024-08-16 10:24:52'),
+	(27, 'site', 'nothing to update.', NULL, 'Nothing to update.', 'true', '2024-08-16 10:31:26', '2024-08-16 10:31:26');
 
 -- Exportiere Struktur von Tabelle temperatur.users
 DROP TABLE IF EXISTS `users`;
@@ -426,14 +434,16 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='Datenbank für User in Temperaturüberwachung';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='Datenbank für User in Temperaturüberwachung';
 
--- Exportiere Daten aus Tabelle temperatur.users: ~3 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.users: ~5 rows (ungefähr)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `username`, `password`, `avatar_id`, `role_id`, `active`, `last_seen`, `created_at`, `updated_at`) VALUES
 	(1, 'Tim', '$2y$10$RXDSPXFNo0s2tyFX6oIUqO1LyRphtkXmQdkiMgrMgyFbbMFfKhBvK', 1, 2, 'true', '2024-08-13 12:26:26', '2024-08-15 12:24:03', '2024-08-13 12:26:26'),
-	(2, 'Alex', '$2y$10$ULr9T0RYziJDgQh2cLwHb.FhPiiBt1QB2Wto/v7uHSDcgM2XllStu', 2, 1, 'true', '2024-08-15 07:59:34', '2024-08-15 07:59:34', '2024-08-15 07:59:34'),
-	(3, 'Username', '$2y$10$7K4sFPy9GBePczX0rFCeXueAJUQgMk6LEX0ExEQ7dat4m7LIVMwj2', 3, 1, 'true', '2024-08-15 11:02:49', '2024-08-15 11:02:49', '2024-08-15 11:02:49');
+	(2, 'Alex', '$2y$10$ULr9T0RYziJDgQh2cLwHb.FhPiiBt1QB2Wto/v7uHSDcgM2XllStu', 2, 1, 'true', '2024-08-15 07:59:34', '2024-08-16 10:26:50', '2024-08-15 07:59:34'),
+	(3, 'Leander', '$2y$10$7K4sFPy9GBePczX0rFCeXueAJUQgMk6LEX0ExEQ7dat4m7LIVMwj2', 3, 1, 'true', '2024-08-15 11:02:49', '2024-08-16 10:26:48', '2024-08-15 11:02:49'),
+	(4, 'Smooth', '$2y$10$/O0HOEwpkdGTvF0sdB7ki.Xh7HIZsJEa4ztu1xf49ZO8lW35Q99rK', 4, 1, 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
+	(5, 'Administrator', '$2y$10$JJDU1ZfGogSzOhUzH8ZIHOuN/y7j2/WI0UYiOXnWPxrohbUbbrGVu', 5, 1, 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22', '2024-08-16 10:45:22');
 
 -- Exportiere Struktur von Tabelle temperatur.user_settings
 DROP TABLE IF EXISTS `user_settings`;

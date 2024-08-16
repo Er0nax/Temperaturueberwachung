@@ -207,6 +207,8 @@ namespace Temperaturueberwachung
                 config.Default.avatar = (string)user["avatar"];
                 config.Default.role_name = (string)user["role_name"];
                 config.Default.role_color = (string)user["role_color"];
+                config.Default.password = (string)user["password"];
+                config.Default.token = (string)user["token"];
 
                 // save settings
                 config.Default.Save();

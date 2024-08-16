@@ -60,6 +60,11 @@ class UserController extends BaseController
             ->where(['users' => [['username', $username]]])
             ->one();
 
+        // user active
+        if (!$user['active']) {
+            ResultHelper::render('Your account is not active.', 500, $config);
+        }
+
         $user['password'] = $password;
         $user['token'] = $this->getApiToken($user['id']);
 
@@ -217,7 +222,7 @@ class UserController extends BaseController
         }
 
         // no values given
-        if(empty($updates)){
+        if (empty($updates)) {
             ResultHelper::render('Nothing to update.', 500, $config);
         }
 

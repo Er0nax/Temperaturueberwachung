@@ -17,6 +17,8 @@ namespace Temperaturueberwachung
         public MainWindow()
         {
             InitializeComponent();
+            info_background.Visibility = Visibility.Hidden;
+            current_version.Content = info.version;
         }
 
         private void closeBtn_Click(object sender, RoutedEventArgs e)

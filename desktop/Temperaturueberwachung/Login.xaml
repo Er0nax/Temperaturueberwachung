@@ -44,6 +44,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Row='0'
+                           Visibility='Hidden'
                            Grid.Column='0'
                            Text='API'
                            FontSize='14'
@@ -54,6 +55,7 @@
 
                 <Ellipse x:Name='api_status'
                          Grid.Column='0'
+                         Visibility='Hidden'
                          Grid.Row='0'
                          Cursor='Help'
                          HorizontalAlignment='Left'
