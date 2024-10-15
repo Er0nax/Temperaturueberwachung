@@ -4,6 +4,7 @@ namespace src\controllers;
 
 use src\components\Entry;
 use src\helpers\BaseHelper;
+use src\helpers\FileHelper;
 use src\helpers\ResultHelper;
 
 /**
@@ -15,7 +16,7 @@ use src\helpers\ResultHelper;
 class BaseController
 {
     protected array $params = [];
-    protected int $userID = 0;
+    protected int $userId = 0;
     protected array $defaultConfig = [
         'translate' => true
     ];
@@ -117,9 +118,12 @@ class BaseController
 
     /**
      * Sets response on error and returns user id on success
-     * @return mixed
+     * @return int|bool
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 15.10.2024
      */
-    protected function getUserID(): mixed
+    protected function getUserId(): int|bool
     {
         // get token only by named param
         $token = $this->getParam(999, 'token', null, true);
@@ -140,11 +144,11 @@ class BaseController
         }
 
         // set user id and return it
-        return $this->userID = $tokenInfo['userID'];
+        return $this->userId = $tokenInfo['userId'];
     }
 
     /**
-     * Returns array with status if the token is valid or not. If valid, it also returns the userID in relation to the token.
+     * Returns array with status if the token is valid or not. If valid, it also returns the userId in relation to the token.
      * @param string|null $token
      * @return array|false[]
      */
@@ -157,7 +161,7 @@ class BaseController
 
         // build query
         $entry = new Entry();
-        $entry->columns(['api_tokens' => ['userID', 'uses']])
+        $entry->columns(['api_tokens' => ['user_id', 'uses']])
             ->tables('api_tokens')
             ->where(['api_tokens' => [['token', $token], ['active', true]]]);
 
@@ -173,6 +177,6 @@ class BaseController
         $entry->update('api_tokens', ['uses' => ($info['uses'] + 1)], ['token' => $token]);
 
         // return true as token is valid
-        return ['status' => true, 'userID' => $info['userID']];
+        return ['status' => true, 'userId' => $info['user_id']];
     }
 }

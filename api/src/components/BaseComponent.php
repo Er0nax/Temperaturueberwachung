@@ -2,12 +2,12 @@
 
 namespace src\components;
 
-use src\helpers\ResultHelper;
-
 /**
+ * Base Component functions can be added here.
  * @author Tim Zapfe
+ * @copyright Tim Zapfe
+ * @date 15.10.2024
  */
 class BaseComponent
 {
-
 }

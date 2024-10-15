@@ -9,7 +9,11 @@ class BaseHelper
 {
     /**
      * Returns the current full url.
+     * @param bool $withRequest
      * @return string
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 15.10.2024
      */
     public static function getUrl(bool $withRequest = false): string
     {

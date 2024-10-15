@@ -9,8 +9,10 @@ use src\Config;
 use src\helpers\ResultHelper;
 
 /**
- * entry class
+ * Entry Component to receive results from the db.
  * @author Tim Zapfe
+ * @copyright Tim Zapfe
+ * @date 15.10.2024
  */
 class Entry extends BaseComponent
 {
@@ -25,7 +27,6 @@ class Entry extends BaseComponent
     private bool $distinct = false;
     private bool $asJson = false;
     private bool $reversed = false;
-    private bool $cache = false;
     private PDO $con;
 
     /**
@@ -1015,19 +1016,6 @@ class Entry extends BaseComponent
     public function reversed(bool $reversed = true): static
     {
         $this->reversed = $reversed;
-
-        return $this;
-    }
-
-    /**
-     * Save the response in cache.
-     * @param bool $cache
-     * @return $this
-     * @author Tim Zapfe
-     */
-    public function cache(bool $cache = false): static
-    {
-        $this->cache = $cache;
 
         return $this;
     }

@@ -3,20 +3,22 @@
 namespace src\controllers;
 
 use src\components\Entry;
-use src\controllers\BaseController;
 use src\helpers\FileHelper;
 use src\helpers\ResultHelper;
 
 /**
- * App Controller
  * @author Tim Zapfe
+ * @copyright Tim Zapfe
+ * @date 15.10.2024
  */
 class AppController extends BaseController
 {
     /**
      * Returns the latest application.
-     * @return array|bool|string
+     * @return bool|array|string
      * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 15.10.2024
      */
     private function getApplication(): bool|array|string
     {
@@ -36,6 +38,8 @@ class AppController extends BaseController
      * Downloads the current exe with all information.
      * @return void
      * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 15.10.2024
      */
     public function actionDownload(): void
     {
@@ -73,7 +77,6 @@ class AppController extends BaseController
         echo 'window.close();';
         echo '</script>';
     }
-
 
     /**
      * Returns the info about the latest application.

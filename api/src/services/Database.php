@@ -2,13 +2,14 @@
 
 namespace src\services;
 
-use Exception;
 use PDO;
 use src\helpers\FileHelper;
 use src\helpers\ResultHelper;
 
 /**
  * @author Tim Zapfe
+ * @copyright Tim Zapfe
+ * @date 15.10.2024
  */
 class Database extends BaseService
 {
@@ -17,7 +18,6 @@ class Database extends BaseService
 
     /**
      * Constructor
-     * @author Tim Zapfe
      */
     public function __construct()
     {

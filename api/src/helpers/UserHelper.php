@@ -31,7 +31,7 @@ class UserHelper extends BaseHelper
     /**
      * Returns the API token for a user
      */
-    public static function getApiToken(string|int $userID): string
+    public static function getApiToken(string|int $userId): string
     {
         $entry = new Entry();
 
@@ -40,7 +40,7 @@ class UserHelper extends BaseHelper
             ->tables('api_tokens')
             ->where(['api_tokens' => [
                 ['active', true],
-                ['userID', $userID]
+                ['user_id', $userId]
             ]]);
 
         $tokenExists = $entry->exists();
@@ -52,7 +52,7 @@ class UserHelper extends BaseHelper
             // update uses
             $entry->update('api_tokens',
                 ['uses' => $info['uses'] + 1],
-                ['userID' => $userID, 'token' => $info['token']]
+                ['user_id' => $userId, 'token' => $info['token']]
             );
 
             return $info['token'];
@@ -63,7 +63,7 @@ class UserHelper extends BaseHelper
 
         // create new token
         $entry->insert('api_tokens', [
-            'userID' => $userID,
+            'user_id' => $userId,
             'ip' => $ip,
             'token' => $token
         ], false);

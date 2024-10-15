@@ -6,7 +6,6 @@ use FilesystemIterator;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use src\Config;
-use src\helpers\BaseHelper;
 
 /**
  * @author Tim Zapfe
@@ -79,18 +78,15 @@ class FileHelper extends BaseHelper
         $filename .= $extension;
 
         $folders = Config::getConfig('imageFolders', []);
-        if (!empty($folders[$type])) {
-            $folder = $folders[$type];
-        } else {
-            $folder = null;
-        }
+        $folder = !empty($folders[$type]) ? $folders[$type] : null;
 
         // set paths
-        $webPath = getenv('ASSET_URL') . 'images/';
+        $webPath = self::getBaseUrl() . getenv('API_BASE_URL') . 'assets/images/';
         $serverPath = 'web\\assets\\images\\';
 
+
         // check if folder exists
-        if (self::exist($serverPath . $folder)) {
+        if (!empty($folder) && self::exist($serverPath . $folder)) {
             // add folder
             $webPath .= $folder . '/';
             $serverPath .= $folder . '/';
@@ -105,7 +101,6 @@ class FileHelper extends BaseHelper
                 // return it
                 return $webPath . $filename;
             } else {
-
                 // create it with dimensions
                 $fullPath = self::get($serverPath);
                 $thumbnailCreated = self::createThumbnail($fullPath . $src,
@@ -127,7 +122,7 @@ class FileHelper extends BaseHelper
         }
 
         // return the main default
-        return getenv('ASSET_URL') . 'images/default.png';
+        return self::getBaseUrl() . getenv('API_BASE_URL') . 'assets/images/' . 'default.png';
     }
 
     /**
@@ -229,7 +224,6 @@ class FileHelper extends BaseHelper
             $width, $height
         );
 
-
         // 3. Save the $thumbnail to disk
         // - call the correct save method
         // - set the correct quality level
@@ -248,7 +242,7 @@ class FileHelper extends BaseHelper
      * @return void
      * @author Tim Zapfe
      */
-    public static function clearCachedImages(): void
+    public static function clearCachedImages(bool $showStatus = false): void
     {
         // only work when environment is dev
         if (getenv('ENVIRONMENT') === 'dev') {
@@ -266,14 +260,37 @@ class FileHelper extends BaseHelper
                     if ($file->isFile() && str_contains($file->getFilename(), 'cached') && preg_match('/\.(jpg|jpeg|png|gif|bmp)$/i', $file->getFilename())) {
 
                         // Delete the file
-                        if (unlink($file->getRealPath())) {
-                            echo 'Deleted: ' . $file->getRealPath() . '<br>';
-                        } else {
-                            echo 'Failed to delete: ' . $file->getRealPath() . '<br>';
+                        $deleted = unlink($file->getRealPath());
+
+                        if ($showStatus) {
+                            if ($deleted) {
+                                echo 'Deleted: ' . $file->getRealPath() . '<br>';
+                            } else {
+                                echo 'Failed to delete: ' . $file->getRealPath() . '<br>';
+                            }
                         }
                     }
                 }
             }
         }
+    }
+
+    /**
+     * Returns the base url.
+     * @return string
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 15.10.2024
+     */
+    private static function getBaseUrl()
+    {
+        // Get the protocol (http or https)
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+        // Get the hostname (e.g., www.example.com)
+        $host = $_SERVER['HTTP_HOST'];
+
+        // Combine all parts to get the full URL
+        return $protocol . $host . '/';
     }
 }

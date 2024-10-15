@@ -3,7 +3,6 @@
 namespace src\controllers;
 
 use src\components\Entry;
-use src\helpers\RecordHelper;
 use src\helpers\ResultHelper;
 use src\helpers\UserHelper;
 
@@ -84,7 +83,7 @@ class UserController extends BaseController
         $_SESSION['token'] = $user['token'];
 
         // update last seen
-        $entry->update('users', ['lastSeen' => RecordHelper::getDatesForToday()['now']], ['id' => $user['id']]);
+        $entry->update('users', ['last_seen' => date('Y-m-d H:i:s')], ['id' => $user['id']]);
 
         // return user
         ResultHelper::render([
@@ -154,13 +153,13 @@ class UserController extends BaseController
         }
 
         // insert user
-        $userID = $entry->insert('users', [
+        $userId = $entry->insert('users', [
             'username' => $username,
             'password' => password_hash($password, PASSWORD_DEFAULT),
             'snowflake' => UserHelper::generateSnowflake($username)
         ]);
 
-        if (!is_numeric($userID)) {
+        if (!is_numeric($userId)) {
             ResultHelper::render('There was an error while creating your account.', 500, $config);
         }
 
@@ -201,7 +200,7 @@ class UserController extends BaseController
         }
 
         // get user id
-        $userID = $this->getUserID();
+        $userId = $this->getUserId();
 
         // get updates
         $username = $this->getParam(1, 'username', null, true);
@@ -238,7 +237,7 @@ class UserController extends BaseController
         }
 
         // update user
-        $updated = $entry->update('users', $updates, ['id' => $userID]);
+        $updated = $entry->update('users', $updates, ['id' => $userId]);
 
         // was updated?
         if ($updated) {
@@ -265,11 +264,11 @@ class UserController extends BaseController
             ], 500, $this->defaultConfig);
         }
 
-        $userID = $this->getParam(0, 'id');
+        $userId = $this->getParam(0, 'id');
         $username = $this->getParam(0, 'username');
         $snowflake = $this->getParam(0, 'snowflake');
 
-        if (empty($userID) && empty($username)) {
+        if (empty($userId) && empty($username)) {
             ResultHelper::render('Invalid user id or username provided.', 500, [
                 'translate' => true
             ]);
@@ -280,7 +279,7 @@ class UserController extends BaseController
         // fetch full user information
         $user = $entry->columns(['users' => ['*']])
             ->tables(['users'])
-            ->where(['users' => [['username', $username], ['id', $userID], ['snowflake', $snowflake]]], 'OR')
+            ->where(['users' => [['username', $username], ['id', $userId], ['snowflake', $snowflake]]], 'OR')
             ->one();
 
         // user found?
@@ -315,13 +314,13 @@ class UserController extends BaseController
 
         // get user id
         $entry = new Entry();
-        $userID = $this->getUserID();
+        $userId = $this->getUserId();
         $allDevices = (bool)$this->getParam(0, 'all', false);
         $token = $this->getParam(0, 'token', null, true);
 
         if ($allDevices) {
             // logout all devices with the user id
-            $success = $entry->update('api_tokens', ['active' => false], ['userID' => $userID]);
+            $success = $entry->update('api_tokens', ['active' => false], ['userId' => $userId]);
         } else {
             $success = $entry->update('api_tokens', ['active' => false], ['token' => $token]);
         }

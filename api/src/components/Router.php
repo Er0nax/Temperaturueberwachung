@@ -4,12 +4,13 @@ namespace src\components;
 
 use src\Config;
 use src\helpers\BaseHelper;
-use src\helpers\CacheHelper;
 use src\helpers\FileHelper;
 use src\helpers\ResultHelper;
 
 /**
  * @author Tim Zapfe
+ * @copyright Tim Zapfe
+ * @date 15.10.2024
  */
 class Router extends BaseComponent
 {
