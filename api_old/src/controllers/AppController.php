@@ -86,13 +86,4 @@ class AppController extends BaseController
 
         ResultHelper::render($application);
     }
-
-    /**
-     * Returns simple true to check if the api is successfully connected.
-     * @return void
-     */
-    public function actionCheckApi(): void
-    {
-        ResultHelper::render(true);
-    }
 }

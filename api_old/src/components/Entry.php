@@ -423,12 +423,11 @@ class Entry extends BaseComponent
                             $is = (is_bool($condition[1]) ? $this->convertToString($condition[1]) : $condition[1]);
                             $customEqual = $condition[2] ?? '=';
                             $isCustomEqual = $condition[3] ?? false;
-                            $addTablePrefix = $condition[4] ?? true;
 
                             if (!$isCustomEqual) {
                                 $is = ($customEqual == 'LIKE') ? "'%" . $is . "%'" : "'" . $is . "'";
                             }
-                            $singleString = ($addTablePrefix ? $table . '.' : '') . $column . ' ' . $customEqual . ' ' . $is;
+                            $singleString = $table . '.' . $column . ' ' . $customEqual . ' ' . $is;
 
                             if (!$isFirstLine) {
                                 $whereString = $singleString;
@@ -561,6 +560,8 @@ class Entry extends BaseComponent
         // check if limit is set and is a number
         if (!empty($limit) && is_numeric($limit)) {
             $this->limit = $limit;
+        } else {
+            $this->limit = 1;
         }
 
         return $this;

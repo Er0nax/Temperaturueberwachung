@@ -3,7 +3,6 @@
 namespace src\components;
 
 use src\Config;
-use src\helpers\BaseHelper;
 use src\helpers\CacheHelper;
 use src\helpers\FileHelper;
 use src\helpers\ResultHelper;
@@ -94,7 +93,7 @@ class Router extends BaseComponent
     private function setUrlParts(): void
     {
         // get base url
-        $baseUrl = BaseHelper::getUrl() . getenv('API_BASE_URL');
+        $baseUrl = $this->getBaseUrl() . getenv('API_BASE_URL');
         $fullUrl = $this->getFullURL();
 
         // remove base url from full url
@@ -162,10 +161,6 @@ class Router extends BaseComponent
      */
     private function createMethodName(string $string): string
     {
-        if (empty($string)) {
-            return $this->urlParts['action'];
-        }
-
         // Erster Teil: 'action' hinzufügen
         $output = 'action';
 
@@ -228,5 +223,21 @@ class Router extends BaseComponent
 
         // Combine all parts to get the full URL
         return $protocol . $host . $requestURI;
+    }
+
+    /**
+     * @return string
+     * @author Tim Zapfe
+     */
+    private function getBaseUrl(): string
+    {
+        // Get the protocol (http or https)
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+
+        // Get the hostname (e.g., www.example.com)
+        $host = $_SERVER['HTTP_HOST'];
+
+        // Combine all parts to get the full URL
+        return $protocol . $host;
     }
 }

@@ -2,9 +2,10 @@
 
 namespace src\controllers;
 
-use Random\RandomException;
 use src\components\Entry;
+use src\helpers\RecordHelper;
 use src\helpers\ResultHelper;
+use src\helpers\UserHelper;
 
 /**
  * @author Tim Zapfe
@@ -18,6 +19,16 @@ class UserController extends BaseController
      */
     public function actionLogin(): void
     {
+        if (empty($this->params)) {
+            ResultHelper::render([
+                'info' => 'Please provide the following information.',
+                'params' => [
+                    'username (index 0)' => 'The name of the user.',
+                    'password (index 1)' => 'The password of the user.',
+                ]
+            ], 500, $this->defaultConfig);
+        }
+
         $username = $this->getParam(0, 'username');
         $password = $this->getParam(1, 'password');
 
@@ -26,17 +37,20 @@ class UserController extends BaseController
 
         // username given?
         if (empty($username)) {
-            ResultHelper::render('Invalid "username" (first param) given.', 500, $config);
+            ResultHelper::render('Invalid username provided.', 500, $config);
         }
 
         // check if password is given
         if (empty($password)) {
-            ResultHelper::render('Invalid "password" (second param) given.', 500, $config);
+            ResultHelper::render('Invalid password provided.', 500, $config);
         }
 
         // check if username exists
         $entry = new Entry();
-        $usernameExists = $entry->columns(['users' => ['username', 'password']])->tables('users')->where(['users' => [['username', $username]]])->exists();
+        $usernameExists = $entry->columns(['users' => ['username', 'password']])
+            ->tables('users')
+            ->where(['users' => [['username', $username]]])
+            ->exists();
 
         // does username already exists?
         if (!$usernameExists) {
@@ -55,8 +69,8 @@ class UserController extends BaseController
         }
 
         // fetch full user information
-        $user = $entry->columns(['users' => ['*'], 'images' => ["src AS 'avatar'"], 'roles' => ["name AS 'role_name'", "color AS 'role_color'"]])
-            ->tables(['users', ['images', 'images.id', 'users.avatar_id'], ['roles', 'roles.id', 'users.role_id']])
+        $user = $entry->columns(['users' => ['*']])
+            ->tables(['users'])
             ->where(['users' => [['username', $username]]])
             ->one();
 
@@ -66,7 +80,11 @@ class UserController extends BaseController
         }
 
         $user['password'] = $password;
-        $user['token'] = $this->getApiToken($user['id']);
+        $user['token'] = UserHelper::getApiToken($user['id']);
+        $_SESSION['token'] = $user['token'];
+
+        // update last seen
+        $entry->update('users', ['lastSeen' => RecordHelper::getDatesForToday()['now']], ['id' => $user['id']]);
 
         // return user
         ResultHelper::render([
@@ -84,6 +102,17 @@ class UserController extends BaseController
      */
     public function actionRegister(): void
     {
+        if (empty($this->params)) {
+            ResultHelper::render([
+                'info' => 'Please provide the following information.',
+                'params' => [
+                    'username (index 0)' => 'The name of the user.',
+                    'password (index 1)' => 'The password of the user.',
+                    'passwordRepeat (index 2)' => 'The repeated password of the user.',
+                ]
+            ], 500, $this->defaultConfig);
+        }
+
         // check if username param is given
         $username = $this->getParam(0, 'username');
         $password = $this->getParam(1, 'password');
@@ -94,22 +123,25 @@ class UserController extends BaseController
 
         // check if username is given
         if (empty($username)) {
-            ResultHelper::render('Invalid "username" (first param) given.', 500, $config);
+            ResultHelper::render('Invalid username provided.', 500, $config);
         }
 
         // check if password is given
         if (empty($password)) {
-            ResultHelper::render('Invalid "password" (second param) given.', 500, $config);
+            ResultHelper::render('Invalid password provided.', 500, $config);
         }
 
         // check if passwordRepeat given
         if (empty($passwordRepeat)) {
-            ResultHelper::render('Invalid "passwordRepeat" (third param) given.', 500, $config);
+            ResultHelper::render('Invalid repeated password provided.', 500, $config);
         }
 
         // check if username exists
         $entry = new Entry();
-        $usernameExists = $entry->columns(['users' => ['username']])->tables('users')->where(['users' => [['username', $username]]])->exists();
+        $usernameExists = $entry->columns(['users' => ['username']])
+            ->tables('users')
+            ->where(['users' => [['username', $username]]])
+            ->exists();
 
         // does username already exists?
         if ($usernameExists) {
@@ -121,33 +153,26 @@ class UserController extends BaseController
             ResultHelper::render('Passwords do not match.', 500, $config);
         }
 
-        // insert new avatar
-        $avatarID = $entry->insert('images', ['src' => 'default.png'], false);
-
-        // check if avatar id is given
-        if (!is_numeric($avatarID)) {
-            ResultHelper::render('There was an error while create a new avatar.', 500, $config);
-        }
-
         // insert user
         $userID = $entry->insert('users', [
             'username' => $username,
             'password' => password_hash($password, PASSWORD_DEFAULT),
-            'avatar_id' => $avatarID,
+            'snowflake' => UserHelper::generateSnowflake($username)
         ]);
 
         if (!is_numeric($userID)) {
-            ResultHelper::render('There was an error while creating a new user', 500, $config);
+            ResultHelper::render('There was an error while creating your account.', 500, $config);
         }
 
         // fetch the user
-        $user = $entry->columns(['users' => ['*'], 'images' => ["src AS 'avatar'"], 'roles' => ["name AS 'role_name'", "color AS 'role_color'"]])
-            ->tables(['users', ['images', 'images.id', 'users.avatar_id'], ['roles', 'roles.id', 'users.role_id']])
+        $user = $entry->columns(['users' => ['*']])
+            ->tables(['users'])
             ->where(['users' => [['username', $username]]])
             ->one();
 
         $user['password'] = $password;
-        $user['token'] = $this->getApiToken($user['id']);
+        $user['token'] = UserHelper::getApiToken($user['id']);
+        $_SESSION['token'] = $user['token'];
 
         ResultHelper::render([
             'msg' => 'Account created successfully.',
@@ -164,33 +189,19 @@ class UserController extends BaseController
      */
     public function actionUpdate(): void
     {
-        // get username and password
-        $userID = $this->getParam(0, 'id');
-
-        // get token
-        $token = $this->getParam(0, 'token', null, true);
-
-        $config = [
-            'translate' => true
-        ];
-
-        // check if user id given
-        if (!is_numeric($userID) || !isset($userID)) {
-            ResultHelper::render('Invalid user id given.', 500, $config);
+        if (empty($this->params)) {
+            ResultHelper::render([
+                'info' => 'Please provide the following params:',
+                'params' => [
+                    'token' => 'Your personal access token.',
+                    'username (optional)' => 'The new username of the user.',
+                    'password (optional)' => 'The new password of the user.',
+                ]
+            ], 500, $this->defaultConfig);
         }
 
-        // check if token is given
-        if (empty($token)) {
-            ResultHelper::render('No token provided!', 500);
-        }
-
-        // get user token
-        $userToken = $this->getApiToken($userID);
-
-        // check if provided token is same as user token
-        if ($userToken !== $token) {
-            ResultHelper::render('Invalid token provided!', 500, $config);
-        }
+        // get user id
+        $userID = $this->getUserID();
 
         // get updates
         $username = $this->getParam(1, 'username', null, true);
@@ -207,7 +218,7 @@ class UserController extends BaseController
 
             // username exists?
             if ($entry->exists()) {
-                ResultHelper::render('Username already exists.', 500, $config);
+                ResultHelper::render('Username already exists.', 500, $this->defaultConfig);
             }
 
             // update username
@@ -223,7 +234,7 @@ class UserController extends BaseController
 
         // no values given
         if (empty($updates)) {
-            ResultHelper::render('Nothing to update.', 500, $config);
+            ResultHelper::render('Nothing to update.', 500, $this->defaultConfig);
         }
 
         // update user
@@ -231,10 +242,10 @@ class UserController extends BaseController
 
         // was updated?
         if ($updated) {
-            ResultHelper::render('Account updated successfully.', 200, $config);
+            ResultHelper::render('Account updated successfully.', 200, $this->defaultConfig);
         }
 
-        ResultHelper::render('Error while updating account.', 500, $config);
+        ResultHelper::render('Error while updating account.', 500, $this->defaultConfig);
     }
 
     /**
@@ -245,11 +256,21 @@ class UserController extends BaseController
      */
     public function actionInfo(): void
     {
+        if (empty($this->params)) {
+            ResultHelper::render([
+                'info' => 'Please provide the following params:',
+                'params' => [
+                    'id / username / snowflake (index 0)' => 'The ID/username/snowflake of the user.',
+                ]
+            ], 500, $this->defaultConfig);
+        }
+
         $userID = $this->getParam(0, 'id');
         $username = $this->getParam(0, 'username');
+        $snowflake = $this->getParam(0, 'snowflake');
 
         if (empty($userID) && empty($username)) {
-            ResultHelper::render('Invalid "id" or "username" (first param) given.', 500, [
+            ResultHelper::render('Invalid user id or username provided.', 500, [
                 'translate' => true
             ]);
         }
@@ -257,74 +278,84 @@ class UserController extends BaseController
         $entry = new Entry();
 
         // fetch full user information
-        $user = $entry->columns(['users' => ['*'], 'images' => ["src AS 'avatar'"], 'roles' => ["name AS 'role_name'", "color AS 'role_color'"]])
-            ->tables(['users', ['images', 'images.id', 'users.avatar_id'], ['roles', 'roles.id', 'users.role_id']])
-            ->where(['users' => [['username', $username], ['id', $userID]]], 'OR')
+        $user = $entry->columns(['users' => ['*']])
+            ->tables(['users'])
+            ->where(['users' => [['username', $username], ['id', $userID], ['snowflake', $snowflake]]], 'OR')
             ->one();
 
         // user found?
         if (empty($user)) {
-            ResultHelper::render('Could not find user.', 500, [
+            ResultHelper::render('Could not find any user.', 500, [
                 'translate' => true
             ]);
         }
+
+        // unset password
+        unset($user['password']);
 
         // return user
         ResultHelper::render($user);
     }
 
     /**
-     * Returns the API token for a user
+     * Loggs a user out. Either just the device with the token or all devices (all tokens)
+     * @return void
      */
-    private function getApiToken(string|int $userID): string
+    public function actionLogout(): void
     {
-        $entry = new Entry();
-
-        // check if token with user id exists
-        $entry->columns(['api_tokens' => ['*']])
-            ->tables('api_tokens')
-            ->where(['api_tokens' => [
-                ['active', true],
-                ['user_id', $userID]
-            ]]);
-
-        $tokenExists = $entry->exists();
-
-        // does exist?
-        if ($tokenExists) {
-            $info = $entry->one();
-
-            return $info['token'];
+        if (empty($this->params)) {
+            ResultHelper::render([
+                'info' => 'Please provide the following params:',
+                'params' => [
+                    'token' => 'Your personal access token.',
+                    'all (index 0) (optional) (boolean)' => 'Whether you want to logout all devices or not.'
+                ]
+            ], 500, $this->defaultConfig);
         }
 
-        $token = $this->generateApiToken();
-        $ip = $_SERVER['REMOTE_ADDR'];
+        // get user id
+        $entry = new Entry();
+        $userID = $this->getUserID();
+        $allDevices = (bool)$this->getParam(0, 'all', false);
+        $token = $this->getParam(0, 'token', null, true);
 
-        // create new token
-        $entry->insert('api_tokens', [
-            'user_id' => $userID,
-            'ip' => $ip,
-            'token' => $token
-        ], false);
+        if ($allDevices) {
+            // logout all devices with the user id
+            $success = $entry->update('api_tokens', ['active' => false], ['userID' => $userID]);
+        } else {
+            $success = $entry->update('api_tokens', ['active' => false], ['token' => $token]);
+        }
 
-        return $token;
+        if (!$success) {
+            ResultHelper::render('There was an error while logging you out.', 500, $this->defaultConfig);
+        }
+
+        $_SESSION['token'] = null;
+        ResultHelper::render('Successfully logged out.', 200, $this->defaultConfig);
     }
 
     /**
-     * Returns a new random Api Token
-     * @author Tim Zapfe
+     * Returns boolean whether a given token is still valid or not.
+     * @return void
      */
-    private function generateApiToken(): string
+    public function actionCheckToken(): void
     {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        $charactersLength = strlen($characters);
-        $randomString = [];
-
-        for ($i = 0; $i < 20; $i++) {
-            $randomIndex = mt_rand(0, $charactersLength - 1);
-            $randomString[] = $characters[$randomIndex];
+        if (empty($this->params)) {
+            ResultHelper::render([
+                'info' => 'Please provide the following params:',
+                'params' => [
+                    'token' => 'Your personal access token.',
+                ]
+            ], 500, $this->defaultConfig);
         }
 
-        return implode('', $randomString);
+        // get the token
+        $token = $this->getParam(999, 'token', null, true);
+
+        // get the token info
+        $tokenInfo = $this->checkToken($token);
+
+        // return true or false whether the token is valid or not.
+        ResultHelper::render($tokenInfo['status']);
     }
 }
