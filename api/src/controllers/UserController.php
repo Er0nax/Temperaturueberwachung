@@ -207,6 +207,8 @@ class UserController extends BaseController
      */
     public function actionUpdate(): void
     {
+        $this->requireUser();
+
         if (empty($this->params)) {
             ResultHelper::render([
                 'message' => 'This function requires some parameters.',
@@ -219,7 +221,7 @@ class UserController extends BaseController
         }
 
         // get user id
-        $userId = $this->getUserId();
+        $userId = $this->requireUser();
 
         // get updates
         $username = $this->getParam(1, 'username', null, true);
@@ -341,7 +343,7 @@ class UserController extends BaseController
 
         // get user id
         $entry = new Entry();
-        $userId = $this->getUserId();
+        $userId = $this->requireUser();
         $allDevices = (bool)$this->getParam(0, 'all', false);
         $token = $this->getParam(0, 'token', null, true);
 

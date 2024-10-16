@@ -81,7 +81,7 @@ class FileHelper extends BaseHelper
         $folder = !empty($folders[$type]) ? $folders[$type] : null;
 
         // set paths
-        $webPath = self::getBaseUrl() . getenv('API_BASE_URL') . 'assets/images/';
+        $webPath = BaseHelper::getUrl() . getenv('API_BASE_URL') . 'assets/images/';
         $serverPath = 'web\\assets\\images\\';
 
 
@@ -122,7 +122,7 @@ class FileHelper extends BaseHelper
         }
 
         // return the main default
-        return self::getBaseUrl() . getenv('API_BASE_URL') . 'assets/images/' . 'default.png';
+        return BaseHelper::getUrl() . getenv('API_BASE_URL') . 'assets/images/' . 'default.png';
     }
 
     /**
@@ -273,24 +273,5 @@ class FileHelper extends BaseHelper
                 }
             }
         }
-    }
-
-    /**
-     * Returns the base url.
-     * @return string
-     * @author Tim Zapfe
-     * @copyright Tim Zapfe
-     * @date 15.10.2024
-     */
-    private static function getBaseUrl()
-    {
-        // Get the protocol (http or https)
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-
-        // Get the hostname (e.g., www.example.com)
-        $host = $_SERVER['HTTP_HOST'];
-
-        // Combine all parts to get the full URL
-        return $protocol . $host . '/';
     }
 }

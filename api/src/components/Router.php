@@ -98,7 +98,7 @@ class Router extends BaseComponent
     {
         // get base url
         $baseUrl = BaseHelper::getUrl() . getenv('API_BASE_URL');
-        $fullUrl = $this->getFullURL();
+        $fullUrl = BaseHelper::getUrl(true);
 
         // remove base url from full url
         $partsAsString = str_replace($baseUrl, '', $fullUrl);
@@ -211,25 +211,5 @@ class Router extends BaseComponent
         }
 
         return $parts;
-    }
-
-    /**
-     * Returns the full url from browser
-     * @return string
-     * @author Tim Zapfe
-     */
-    private function getFullURL(): string
-    {
-        // Get the protocol (http or https)
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
-
-        // Get the hostname (e.g., www.example.com)
-        $host = $_SERVER['HTTP_HOST'];
-
-        // Get the request URI (e.g., /folder/page.php)
-        $requestURI = $_SERVER['REQUEST_URI'];
-
-        // Combine all parts to get the full URL
-        return $protocol . $host . $requestURI;
     }
 }

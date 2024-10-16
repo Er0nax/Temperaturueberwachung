@@ -117,41 +117,6 @@ class BaseController
     }
 
     /**
-     * Sets response on error and returns user id on success
-     * @return int|bool
-     * @author Tim Zapfe
-     * @copyright Tim Zapfe
-     * @date 15.10.2024
-     */
-    protected function getUserId(): int|bool
-    {
-        // get token only by named param
-        $token = $this->getParam(999, 'token', null, true);
-
-        // token not provided?
-        if (empty($token)) {
-            ResultHelper::render([
-                'message' => 'Please provide your personal access token.'
-            ], 400, $this->defaultConfig);
-        }
-
-        // get the token info for the given token
-        $tokenInfo = $this->checkToken($token);
-
-        // status is false?
-        if (!$tokenInfo['status']) {
-
-            // return error
-            ResultHelper::render([
-                'message' => 'The provided token seems to be wrong.'
-            ], 404, $this->defaultConfig);
-        }
-
-        // set user id and return it
-        return $this->userId = $tokenInfo['userId'];
-    }
-
-    /**
      * Returns array with status if the token is valid or not. If valid, it also returns the userId in relation to the token.
      * @param string|null $token
      * @return array|false[]
@@ -182,5 +147,46 @@ class BaseController
 
         // return true as token is valid
         return ['status' => true, 'userId' => $info['user_id']];
+    }
+
+    /**
+     * Checks if a user is logged in with either user token or session.
+     * Also returns the user id by token.
+     * @return int|bool
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 16.10.2024
+     */
+    protected function requireUser(): int|bool
+    {
+        // get token only by named param
+        $token = $this->getParam(999, 'token', null, true);
+
+        // update token from session if exists.
+        if (empty($token) && !empty($_SESSION['token'])) {
+            $token = $_SESSION['token'];
+        }
+
+        // token not provided?
+        if (empty($token)) {
+            ResultHelper::render([
+                'message' => 'Please provide your personal access token or log in.'
+            ], 403, $this->defaultConfig);
+        }
+
+        // get the token info for the given token
+        $tokenInfo = $this->checkToken($token);
+
+        // status is false?
+        if (!$tokenInfo['status']) {
+
+            // return error
+            ResultHelper::render([
+                'message' => 'Your provided token seems to be wrong.'
+            ], 404, $this->defaultConfig);
+        }
+
+        // set user id and return it
+        return $this->userId = $tokenInfo['userId'];
     }
 }

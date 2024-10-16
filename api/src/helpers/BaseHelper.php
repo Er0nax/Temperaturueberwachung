@@ -18,7 +18,7 @@ class BaseHelper
     public static function getUrl(bool $withRequest = false): string
     {
         // Get the protocol (http or https)
-        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? 'https://' : 'http://';
 
         // Get the hostname (e.g., www.example.com)
         $host = $_SERVER['HTTP_HOST'];

@@ -11,7 +11,7 @@ use src\helpers\ResultHelper;
  * @copyright Tim Zapfe
  * @date 15.10.2024
  */
-class AssetsController extends BaseController
+class AssetController extends BaseController
 {
     private ?string $name;
     private ?string $extension;
@@ -28,8 +28,8 @@ class AssetsController extends BaseController
      */
     private function requireInfo(): void
     {
-        $this->name = $this->getParam(0, 'src', 'default', true);
-        $this->type = $this->getParam(1, 'type', 'general', true);
+        $this->name = $this->getParam(0, 'src', null, true);
+        $this->type = $this->getParam(1, 'type', null, true);
         $this->height = $this->getParam(2, 'height', null, true);
         $this->width = $this->getParam(3, 'width', null, true);
 
