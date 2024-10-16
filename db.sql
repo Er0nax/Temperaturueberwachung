@@ -32,14 +32,15 @@ CREATE TABLE IF NOT EXISTS `api_tokens` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='Tabelle für Token';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='Tabelle für Token';
 
--- Exportiere Daten aus Tabelle temperatur.api_tokens: ~3 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.api_tokens: ~4 rows (ungefähr)
 DELETE FROM `api_tokens`;
 INSERT INTO `api_tokens` (`id`, `user_id`, `ip`, `token`, `uses`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 0, 'true', '2024-08-15 11:45:40', '2024-08-15 11:45:40'),
+	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 3, 'true', '2024-10-16 13:03:38', '2024-08-15 11:45:40'),
 	(2, 4, '10.204.193.170', '8l1Zyohk4V8s0XkPbqlE', 0, 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
-	(3, 5, '10.204.193.170', '0MVWT7bHr1qstx3GL8LR', 0, 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22');
+	(3, 5, '10.204.193.170', '0MVWT7bHr1qstx3GL8LR', 0, 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22'),
+	(4, 6, '10.204.161.165', 'FcxB5RhcT8A9dGgzgzAe', 0, 'true', '2024-08-21 11:09:39', '2024-08-21 11:09:39');
 
 -- Exportiere Struktur von Tabelle temperatur.applications
 DROP TABLE IF EXISTS `applications`;
@@ -52,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
 -- Exportiere Daten aus Tabelle temperatur.applications: ~11 rows (ungefähr)
 DELETE FROM `applications`;
@@ -67,7 +68,7 @@ INSERT INTO `applications` (`id`, `name`, `version`, `downloads`, `active`, `upd
 	(8, 'Syntax-Sabberer', 'v.2.0.0', 2, 'true', '2024-08-15 09:01:24', '2024-08-15 08:56:39'),
 	(9, 'Syntax-Sabberer', 'v.2.0.1', 1, 'true', '2024-08-16 07:14:37', '2024-08-15 10:26:33'),
 	(10, 'Syntax-Sabberer', 'v.2.0.2', 1, 'true', '2024-08-16 08:27:56', '2024-08-16 08:26:58'),
-	(11, 'Syntax-Sabberer', 'v.2.0.3', 0, 'true', '2024-08-16 08:47:45', '2024-08-16 08:47:45');
+	(11, 'Syntax-Sabberer', 'v.2.0.3', 3, 'true', '2024-09-18 08:25:28', '2024-08-16 08:47:45');
 
 -- Exportiere Struktur von Tabelle temperatur.images
 DROP TABLE IF EXISTS `images`;
@@ -78,16 +79,17 @@ CREATE TABLE IF NOT EXISTS `images` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.images: ~5 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.images: ~6 rows (ungefähr)
 DELETE FROM `images`;
 INSERT INTO `images` (`id`, `src`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'default.png', 'true', '2024-08-13 12:26:26', '2024-08-13 12:26:26'),
 	(2, 'default.png', 'true', '2024-08-15 07:59:34', '2024-08-15 07:59:34'),
 	(3, 'default.png', 'true', '2024-08-15 11:02:49', '2024-08-15 11:02:49'),
 	(4, 'default.png', 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
-	(5, 'default.png', 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22');
+	(5, 'default.png', 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22'),
+	(6, 'default.png', 'true', '2024-08-21 11:09:39', '2024-08-21 11:09:39');
 
 -- Exportiere Struktur von Tabelle temperatur.pages
 DROP TABLE IF EXISTS `pages`;
@@ -136,6 +138,7 @@ INSERT INTO `roles` (`id`, `name`, `color`, `active`, `updated_at`, `created_at`
 DROP TABLE IF EXISTS `sensors`;
 CREATE TABLE IF NOT EXISTS `sensors` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `server_id` int(11) NOT NULL DEFAULT 0,
   `name` varchar(255) NOT NULL,
   `color` varchar(7) NOT NULL DEFAULT '#ffffff',
   `active` enum('true','false') NOT NULL DEFAULT 'true',
@@ -146,10 +149,24 @@ CREATE TABLE IF NOT EXISTS `sensors` (
 
 -- Exportiere Daten aus Tabelle temperatur.sensors: ~3 rows (ungefähr)
 DELETE FROM `sensors`;
-INSERT INTO `sensors` (`id`, `name`, `color`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 'Sensor #1', '#fff', 'false', '2024-08-13 11:27:32', '2024-08-12 00:00:00'),
-	(2, 'Sensor #2', '#fff', 'true', '2024-08-13 11:27:37', '2024-08-12 00:00:00'),
-	(3, 'Sensor #3', '#fff', 'false', '2024-08-13 11:27:30', '2024-08-12 00:00:00');
+INSERT INTO `sensors` (`id`, `server_id`, `name`, `color`, `active`, `updated_at`, `created_at`) VALUES
+	(1, 0, 'Sensor #1', '#fff', 'false', '2024-08-13 11:27:32', '2024-08-12 00:00:00'),
+	(2, 0, 'Sensor #2', '#fff', 'true', '2024-08-13 11:27:37', '2024-08-12 00:00:00'),
+	(3, 0, 'Sensor #3', '#fff', 'false', '2024-08-13 11:27:30', '2024-08-12 00:00:00');
+
+-- Exportiere Struktur von Tabelle temperatur.servers
+DROP TABLE IF EXISTS `servers`;
+CREATE TABLE IF NOT EXISTS `servers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `active` enum('true','false') NOT NULL DEFAULT 'true',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Exportiere Daten aus Tabelle temperatur.servers: ~0 rows (ungefähr)
+DELETE FROM `servers`;
 
 -- Exportiere Struktur von Tabelle temperatur.temperatures
 DROP TABLE IF EXISTS `temperatures`;
@@ -387,9 +404,9 @@ CREATE TABLE IF NOT EXISTS `translations` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.translations: ~27 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.translations: ~26 rows (ungefähr)
 DELETE FROM `translations`;
 INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'site', 'controller not found.', 'Der Controller wurde nicht gefunden.', 'Controller not found.', 'true', '2024-08-13 10:35:53', '2024-08-13 10:27:19'),
@@ -418,13 +435,15 @@ INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `active`, `up
 	(24, 'site', 'account updated successfully.', NULL, 'Account updated successfully.', 'true', '2024-08-15 11:55:48', '2024-08-15 11:55:48'),
 	(25, 'site', 'no "password" given.', NULL, 'No "password" given.', 'true', '2024-08-15 11:57:48', '2024-08-15 11:57:48'),
 	(26, 'site', 'your account is not active.', NULL, 'Your account is not active.', 'true', '2024-08-16 10:24:52', '2024-08-16 10:24:52'),
-	(27, 'site', 'nothing to update.', NULL, 'Nothing to update.', 'true', '2024-08-16 10:31:26', '2024-08-16 10:31:26');
+	(27, 'site', 'nothing to update.', NULL, 'Nothing to update.', 'true', '2024-08-16 10:31:26', '2024-08-16 10:31:26'),
+	(28, 'site', 'you can call the following functions. some functions may need an personal access token. you can get this by logging into your account. once you are loggedin, we will add the token for you.', NULL, 'You can call the following functions. Some functions may need an personal access token. You can get this by logging into your account. Once you are loggedin, we will add the token for you.', 'true', '2024-10-16 09:26:16', '2024-10-16 09:26:16');
 
 -- Exportiere Struktur von Tabelle temperatur.users
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL,
+  `snowflake` varchar(100) DEFAULT NULL,
   `password` varchar(1000) NOT NULL,
   `avatar_id` int(11) NOT NULL,
   `role_id` int(11) NOT NULL DEFAULT 1,
@@ -433,17 +452,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE,
-  UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='Datenbank für User in Temperaturüberwachung';
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `snowflake` (`snowflake`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='Datenbank für User in Temperaturüberwachung';
 
--- Exportiere Daten aus Tabelle temperatur.users: ~5 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.users: ~6 rows (ungefähr)
 DELETE FROM `users`;
-INSERT INTO `users` (`id`, `username`, `password`, `avatar_id`, `role_id`, `active`, `last_seen`, `created_at`, `updated_at`) VALUES
-	(1, 'Tim', '$2y$10$RXDSPXFNo0s2tyFX6oIUqO1LyRphtkXmQdkiMgrMgyFbbMFfKhBvK', 1, 2, 'true', '2024-08-13 12:26:26', '2024-08-15 12:24:03', '2024-08-13 12:26:26'),
-	(2, 'Alex', '$2y$10$ULr9T0RYziJDgQh2cLwHb.FhPiiBt1QB2Wto/v7uHSDcgM2XllStu', 2, 1, 'true', '2024-08-15 07:59:34', '2024-08-16 10:26:50', '2024-08-15 07:59:34'),
-	(3, 'Leander', '$2y$10$7K4sFPy9GBePczX0rFCeXueAJUQgMk6LEX0ExEQ7dat4m7LIVMwj2', 3, 1, 'true', '2024-08-15 11:02:49', '2024-08-16 10:26:48', '2024-08-15 11:02:49'),
-	(4, 'Smooth', '$2y$10$/O0HOEwpkdGTvF0sdB7ki.Xh7HIZsJEa4ztu1xf49ZO8lW35Q99rK', 4, 1, 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
-	(5, 'Administrator', '$2y$10$JJDU1ZfGogSzOhUzH8ZIHOuN/y7j2/WI0UYiOXnWPxrohbUbbrGVu', 5, 1, 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22', '2024-08-16 10:45:22');
+INSERT INTO `users` (`id`, `username`, `snowflake`, `password`, `avatar_id`, `role_id`, `active`, `last_seen`, `created_at`, `updated_at`) VALUES
+	(1, 'Tim', 'tim', '$2y$10$RXDSPXFNo0s2tyFX6oIUqO1LyRphtkXmQdkiMgrMgyFbbMFfKhBvK', 1, 2, 'true', '2024-10-16 13:03:38', '2024-10-16 13:03:38', '2024-08-13 12:26:26'),
+	(2, 'Alex', 'alex', '$2y$10$ULr9T0RYziJDgQh2cLwHb.FhPiiBt1QB2Wto/v7uHSDcgM2XllStu', 2, 1, 'true', '2024-08-15 07:59:34', '2024-10-16 13:03:11', '2024-08-15 07:59:34'),
+	(3, 'Leander', 'leander', '$2y$10$7K4sFPy9GBePczX0rFCeXueAJUQgMk6LEX0ExEQ7dat4m7LIVMwj2', 3, 1, 'true', '2024-08-15 11:02:49', '2024-10-16 13:03:13', '2024-08-15 11:02:49'),
+	(4, 'Smooth', 'smooth', '$2y$10$/O0HOEwpkdGTvF0sdB7ki.Xh7HIZsJEa4ztu1xf49ZO8lW35Q99rK', 4, 1, 'true', '2024-08-16 10:30:24', '2024-10-16 13:03:17', '2024-08-16 10:30:24'),
+	(5, 'Administrator', 'administrator', '$2y$10$JJDU1ZfGogSzOhUzH8ZIHOuN/y7j2/WI0UYiOXnWPxrohbUbbrGVu', 5, 1, 'true', '2024-08-16 10:45:22', '2024-10-16 13:03:21', '2024-08-16 10:45:22'),
+	(6, 'Le', 'le', '$2y$10$nl2QohTYRDQCfM6zZLDOeuY4pPkHr6zI36Zj4vw9RhXOXa.EnKQT.', 6, 1, 'true', '2024-08-21 11:09:39', '2024-10-16 13:03:23', '2024-08-21 11:09:39');
 
 -- Exportiere Struktur von Tabelle temperatur.user_settings
 DROP TABLE IF EXISTS `user_settings`;

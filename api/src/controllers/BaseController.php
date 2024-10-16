@@ -79,13 +79,13 @@ class BaseController
             }
 
             ResultHelper::render([
-                'info' => ResultHelper::t('This is the default action. Please provide a valid controller with a valid action. If you do not know any available actions, just call the controller and it will display all.'),
+                'message' => 'This is the default action. Please provide a valid controller with a valid action. If you do not know any available actions, just call the controller and it will display all.',
                 'controllers' => $controllers
             ]);
         }
 
         ResultHelper::render([
-            'info' => ResultHelper::t('You can call the following functions. Some functions may need an personal access token. You can get this by logging into your account. Once you are loggedin, we will add the token for you.'),
+            'message' => 'You can call the following functions. Some functions may need an personal access token. You can get this by logging into your account. Once you are loggedin, we will add the token for you.',
             'functions' => $functions
         ]);
     }
@@ -130,7 +130,9 @@ class BaseController
 
         // token not provided?
         if (empty($token)) {
-            ResultHelper::render('Please provide your personal access token.', 500, $this->defaultConfig);
+            ResultHelper::render([
+                'message' => 'Please provide your personal access token.'
+            ], 400, $this->defaultConfig);
         }
 
         // get the token info for the given token
@@ -140,7 +142,9 @@ class BaseController
         if (!$tokenInfo['status']) {
 
             // return error
-            ResultHelper::render('The provided token seems to be wrong.', 500, $this->defaultConfig);
+            ResultHelper::render([
+                'message' => 'The provided token seems to be wrong.'
+            ], 404, $this->defaultConfig);
         }
 
         // set user id and return it

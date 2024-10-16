@@ -23,7 +23,9 @@ class Database extends BaseService
     {
         // env file given?
         if (!FileHelper::exist('.env')) {
-            ResultHelper::render('Could not find the .env file!', 500);
+            ResultHelper::render([
+                'message' => 'Could not find the .env file!'
+            ], 500, ['translate' => true]);
         }
 
         // parse env file
@@ -42,7 +44,9 @@ class Database extends BaseService
             // unset unsafe variables
             $this->envVariables = false;
         } catch (\PDOException $e) {
-            ResultHelper::render('Could not connect to database: ' . $e->getMessage(), 500);
+            ResultHelper::render([
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 
@@ -58,6 +62,8 @@ class Database extends BaseService
             return $this->envVariables[$key];
         }
 
-        ResultHelper::render('Could not find "' . $key . '" inside .env file!', 500);
+        ResultHelper::render([
+            'message' => 'Environment variable ' . $key . ' not found!'
+        ], 500);
     }
 }

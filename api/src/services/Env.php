@@ -19,7 +19,9 @@ class Env extends BaseService
     {
         // check if .env file exists
         if (!FileHelper::exist('.env')) {
-            ResultHelper::render('Could not locate .env file!', 500);
+            ResultHelper::render([
+                'message' => 'Could not locate .env file!'
+            ], 500, ['translate' => true]);
         }
 
         // get variables
@@ -33,7 +35,9 @@ class Env extends BaseService
         // check for environment
         $environment = getenv('ENVIRONMENT');
         if ($environment != 'production' && $environment != 'dev') {
-            ResultHelper::render('Missing or invalid "ENVIRONMENT" in .env file!', 500);
+            ResultHelper::render([
+                'message' => 'Missing or invalid "ENVIRONMENT" in .env file!'
+            ], 500);
         }
 
         $this->setErrorHandling();

@@ -744,7 +744,9 @@ class Entry extends BaseComponent
         // table given?
         if (empty($table)) {
             if ($dump) {
-                ResultHelper::render('Unknown table while inserting into db.');
+                ResultHelper::render([
+                    'message' => 'Unknown table while inserting into db.'
+                ], 500, ['translate' => true]);
             }
             return false;
         }
@@ -752,7 +754,9 @@ class Entry extends BaseComponent
         // values given?
         if (empty($keysAndValues)) {
             if ($dump) {
-                ResultHelper::render('Unknown keys and values while inserting into db.');
+                ResultHelper::render([
+                    'message' => 'Unknown keys and values while inserting into db.'
+                ], 500, ['translate' => true]);
             }
             return false;
         }
@@ -764,7 +768,9 @@ class Entry extends BaseComponent
             // does key do not have a valid name?
             if (is_numeric($key)) {
                 if ($dump) {
-                    ResultHelper::render('key "' . $key . '" with value "' . $value . '" is not valid!');
+                    ResultHelper::render([
+                        'message' => 'key "' . $key . '" with value "' . $value . '" is not valid!'
+                    ], 500);
                 }
                 return false;
             }
@@ -797,7 +803,9 @@ class Entry extends BaseComponent
             // entry found?
             if ($exists) {
                 if ($dump) {
-                    ResultHelper::render('row already exists while inserting into db.');
+                    ResultHelper::render([
+                        'message' => 'row already exists while inserting into db.'
+                    ], 500, ['translate' => true]);
                 }
 
                 $IdOfExistingRow = $existingRowQuery->one();
@@ -840,7 +848,9 @@ class Entry extends BaseComponent
             return $this->con->lastInsertId();
         } catch (PDOException $e) {
             if ($dump) {
-                ResultHelper::render($e->getMessage());
+                ResultHelper::render([
+                    'message' => $e->getMessage()
+                ], 500);
             }
             return false;
         }
@@ -859,7 +869,9 @@ class Entry extends BaseComponent
         // table given?
         if (empty($table)) {
             if ($dump) {
-                ResultHelper::render('Unknown table while updating in db.');
+                ResultHelper::render([
+                    'message' => 'Unknown table while updating in db.'
+                ], 500, ['translate' => true]);
             }
             return false;
         }
@@ -867,7 +879,9 @@ class Entry extends BaseComponent
         // values given?
         if (empty($keysAndValues)) {
             if ($dump) {
-                ResultHelper::render('Unknown keys and values while updating in db.');
+                ResultHelper::render([
+                    'message' => 'Unknown keys and values while updating in db.'
+                ], 500, ['translate' => true]);
             }
             return false;
         }
@@ -875,7 +889,9 @@ class Entry extends BaseComponent
         // where conditions given?
         if (empty($whereConditions)) {
             if ($dump) {
-                ResultHelper::render('Unknown where conditions while updating in db.');
+                ResultHelper::render([
+                    'message' => 'Unknown keys and values while updating in db.'
+                ], 500, ['translate' => true]);
             }
             return false;
         }
@@ -890,7 +906,9 @@ class Entry extends BaseComponent
                 // any part not given?
                 if (!isset($key) || !isset($value)) {
                     if ($dump) {
-                        ResultHelper::render('Unknown key or value while updating in db.');
+                        ResultHelper::render([
+                            'message' => 'Unknown key or value while updating in db.'
+                        ], 500, ['translate' => true]);
                     }
                     return false;
                 }
@@ -904,7 +922,9 @@ class Entry extends BaseComponent
                 // any part not given?
                 if (!isset($key) || !isset($value)) {
                     if ($dump) {
-                        ResultHelper::render('Unknown key or value for where clause while updating in db.');
+                        ResultHelper::render([
+                            'message' => 'Unknown key or value for where clause while updating in db.'
+                        ], 500, ['translate' => true]);
                     }
                     return false;
                 }
@@ -949,7 +969,9 @@ class Entry extends BaseComponent
 
         } catch (PDOException $e) {
             if ($dump) {
-                ResultHelper::render($e);
+                ResultHelper::render([
+                    'message' => $e->getMessage()
+                ], 500);
             }
             return false;
         }

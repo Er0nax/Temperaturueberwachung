@@ -35,7 +35,7 @@ class AssetsController extends BaseController
 
         if (empty($this->params)) {
             ResultHelper::render([
-                'info' => 'Please provide the following params:',
+                'message' => 'This function requires some parameters.',
                 'params' => [
                     'name' => 'The image full name without extension.',
                     'type (optional)' => 'The type of the image (like general, background, cover).',
@@ -103,9 +103,11 @@ class AssetsController extends BaseController
             die();
         } catch (\Exception $exception) {
             ResultHelper::render([
-                'src' => $src,
-                'info' => $exception->getMessage(),
-            ], 500, $this->defaultConfig);
+                'message' => $exception->getMessage(),
+                'src' => $src
+            ], 500, [
+                'translate' => false
+            ]);
         }
     }
 }

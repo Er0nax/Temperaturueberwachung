@@ -20,10 +20,10 @@ class UserController extends BaseController
     {
         if (empty($this->params)) {
             ResultHelper::render([
-                'info' => 'Please provide the following information.',
+                'message' => 'This function requires some parameters.',
                 'params' => [
-                    'username (index 0)' => 'The name of the user.',
-                    'password (index 1)' => 'The password of the user.',
+                    'username' => 'The name of the user.',
+                    'password' => 'The password of the user.',
                 ]
             ], 500, $this->defaultConfig);
         }
@@ -36,12 +36,16 @@ class UserController extends BaseController
 
         // username given?
         if (empty($username)) {
-            ResultHelper::render('Invalid username provided.', 500, $config);
+            ResultHelper::render([
+                'message' => 'Invalid username provided.'
+            ], 500, $this->defaultConfig);
         }
 
         // check if password is given
         if (empty($password)) {
-            ResultHelper::render('Invalid password provided.', 500, $config);
+            ResultHelper::render([
+                'message' => 'Invalid password provided.'
+            ], 500, $this->defaultConfig);
         }
 
         // check if username exists
@@ -53,7 +57,9 @@ class UserController extends BaseController
 
         // does username already exists?
         if (!$usernameExists) {
-            ResultHelper::render('Username not found.', 500, $config);
+            ResultHelper::render([
+                'message' => 'Username not found.'
+            ], 500, $this->defaultConfig);
         }
 
         // fetch password
@@ -64,7 +70,9 @@ class UserController extends BaseController
 
         // password not correct?
         if (!$passwordCorrect) {
-            ResultHelper::render('Your password is not correct.', 500, $config);
+            ResultHelper::render([
+                'message' => 'Your password is not correct.'
+            ], 500, $this->defaultConfig);
         }
 
         // fetch full user information
@@ -75,7 +83,9 @@ class UserController extends BaseController
 
         // user active
         if (!$user['active']) {
-            ResultHelper::render('Your account is not active.', 500, $config);
+            ResultHelper::render([
+                'message' => 'Your account is not active.'
+            ], 500, $this->defaultConfig);
         }
 
         $user['password'] = $password;
@@ -103,7 +113,7 @@ class UserController extends BaseController
     {
         if (empty($this->params)) {
             ResultHelper::render([
-                'info' => 'Please provide the following information.',
+                'message' => 'This function requires some parameters.',
                 'params' => [
                     'username (index 0)' => 'The name of the user.',
                     'password (index 1)' => 'The password of the user.',
@@ -117,22 +127,25 @@ class UserController extends BaseController
         $password = $this->getParam(1, 'password');
         $passwordRepeat = $this->getParam(2, 'passwordRepeat');
 
-        // default config
-        $config = ['translate' => true];
-
         // check if username is given
         if (empty($username)) {
-            ResultHelper::render('Invalid username provided.', 500, $config);
+            ResultHelper::render([
+                'message' => 'Invalid username provided.'
+            ], 500, $this->defaultConfig);
         }
 
         // check if password is given
         if (empty($password)) {
-            ResultHelper::render('Invalid password provided.', 500, $config);
+            ResultHelper::render([
+                'message' => 'Invalid password provided.'
+            ], 500, $this->defaultConfig);
         }
 
         // check if passwordRepeat given
         if (empty($passwordRepeat)) {
-            ResultHelper::render('Invalid repeated password provided.', 500, $config);
+            ResultHelper::render([
+                'message' => 'Invalid repeated password provided.'
+            ], 500, $this->defaultConfig);
         }
 
         // check if username exists
@@ -144,12 +157,16 @@ class UserController extends BaseController
 
         // does username already exists?
         if ($usernameExists) {
-            ResultHelper::render('Username already exists.', 500, $config);
+            ResultHelper::render([
+                'message' => 'Username already exists.'
+            ], 500, $this->defaultConfig);
         }
 
         // check if password and passwordRepeat not same
         if ($password !== $passwordRepeat) {
-            ResultHelper::render('Passwords do not match.', 500, $config);
+            ResultHelper::render([
+                'message' => 'Passwords do not match.'
+            ], 500, $this->defaultConfig);
         }
 
         // insert user
@@ -160,7 +177,9 @@ class UserController extends BaseController
         ]);
 
         if (!is_numeric($userId)) {
-            ResultHelper::render('There was an error while creating your account.', 500, $config);
+            ResultHelper::render([
+                'message' => 'There was an error while creating your account.'
+            ], 500, $this->defaultConfig);
         }
 
         // fetch the user
@@ -174,9 +193,9 @@ class UserController extends BaseController
         $_SESSION['token'] = $user['token'];
 
         ResultHelper::render([
-            'msg' => 'Account created successfully.',
-            'info' => $user
-        ], 200, $config);
+            'message' => 'Account created successfully.',
+            'user' => $user
+        ], 200, $this->defaultConfig);
     }
 
     /**
@@ -190,7 +209,7 @@ class UserController extends BaseController
     {
         if (empty($this->params)) {
             ResultHelper::render([
-                'info' => 'Please provide the following params:',
+                'message' => 'This function requires some parameters.',
                 'params' => [
                     'token' => 'Your personal access token.',
                     'username (optional)' => 'The new username of the user.',
@@ -217,7 +236,9 @@ class UserController extends BaseController
 
             // username exists?
             if ($entry->exists()) {
-                ResultHelper::render('Username already exists.', 500, $this->defaultConfig);
+                ResultHelper::render([
+                    'message' => 'Username already exists.'
+                ], 500, $this->defaultConfig);
             }
 
             // update username
@@ -233,7 +254,9 @@ class UserController extends BaseController
 
         // no values given
         if (empty($updates)) {
-            ResultHelper::render('Nothing to update.', 500, $this->defaultConfig);
+            ResultHelper::render([
+                'message' => 'Nothing to update.'
+            ], 500, $this->defaultConfig);
         }
 
         // update user
@@ -241,10 +264,14 @@ class UserController extends BaseController
 
         // was updated?
         if ($updated) {
-            ResultHelper::render('Account updated successfully.', 200, $this->defaultConfig);
+            ResultHelper::render([
+                'message' => 'Account updated successfully.'
+            ], 200, $this->defaultConfig);
         }
 
-        ResultHelper::render('Error while updating account.', 500, $this->defaultConfig);
+        ResultHelper::render([
+            'message' => 'Error while updating account.'
+        ], 500, $this->defaultConfig);
     }
 
     /**
@@ -257,7 +284,7 @@ class UserController extends BaseController
     {
         if (empty($this->params)) {
             ResultHelper::render([
-                'info' => 'Please provide the following params:',
+                'message' => 'This function requires some parameters.',
                 'params' => [
                     'id / username / snowflake (index 0)' => 'The ID/username/snowflake of the user.',
                 ]
@@ -269,9 +296,9 @@ class UserController extends BaseController
         $snowflake = $this->getParam(0, 'snowflake');
 
         if (empty($userId) && empty($username)) {
-            ResultHelper::render('Invalid user id or username provided.', 500, [
-                'translate' => true
-            ]);
+            ResultHelper::render([
+                'message' => 'Invalid user id or username provided.'
+            ], 500, $this->defaultConfig);
         }
 
         $entry = new Entry();
@@ -284,9 +311,9 @@ class UserController extends BaseController
 
         // user found?
         if (empty($user)) {
-            ResultHelper::render('Could not find any user.', 500, [
-                'translate' => true
-            ]);
+            ResultHelper::render([
+                'message' => 'Could not find any user.'
+            ], 500, $this->defaultConfig);
         }
 
         // unset password
@@ -304,7 +331,7 @@ class UserController extends BaseController
     {
         if (empty($this->params)) {
             ResultHelper::render([
-                'info' => 'Please provide the following params:',
+                'message' => 'This function requires some parameters.',
                 'params' => [
                     'token' => 'Your personal access token.',
                     'all (index 0) (optional) (boolean)' => 'Whether you want to logout all devices or not.'
@@ -326,11 +353,15 @@ class UserController extends BaseController
         }
 
         if (!$success) {
-            ResultHelper::render('There was an error while logging you out.', 500, $this->defaultConfig);
+            ResultHelper::render([
+                'message' => 'There was an error while logging you out.'
+            ], 500, $this->defaultConfig);
         }
 
         $_SESSION['token'] = null;
-        ResultHelper::render('Successfully logged out.', 200, $this->defaultConfig);
+        ResultHelper::render([
+            'message' => 'Successfully logged out.'
+        ], 200, $this->defaultConfig);
     }
 
     /**
@@ -341,7 +372,7 @@ class UserController extends BaseController
     {
         if (empty($this->params)) {
             ResultHelper::render([
-                'info' => 'Please provide the following params:',
+                'message' => 'This function requires some parameters.',
                 'params' => [
                     'token' => 'Your personal access token.',
                 ]
