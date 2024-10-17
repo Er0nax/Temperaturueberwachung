@@ -399,4 +399,26 @@ class UserController extends BaseController
         // return true or false whether the token is valid or not.
         ResultHelper::render($tokenInfo['status']);
     }
+
+    /**
+     * Returns all users with their avatar and role
+     * @return array|bool|string
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 17.10.2024
+     */
+    public function actionAll(): bool|array|string
+    {
+        $this->entry->reset();
+
+        // get all users
+        return $this->entry->columns([
+            'users' => ['id', 'username', 'snowflake', 'phone', 'last_seen', 'updated_at', 'created_at'],
+            'images' => ["src AS 'avatar'"],
+            'roles' => ["name AS 'role'", 'color']
+        ])->tables(['users',
+            ['images', 'users.avatar_id', 'images.id'],
+            ['roles', 'users.role_id', 'roles.id']
+        ])->order('users.id ASC')->all();
+    }
 }

@@ -202,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `sensors` (
 DELETE FROM `sensors`;
 INSERT INTO `sensors` (`id`, `server_id`, `manufacturer_id`, `maxTemp`, `minTemp`, `name`, `address`, `color`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 1, 1, 30, -30, 'Sensor #1', 'Berlin', '#fff', 'true', '2024-10-17 10:54:31', '2024-08-12 00:00:00'),
-	(2, 1, 2, 30, -30, 'Sensor #2', 'Magdeburg', '#fff', 'true', '2024-10-17 10:54:33', '2024-08-12 00:00:00'),
+	(2, 3, 2, 30, -30, 'Sensor #2', 'Magdeburg', '#fff', 'true', '2024-10-17 11:28:07', '2024-08-12 00:00:00'),
 	(3, 2, 3, 30, -30, 'Sensor #3', 'München', '#fff', 'false', '2024-10-17 10:54:37', '2024-08-12 00:00:00');
 
 -- Exportiere Struktur von Tabelle temperatur.servers
@@ -465,7 +465,7 @@ CREATE TABLE IF NOT EXISTS `translations` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.translations: ~28 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.translations: ~34 rows (ungefähr)
 DELETE FROM `translations`;
 INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `ru`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'site', 'controller not found.', 'Der Controller wurde nicht gefunden.', 'Controller not found.', NULL, 'true', '2024-08-13 10:35:53', '2024-08-13 10:27:19'),
@@ -484,7 +484,7 @@ INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `ru`, `active
 	(14, 'site', 'there was an error while creating a new user', NULL, 'There was an error while creating a new user', NULL, 'true', '2024-08-13 12:05:26', '2024-08-13 12:05:26'),
 	(15, 'site', 'username already exists.', NULL, 'Username already exists.', NULL, 'true', '2024-08-13 12:11:21', '2024-08-13 12:11:21'),
 	(16, 'site', 'your password is not correct.', NULL, 'Your password is not correct.', NULL, 'true', '2024-08-13 12:20:56', '2024-08-13 12:20:56'),
-	(17, 'site', 'welcome back, {username}', NULL, 'Welcome back, {username}', NULL, 'true', '2024-08-13 12:21:33', '2024-08-13 12:21:33'),
+	(17, 'site', 'welcome back, {username}', 'Willkommen zurück, {username}', 'Welcome back, {username}', NULL, 'true', '2024-10-17 11:52:36', '2024-08-13 12:21:33'),
 	(18, 'site', 'the latest version could not be found.', NULL, 'The latest version could not be found.', NULL, 'true', '2024-08-14 11:43:53', '2024-08-14 11:43:53'),
 	(19, 'site', 'username not found.', NULL, 'Username not found.', NULL, 'true', '2024-08-14 12:26:27', '2024-08-14 12:26:27'),
 	(20, 'site', 'invalid "id" or "username" (first param) given.', NULL, 'Invalid "id" or "username" (first param) given.', NULL, 'true', '2024-08-15 07:46:11', '2024-08-15 07:46:11'),
@@ -495,7 +495,13 @@ INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `ru`, `active
 	(25, 'site', 'no "password" given.', NULL, 'No "password" given.', NULL, 'true', '2024-08-15 11:57:48', '2024-08-15 11:57:48'),
 	(26, 'site', 'your account is not active.', NULL, 'Your account is not active.', NULL, 'true', '2024-08-16 10:24:52', '2024-08-16 10:24:52'),
 	(27, 'site', 'nothing to update.', NULL, 'Nothing to update.', NULL, 'true', '2024-08-16 10:31:26', '2024-08-16 10:31:26'),
-	(28, 'site', 'you can call the following functions. some functions may need an personal access token. you can get this by logging into your account. once you are loggedin, we will add the token for you.', NULL, 'You can call the following functions. Some functions may need an personal access token. You can get this by logging into your account. Once you are loggedin, we will add the token for you.', NULL, 'true', '2024-10-16 09:26:16', '2024-10-16 09:26:16');
+	(28, 'site', 'you can call the following functions. some functions may need an personal access token. you can get this by logging into your account. once you are loggedin, we will add the token for you.', NULL, 'You can call the following functions. Some functions may need an personal access token. You can get this by logging into your account. Once you are loggedin, we will add the token for you.', NULL, 'true', '2024-10-16 09:26:16', '2024-10-16 09:26:16'),
+	(29, 'site', 'this is a {test}', NULL, 'This is a {test}', NULL, 'true', '2024-10-17 11:48:36', '2024-10-17 11:48:36'),
+	(30, 'site', 'this is another {test}', NULL, 'this is another {test}', NULL, 'true', '2024-10-17 11:51:20', '2024-10-17 11:51:20'),
+	(31, 'okay', 'this is another {test}', NULL, 'this is another {test}', NULL, 'true', '2024-10-17 11:51:41', '2024-10-17 11:51:41'),
+	(32, 'okay', 'aaaand another {test}', NULL, 'aaaand another {test}', NULL, 'true', '2024-10-17 11:51:48', '2024-10-17 11:51:48'),
+	(33, '', 'username not found.', NULL, 'Username not found.', NULL, 'true', '2024-10-17 11:53:25', '2024-10-17 11:53:25'),
+	(34, '', 'controller not found.', NULL, 'Controller not found.', NULL, 'true', '2024-10-17 11:53:30', '2024-10-17 11:53:30');
 
 -- Exportiere Struktur von Tabelle temperatur.users
 DROP TABLE IF EXISTS `users`;

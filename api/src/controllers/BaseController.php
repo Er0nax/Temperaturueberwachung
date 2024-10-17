@@ -113,14 +113,19 @@ class BaseController
     {
         $param = $default;
 
-        // check if index is given / and it can use the index
+        // check if index is set / and it can use the index
         if (isset($this->params[$index]) && !$mustBeName) {
             $param = $this->params[$index];
         }
 
-        // check if is given by name
+        // check if is given by name and its set
         if (!empty($name) && isset($this->params[$name])) {
             $param = $this->params[$name];
+        }
+
+        // check if the param is given and not empty
+        if (empty($param) && !is_bool($param) && !is_numeric($param)) {
+            $param = $default;
         }
 
         return (is_bool($param)) ? $param : urldecode($param);
