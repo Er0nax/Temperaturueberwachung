@@ -34,7 +34,7 @@ class TranslationController extends BaseController
      * @copyright Tim Zapfe
      * @date 17.10.2024
      */
-    public function actionT(): string
+    public function actionTranslate(): string
     {
         $translation = $this->getParam(0, 't');
         $GLOBALS['API_LANGUAGE'] = $this->getParam(1, 'language', $GLOBALS['API_LANGUAGE']);

@@ -43,8 +43,14 @@ class SensorController extends BaseController
                 ->limit($temperaturesLimit)
                 ->order('temperatures.created_at DESC');
 
-            // add current temperature
-            $sensor['currentTemperature'] = $query->one()['temperature'];
+            // get last temperature row
+            $lastTemperature = $query->one();
+
+            // does it exist?
+            if (!empty($lastTemperature)) {
+                // add current temperature
+                $sensor['currentTemperature'] = $query->one()['temperature'];
+            }
 
             // add latest temperatures
             $sensor['temperatures'] = $query->all();
