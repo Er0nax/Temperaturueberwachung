@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `api_tokens` (
 -- Exportiere Daten aus Tabelle temperatur.api_tokens: ~4 rows (ungefähr)
 DELETE FROM `api_tokens`;
 INSERT INTO `api_tokens` (`id`, `user_id`, `ip`, `token`, `uses`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 3, 'true', '2024-10-16 13:03:38', '2024-08-15 11:45:40'),
+	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 7, 'true', '2024-10-16 14:08:25', '2024-08-15 11:45:40'),
 	(2, 4, '10.204.193.170', '8l1Zyohk4V8s0XkPbqlE', 0, 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
 	(3, 5, '10.204.193.170', '0MVWT7bHr1qstx3GL8LR', 0, 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22'),
 	(4, 6, '10.204.161.165', 'FcxB5RhcT8A9dGgzgzAe', 0, 'true', '2024-08-21 11:09:39', '2024-08-21 11:09:39');
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.applications: ~11 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.applications: ~12 rows (ungefähr)
 DELETE FROM `applications`;
 INSERT INTO `applications` (`id`, `name`, `version`, `downloads`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'Syntax-Sabberer', 'v.1.0.0', 1, 'true', '2024-08-13 07:13:52', '2024-08-13 06:59:34'),
@@ -138,7 +138,7 @@ INSERT INTO `roles` (`id`, `name`, `color`, `active`, `updated_at`, `created_at`
 DROP TABLE IF EXISTS `sensors`;
 CREATE TABLE IF NOT EXISTS `sensors` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `server_id` int(11) NOT NULL DEFAULT 0,
+  `server_id` int(11) DEFAULT 0,
   `name` varchar(255) NOT NULL,
   `color` varchar(7) NOT NULL DEFAULT '#ffffff',
   `active` enum('true','false') NOT NULL DEFAULT 'true',
@@ -400,43 +400,44 @@ CREATE TABLE IF NOT EXISTS `translations` (
   `value` varchar(2000) DEFAULT NULL,
   `de` varchar(2000) DEFAULT NULL,
   `en` varchar(2000) DEFAULT NULL,
+  `ru` varchar(2000) DEFAULT NULL,
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.translations: ~26 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.translations: ~25 rows (ungefähr)
 DELETE FROM `translations`;
-INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 'site', 'controller not found.', 'Der Controller wurde nicht gefunden.', 'Controller not found.', 'true', '2024-08-13 10:35:53', '2024-08-13 10:27:19'),
-	(2, 'site', 'this is the default action. please provide a valid controller with a valid action. if you do not know any available actions, just call the controller and it will display all.', 'Das ist die Standard Funktion. Bitte geben eine korrekte Funktion an. Falls du keine Funktionen kennst, kannst du hier alle verfügbaren sehen.', 'This is the default action. Please provide a valid controller with a valid action. If you do not know any available actions, just call the controller and it will display all.', 'true', '2024-08-13 10:37:38', '2024-08-13 10:33:40'),
-	(3, 'site', 'you can call the following functions.', 'Du kannst die folgenden Funktionen benutzen.', 'You can call the following functions.', 'true', '2024-08-13 10:38:00', '2024-08-13 10:33:43'),
-	(4, 'site', 'seems like nothing was returned.', 'Anscheinend wurde nichts zurückgegeben.', 'Seems like nothing was returned.', 'true', '2024-08-13 10:38:14', '2024-08-13 10:33:53'),
-	(5, 'site', 'action not found.', 'Funktion nicht gefunden.', 'Action not found.', 'true', '2024-08-13 10:38:20', '2024-08-13 10:34:09'),
-	(6, 'site', 'invalid sensor_id (first param) provided.', 'Falsche "sensor_id" (erster Param) gegeben.', 'Invalid "sensor_id" (first param) provided.', 'true', '2024-08-13 10:38:49', '2024-08-13 10:34:32'),
-	(7, 'site', 'invalid temperature (second param) provided.', 'Falsche "temperatur" (zweiter Param) gegeben.', 'Invalid temperature (second param) provided.', 'true', '2024-08-13 10:39:00', '2024-08-13 10:34:35'),
-	(8, 'site', 'temperature inserted.', 'Temperatur wurde gespeichert.', 'Temperature inserted.', 'true', '2024-08-13 10:39:17', '2024-08-13 10:34:43'),
-	(9, 'site', 'invalid "username" (first param) given.', NULL, 'Invalid "username" (first param) given.', 'true', '2024-08-13 11:59:36', '2024-08-13 11:59:36'),
-	(10, 'site', 'invalid "password" (second param) given.', NULL, 'Invalid "password" (second param) given.', 'true', '2024-08-13 11:59:41', '2024-08-13 11:59:41'),
-	(11, 'site', 'invalid "passwordrepeat" (third param) given.', NULL, 'Invalid "passwordRepeat" (third param) given.', 'true', '2024-08-13 11:59:44', '2024-08-13 11:59:44'),
-	(12, 'site', 'passwords do not match.', NULL, 'Passwords do not match.', 'true', '2024-08-13 11:59:47', '2024-08-13 11:59:47'),
-	(13, 'site', 'account created.', NULL, 'Account created.', 'true', '2024-08-13 11:59:49', '2024-08-13 11:59:49'),
-	(14, 'site', 'there was an error while creating a new user', NULL, 'There was an error while creating a new user', 'true', '2024-08-13 12:05:26', '2024-08-13 12:05:26'),
-	(15, 'site', 'username already exists.', NULL, 'Username already exists.', 'true', '2024-08-13 12:11:21', '2024-08-13 12:11:21'),
-	(16, 'site', 'your password is not correct.', NULL, 'Your password is not correct.', 'true', '2024-08-13 12:20:56', '2024-08-13 12:20:56'),
-	(17, 'site', 'welcome back, {username}', NULL, 'Welcome back, {username}', 'true', '2024-08-13 12:21:33', '2024-08-13 12:21:33'),
-	(18, 'site', 'the latest version could not be found.', NULL, 'The latest version could not be found.', 'true', '2024-08-14 11:43:53', '2024-08-14 11:43:53'),
-	(19, 'site', 'username not found.', NULL, 'Username not found.', 'true', '2024-08-14 12:26:27', '2024-08-14 12:26:27'),
-	(20, 'site', 'invalid "id" or "username" (first param) given.', NULL, 'Invalid "id" or "username" (first param) given.', 'true', '2024-08-15 07:46:11', '2024-08-15 07:46:11'),
-	(21, 'site', 'invalid user id given.', NULL, 'Invalid user id given.', 'true', '2024-08-15 11:44:07', '2024-08-15 11:44:07'),
-	(22, 'site', 'invalid token provided!', NULL, 'Invalid token provided!', 'true', '2024-08-15 11:49:24', '2024-08-15 11:49:24'),
-	(23, 'site', 'error while updating account.', NULL, 'Error while updating account.', 'true', '2024-08-15 11:54:33', '2024-08-15 11:54:33'),
-	(24, 'site', 'account updated successfully.', NULL, 'Account updated successfully.', 'true', '2024-08-15 11:55:48', '2024-08-15 11:55:48'),
-	(25, 'site', 'no "password" given.', NULL, 'No "password" given.', 'true', '2024-08-15 11:57:48', '2024-08-15 11:57:48'),
-	(26, 'site', 'your account is not active.', NULL, 'Your account is not active.', 'true', '2024-08-16 10:24:52', '2024-08-16 10:24:52'),
-	(27, 'site', 'nothing to update.', NULL, 'Nothing to update.', 'true', '2024-08-16 10:31:26', '2024-08-16 10:31:26'),
-	(28, 'site', 'you can call the following functions. some functions may need an personal access token. you can get this by logging into your account. once you are loggedin, we will add the token for you.', NULL, 'You can call the following functions. Some functions may need an personal access token. You can get this by logging into your account. Once you are loggedin, we will add the token for you.', 'true', '2024-10-16 09:26:16', '2024-10-16 09:26:16');
+INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `ru`, `active`, `updated_at`, `created_at`) VALUES
+	(1, 'site', 'controller not found.', 'Der Controller wurde nicht gefunden.', 'Controller not found.', NULL, 'true', '2024-08-13 10:35:53', '2024-08-13 10:27:19'),
+	(2, 'site', 'this is the default action. please provide a valid controller with a valid action. if you do not know any available actions, just call the controller and it will display all.', 'Das ist die Standard Funktion. Bitte geben eine korrekte Funktion an. Falls du keine Funktionen kennst, kannst du hier alle verfügbaren sehen.', 'This is the default action. Please provide a valid controller with a valid action. If you do not know any available actions, just call the controller and it will display all.', NULL, 'true', '2024-08-13 10:37:38', '2024-08-13 10:33:40'),
+	(3, 'site', 'you can call the following functions.', 'Du kannst die folgenden Funktionen benutzen.', 'You can call the following functions.', NULL, 'true', '2024-08-13 10:38:00', '2024-08-13 10:33:43'),
+	(4, 'site', 'seems like nothing was returned.', 'Anscheinend wurde nichts zurückgegeben.', 'Seems like nothing was returned.', NULL, 'true', '2024-08-13 10:38:14', '2024-08-13 10:33:53'),
+	(5, 'site', 'action not found.', 'Funktion nicht gefunden.', 'Action not found.', NULL, 'true', '2024-08-13 10:38:20', '2024-08-13 10:34:09'),
+	(6, 'site', 'invalid sensor_id (first param) provided.', 'Falsche "sensor_id" (erster Param) gegeben.', 'Invalid "sensor_id" (first param) provided.', NULL, 'true', '2024-08-13 10:38:49', '2024-08-13 10:34:32'),
+	(7, 'site', 'invalid temperature (second param) provided.', 'Falsche "temperatur" (zweiter Param) gegeben.', 'Invalid temperature (second param) provided.', NULL, 'true', '2024-08-13 10:39:00', '2024-08-13 10:34:35'),
+	(8, 'site', 'temperature inserted.', 'Temperatur wurde gespeichert.', 'Temperature inserted.', NULL, 'true', '2024-08-13 10:39:17', '2024-08-13 10:34:43'),
+	(9, 'site', 'invalid "username" (first param) given.', NULL, 'Invalid "username" (first param) given.', NULL, 'true', '2024-08-13 11:59:36', '2024-08-13 11:59:36'),
+	(10, 'site', 'invalid "password" (second param) given.', NULL, 'Invalid "password" (second param) given.', NULL, 'true', '2024-08-13 11:59:41', '2024-08-13 11:59:41'),
+	(11, 'site', 'invalid "passwordrepeat" (third param) given.', NULL, 'Invalid "passwordRepeat" (third param) given.', NULL, 'true', '2024-08-13 11:59:44', '2024-08-13 11:59:44'),
+	(12, 'site', 'passwords do not match.', NULL, 'Passwords do not match.', NULL, 'true', '2024-08-13 11:59:47', '2024-08-13 11:59:47'),
+	(13, 'site', 'account created.', NULL, 'Account created.', NULL, 'true', '2024-08-13 11:59:49', '2024-08-13 11:59:49'),
+	(14, 'site', 'there was an error while creating a new user', NULL, 'There was an error while creating a new user', NULL, 'true', '2024-08-13 12:05:26', '2024-08-13 12:05:26'),
+	(15, 'site', 'username already exists.', NULL, 'Username already exists.', NULL, 'true', '2024-08-13 12:11:21', '2024-08-13 12:11:21'),
+	(16, 'site', 'your password is not correct.', NULL, 'Your password is not correct.', NULL, 'true', '2024-08-13 12:20:56', '2024-08-13 12:20:56'),
+	(17, 'site', 'welcome back, {username}', NULL, 'Welcome back, {username}', NULL, 'true', '2024-08-13 12:21:33', '2024-08-13 12:21:33'),
+	(18, 'site', 'the latest version could not be found.', NULL, 'The latest version could not be found.', NULL, 'true', '2024-08-14 11:43:53', '2024-08-14 11:43:53'),
+	(19, 'site', 'username not found.', NULL, 'Username not found.', NULL, 'true', '2024-08-14 12:26:27', '2024-08-14 12:26:27'),
+	(20, 'site', 'invalid "id" or "username" (first param) given.', NULL, 'Invalid "id" or "username" (first param) given.', NULL, 'true', '2024-08-15 07:46:11', '2024-08-15 07:46:11'),
+	(21, 'site', 'invalid user id given.', NULL, 'Invalid user id given.', NULL, 'true', '2024-08-15 11:44:07', '2024-08-15 11:44:07'),
+	(22, 'site', 'invalid token provided!', NULL, 'Invalid token provided!', NULL, 'true', '2024-08-15 11:49:24', '2024-08-15 11:49:24'),
+	(23, 'site', 'error while updating account.', NULL, 'Error while updating account.', NULL, 'true', '2024-08-15 11:54:33', '2024-08-15 11:54:33'),
+	(24, 'site', 'account updated successfully.', NULL, 'Account updated successfully.', NULL, 'true', '2024-08-15 11:55:48', '2024-08-15 11:55:48'),
+	(25, 'site', 'no "password" given.', NULL, 'No "password" given.', NULL, 'true', '2024-08-15 11:57:48', '2024-08-15 11:57:48'),
+	(26, 'site', 'your account is not active.', NULL, 'Your account is not active.', NULL, 'true', '2024-08-16 10:24:52', '2024-08-16 10:24:52'),
+	(27, 'site', 'nothing to update.', NULL, 'Nothing to update.', NULL, 'true', '2024-08-16 10:31:26', '2024-08-16 10:31:26'),
+	(28, 'site', 'you can call the following functions. some functions may need an personal access token. you can get this by logging into your account. once you are loggedin, we will add the token for you.', NULL, 'You can call the following functions. Some functions may need an personal access token. You can get this by logging into your account. Once you are loggedin, we will add the token for you.', NULL, 'true', '2024-10-16 09:26:16', '2024-10-16 09:26:16');
 
 -- Exportiere Struktur von Tabelle temperatur.users
 DROP TABLE IF EXISTS `users`;
@@ -459,7 +460,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Exportiere Daten aus Tabelle temperatur.users: ~6 rows (ungefähr)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `username`, `snowflake`, `password`, `avatar_id`, `role_id`, `active`, `last_seen`, `created_at`, `updated_at`) VALUES
-	(1, 'Tim', 'tim', '$2y$10$RXDSPXFNo0s2tyFX6oIUqO1LyRphtkXmQdkiMgrMgyFbbMFfKhBvK', 1, 2, 'true', '2024-10-16 13:03:38', '2024-10-16 13:03:38', '2024-08-13 12:26:26'),
+	(1, 'Tim', 'tim', '$2y$10$RXDSPXFNo0s2tyFX6oIUqO1LyRphtkXmQdkiMgrMgyFbbMFfKhBvK', 1, 2, 'true', '2024-10-16 14:02:31', '2024-10-17 08:16:05', '2024-08-13 12:26:26'),
 	(2, 'Alex', 'alex', '$2y$10$ULr9T0RYziJDgQh2cLwHb.FhPiiBt1QB2Wto/v7uHSDcgM2XllStu', 2, 1, 'true', '2024-08-15 07:59:34', '2024-10-16 13:03:11', '2024-08-15 07:59:34'),
 	(3, 'Leander', 'leander', '$2y$10$7K4sFPy9GBePczX0rFCeXueAJUQgMk6LEX0ExEQ7dat4m7LIVMwj2', 3, 1, 'true', '2024-08-15 11:02:49', '2024-10-16 13:03:13', '2024-08-15 11:02:49'),
 	(4, 'Smooth', 'smooth', '$2y$10$/O0HOEwpkdGTvF0sdB7ki.Xh7HIZsJEa4ztu1xf49ZO8lW35Q99rK', 4, 1, 'true', '2024-08-16 10:30:24', '2024-10-16 13:03:17', '2024-08-16 10:30:24'),
@@ -471,7 +472,8 @@ DROP TABLE IF EXISTS `user_settings`;
 CREATE TABLE IF NOT EXISTS `user_settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `lang` varchar(2) NOT NULL DEFAULT 'en',
+  `language` varchar(2) NOT NULL DEFAULT 'en',
+  `imperial_system` enum('c','k','f') NOT NULL DEFAULT 'c',
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
