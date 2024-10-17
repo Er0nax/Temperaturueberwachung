@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Syntax_Sabberer.windows"
         mc:Ignorable="d"
         Title="Login"
-        Height="600"
+        Height="700"
         MinHeight='400'
         MaxHeight='800'
         Width="1000"
@@ -16,11 +16,17 @@
         WindowStartupLocation='CenterScreen'
         Background='#FF182229'>
     <Grid>
-        
-        <StackPanel>
-            
+
+        <Grid x:Name='Grid'>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height='50' />
+                <RowDefinition Height='*' />
+                <RowDefinition Height='100' />
+            </Grid.RowDefinitions>
+
             <Grid x:Name='topbar'
-                  Height='50'>
+                  Grid.Row='0'>
 
                 <StackPanel Orientation='Horizontal'
                             HorizontalAlignment='Right'>
@@ -31,50 +37,339 @@
                            Padding='0'
                            Margin='10 0 10 0'
                            HorizontalContentAlignment='Center'
-                           VerticalContentAlignment='Center'/>
+                           VerticalContentAlignment='Center' />
 
                     <Ellipse Height='30'
                              Width='30'
                              Margin='0 0 10 0'
                              Stroke='White'>
-                        
+
                         <Ellipse.Fill>
                             <ImageBrush ImageSource="/assets/images/default.png" />
                         </Ellipse.Fill>
-                        
+
                     </Ellipse>
 
-                 
+
 
                 </StackPanel>
-                
+
             </Grid>
 
-            <Grid x:Name='content'>
+            <ScrollViewer x:Name='content'
+                          Grid.Row='1'>
 
-                <ScrollViewer>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-                    <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                            <ColumnDefinition />
-                        </Grid.ColumnDefinitions>
+                    <Border Grid.Row='0'
+                            Grid.Column='0'
+                            Background='#FF0E1622'
+                            CornerRadius='10'
+                            Margin='20 10 20 10'>
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
+                        <Grid Height='250'>
 
-                    </Grid>
-                    
-                </ScrollViewer>
+                            <Grid Margin='30'
+                                  VerticalAlignment='Top'
+                                  Height='150'>
+
+                                <Ellipse Fill='LightGreen' />
+
+                                <Ellipse Fill='#FF0E1622'
+                                         Margin='25' />
+
+                                <Label Content='26,5°C'
+                                       HorizontalAlignment='Center'
+                                       VerticalAlignment='Center'
+                                       Foreground='White'
+                                       FontSize='18'
+                                       FontWeight='Bold' />
+
+                            </Grid>
+
+                            <StackPanel VerticalAlignment='Bottom'
+                                        Margin='10 10 10 10'>
+
+                                <Label Content='Max Temp: 30°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                                <Label Content='Min Temp: 15°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Border>
+
+                    <Border Grid.Row='0'
+                            Grid.Column='1'
+                            Background='#FF0E1622'
+                            CornerRadius='10'
+                            Margin='20 10 20 10'>
+
+                        <Grid Height='250'>
+
+                            <Grid Margin='30'
+                                  VerticalAlignment='Top'
+                                  Height='150'>
+
+                                <Ellipse Fill='LightCoral' />
+
+                                <Ellipse Fill='#FF0E1622'
+                                         Margin='25' />
+
+                                <Label Content='31,3°C'
+                                       HorizontalAlignment='Center'
+                                       VerticalAlignment='Center'
+                                       Foreground='White'
+                                       FontSize='18'
+                                       FontWeight='Bold' />
+
+                            </Grid>
+
+                            <StackPanel VerticalAlignment='Bottom'
+                                        Margin='10 10 10 10'>
+
+                                <Label Content='Max Temp: 30°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                                <Label Content='Min Temp: 15°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Border>
+
+                    <Border Grid.Row='0'
+                            Grid.Column='2'
+                            Background='#FF0E1622'
+                            CornerRadius='10'
+                            Margin='20 10 20 10'>
+
+                        <Grid Height='250'>
+
+                            <Grid Margin='30'
+                                  VerticalAlignment='Top'
+                                  Height='150'>
+
+                                <Ellipse Fill='Orange' />
+
+                                <Ellipse Fill='#FF0E1622'
+                                         Margin='25' />
+
+                                <Label Content='25°C'
+                                       HorizontalAlignment='Center'
+                                       VerticalAlignment='Center'
+                                       Foreground='White'
+                                       FontSize='18'
+                                       FontWeight='Bold' />
+
+                            </Grid>
+
+                            <StackPanel VerticalAlignment='Bottom'
+                                        Margin='10 10 10 10'>
+
+                                <Label Content='Max Temp: 28°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                                <Label Content='Min Temp: 15°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Border>
+
+                    <Border Grid.Row='0'
+                            Grid.Column='3'
+                            Background='#FF0E1622'
+                            CornerRadius='10'
+                            Margin='20 10 20 10'>
+
+                        <Grid Height='250'>
+
+                            <Grid Margin='30'
+                                  VerticalAlignment='Top'
+                                  Height='150'>
+
+                                <Ellipse Fill='Red' />
+
+                                <Ellipse Fill='#FF0E1622'
+                                         Margin='25' />
+
+                                <Label Content='85°C'
+                                       HorizontalAlignment='Center'
+                                       VerticalAlignment='Center'
+                                       Foreground='White'
+                                       FontSize='18'
+                                       FontWeight='Bold' />
+
+                            </Grid>
+
+                            <StackPanel VerticalAlignment='Bottom'
+                                        Margin='10 10 10 10'>
+
+                                <Label Content='Max Temp: 70°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                                <Label Content='Min Temp: 15°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Border>
+
+                    <Border Grid.Row='1'
+                            Grid.Column='0'
+                            Background='#FF0E1622'
+                            CornerRadius='10'
+                            Margin='20 10 20 10'>
+
+                        <Grid Height='250'>
+
+                            <Grid Margin='30'
+                                  VerticalAlignment='Top'
+                                  Height='150'>
+
+                                <Ellipse Fill='LightCoral' />
+
+                                <Ellipse Fill='#FF0E1622'
+                                         Margin='25' />
+
+                                <Label Content='31,3°C'
+                                       HorizontalAlignment='Center'
+                                       VerticalAlignment='Center'
+                                       Foreground='White'
+                                       FontSize='18'
+                                       FontWeight='Bold' />
+
+                            </Grid>
+
+                            <StackPanel VerticalAlignment='Bottom'
+                                        Margin='10 10 10 10'>
+
+                                <Label Content='Max Temp: 30°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                                <Label Content='Min Temp: 15°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Border>
+
+                    <Border Grid.Row='1'
+                            Grid.Column='1'
+                            Background='#FF0E1622'
+                            CornerRadius='10'
+                            Margin='20 10 20 10'>
+
+                        <Grid Height='250'>
+
+                            <Grid Margin='30'
+                                  VerticalAlignment='Top'
+                                  Height='150'>
+
+                                <Ellipse Fill='LightGreen' />
+
+                                <Ellipse Fill='#FF0E1622'
+                                         Margin='25' />
+
+                                <Label Content='50°C'
+                                       HorizontalAlignment='Center'
+                                       VerticalAlignment='Center'
+                                       Foreground='White'
+                                       FontSize='18'
+                                       FontWeight='Bold' />
+
+                            </Grid>
+
+                            <StackPanel VerticalAlignment='Bottom'
+                                        Margin='10 10 10 10'>
+
+                                <Label Content='Max Temp: 60°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                                <Label Content='Min Temp: 15°C'
+                                       Foreground='DarkGray'
+                                       VerticalContentAlignment='Center'
+                                       HorizontalContentAlignment='Center' />
+
+                            </StackPanel>
+
+                        </Grid>
+
+                    </Border>
+
+                </Grid>
+
+            </ScrollViewer>
+
+            <Grid x:Name='message'
+                  Grid.Row='2'>
+
+                <Border Margin='20 30 20 30'
+                        Background='LightCoral'
+                        CornerRadius='10'>
+
+                    <Label Content='Sensor #4 is overheating!'
+                           Foreground='White'
+                           FontSize='20'
+                           FontWeight='Bold'
+                           VerticalContentAlignment='Center'
+                           HorizontalContentAlignment='Center'/>
+
+                </Border>
                 
             </Grid>
             
-        </StackPanel>
-        
+        </Grid>
+
     </Grid>
 </Window>
