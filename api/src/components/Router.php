@@ -47,6 +47,9 @@ class Router extends BaseComponent
         // check if action exists
         $this->checkAction($classObject);
 
+        // set url parts to session
+        $_SESSION['urlParts'] = $this->urlParts;
+
         // call action
         $actionName = $this->urlParts['action'];
         $classObject->$actionName();
@@ -54,9 +57,7 @@ class Router extends BaseComponent
         // usually the action should have returned something so this code should not be reached.
         ResultHelper::render([
             'message' => 'Seems like nothing was returned.'
-        ], 500, [
-            'translate' => true
-        ]);
+        ], 500, ['translate' => true]);
     }
 
     /**

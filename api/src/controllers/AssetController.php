@@ -87,6 +87,9 @@ class AssetController extends BaseController
      */
     #[NoReturn] public function actionImage(): void
     {
+        var_dump(ResultHelper::t('Seems like nothing was returned.'));
+        die();
+
         // set information
         $this->requireInfo();
 

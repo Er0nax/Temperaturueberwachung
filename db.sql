@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `api_tokens` (
 DELETE FROM `api_tokens`;
 INSERT INTO `api_tokens` (`id`, `user_id`, `ip`, `token`, `uses`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 7, 'true', '2024-10-16 14:08:25', '2024-08-15 11:45:40'),
-	(2, 4, '10.204.193.170', '8l1Zyohk4V8s0XkPbqlE', 0, 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
+	(2, 4, '10.204.193.170', '8l1Zyohk4V8s0XkPbqlE', 20, 'true', '2024-10-17 08:49:47', '2024-08-16 10:30:24'),
 	(3, 5, '10.204.193.170', '0MVWT7bHr1qstx3GL8LR', 0, 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22'),
 	(4, 6, '10.204.161.165', 'FcxB5RhcT8A9dGgzgzAe', 0, 'true', '2024-08-21 11:09:39', '2024-08-21 11:09:39');
 
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.applications: ~12 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.applications: ~11 rows (ungefähr)
 DELETE FROM `applications`;
 INSERT INTO `applications` (`id`, `name`, `version`, `downloads`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'Syntax-Sabberer', 'v.1.0.0', 1, 'true', '2024-08-13 07:13:52', '2024-08-13 06:59:34'),
@@ -90,6 +90,35 @@ INSERT INTO `images` (`id`, `src`, `active`, `updated_at`, `created_at`) VALUES
 	(4, 'default.png', 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
 	(5, 'default.png', 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22'),
 	(6, 'default.png', 'true', '2024-08-21 11:09:39', '2024-08-21 11:09:39');
+
+-- Exportiere Struktur von Tabelle temperatur.logs
+DROP TABLE IF EXISTS `logs`;
+CREATE TABLE IF NOT EXISTS `logs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT 0,
+  `sensor_id` int(11) NOT NULL DEFAULT 0,
+  `active` enum('true','false') NOT NULL DEFAULT 'true',
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Exportiere Daten aus Tabelle temperatur.logs: ~0 rows (ungefähr)
+DELETE FROM `logs`;
+
+-- Exportiere Struktur von Tabelle temperatur.manufacturers
+DROP TABLE IF EXISTS `manufacturers`;
+CREATE TABLE IF NOT EXISTS `manufacturers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `active` enum('true','false') NOT NULL DEFAULT 'true',
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Exportiere Daten aus Tabelle temperatur.manufacturers: ~0 rows (ungefähr)
+DELETE FROM `manufacturers`;
 
 -- Exportiere Struktur von Tabelle temperatur.pages
 DROP TABLE IF EXISTS `pages`;
@@ -139,6 +168,7 @@ DROP TABLE IF EXISTS `sensors`;
 CREATE TABLE IF NOT EXISTS `sensors` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `server_id` int(11) DEFAULT 0,
+  `maxTemp` float NOT NULL DEFAULT 30,
   `name` varchar(255) NOT NULL,
   `color` varchar(7) NOT NULL DEFAULT '#ffffff',
   `active` enum('true','false') NOT NULL DEFAULT 'true',
@@ -149,10 +179,10 @@ CREATE TABLE IF NOT EXISTS `sensors` (
 
 -- Exportiere Daten aus Tabelle temperatur.sensors: ~3 rows (ungefähr)
 DELETE FROM `sensors`;
-INSERT INTO `sensors` (`id`, `server_id`, `name`, `color`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 0, 'Sensor #1', '#fff', 'false', '2024-08-13 11:27:32', '2024-08-12 00:00:00'),
-	(2, 0, 'Sensor #2', '#fff', 'true', '2024-08-13 11:27:37', '2024-08-12 00:00:00'),
-	(3, 0, 'Sensor #3', '#fff', 'false', '2024-08-13 11:27:30', '2024-08-12 00:00:00');
+INSERT INTO `sensors` (`id`, `server_id`, `maxTemp`, `name`, `color`, `active`, `updated_at`, `created_at`) VALUES
+	(1, 0, 30, 'Sensor #1', '#fff', 'false', '2024-08-13 11:27:32', '2024-08-12 00:00:00'),
+	(2, 0, 30, 'Sensor #2', '#fff', 'true', '2024-08-13 11:27:37', '2024-08-12 00:00:00'),
+	(3, 0, 30, 'Sensor #3', '#fff', 'false', '2024-08-13 11:27:30', '2024-08-12 00:00:00');
 
 -- Exportiere Struktur von Tabelle temperatur.servers
 DROP TABLE IF EXISTS `servers`;
@@ -407,13 +437,13 @@ CREATE TABLE IF NOT EXISTS `translations` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.translations: ~25 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.translations: ~28 rows (ungefähr)
 DELETE FROM `translations`;
 INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `ru`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'site', 'controller not found.', 'Der Controller wurde nicht gefunden.', 'Controller not found.', NULL, 'true', '2024-08-13 10:35:53', '2024-08-13 10:27:19'),
 	(2, 'site', 'this is the default action. please provide a valid controller with a valid action. if you do not know any available actions, just call the controller and it will display all.', 'Das ist die Standard Funktion. Bitte geben eine korrekte Funktion an. Falls du keine Funktionen kennst, kannst du hier alle verfügbaren sehen.', 'This is the default action. Please provide a valid controller with a valid action. If you do not know any available actions, just call the controller and it will display all.', NULL, 'true', '2024-08-13 10:37:38', '2024-08-13 10:33:40'),
 	(3, 'site', 'you can call the following functions.', 'Du kannst die folgenden Funktionen benutzen.', 'You can call the following functions.', NULL, 'true', '2024-08-13 10:38:00', '2024-08-13 10:33:43'),
-	(4, 'site', 'seems like nothing was returned.', 'Anscheinend wurde nichts zurückgegeben.', 'Seems like nothing was returned.', NULL, 'true', '2024-08-13 10:38:14', '2024-08-13 10:33:53'),
+	(4, 'site', 'seems like nothing was returned.', 'Anscheinend wurde nichts zurückgegeben.', 'Seems like nothing was returned.', 'Похоже, ничего не было возвращено.', 'true', '2024-10-17 08:49:38', '2024-08-13 10:33:53'),
 	(5, 'site', 'action not found.', 'Funktion nicht gefunden.', 'Action not found.', NULL, 'true', '2024-08-13 10:38:20', '2024-08-13 10:34:09'),
 	(6, 'site', 'invalid sensor_id (first param) provided.', 'Falsche "sensor_id" (erster Param) gegeben.', 'Invalid "sensor_id" (first param) provided.', NULL, 'true', '2024-08-13 10:38:49', '2024-08-13 10:34:32'),
 	(7, 'site', 'invalid temperature (second param) provided.', 'Falsche "temperatur" (zweiter Param) gegeben.', 'Invalid temperature (second param) provided.', NULL, 'true', '2024-08-13 10:39:00', '2024-08-13 10:34:35'),
@@ -472,16 +502,18 @@ DROP TABLE IF EXISTS `user_settings`;
 CREATE TABLE IF NOT EXISTS `user_settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
-  `language` varchar(2) NOT NULL DEFAULT 'en',
+  `language` enum('en','de','ru') NOT NULL DEFAULT 'en',
   `imperial_system` enum('c','k','f') NOT NULL DEFAULT 'c',
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Nutzereinstellungen';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='Nutzereinstellungen';
 
 -- Exportiere Daten aus Tabelle temperatur.user_settings: ~0 rows (ungefähr)
 DELETE FROM `user_settings`;
+INSERT INTO `user_settings` (`id`, `user_id`, `language`, `imperial_system`, `active`, `updated_at`, `created_at`) VALUES
+	(1, 4, 'ru', 'c', 'true', '2024-10-17 08:49:04', '2024-10-17 08:47:59');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

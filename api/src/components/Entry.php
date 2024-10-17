@@ -320,7 +320,7 @@ class Entry extends BaseComponent
                         continue;
                     }
 
-                    $tablesString = $tablesString . ' JOIN ' . $table[0] . ' ON ' . $table[1] . ' = ' . $table[2];
+                    $tablesString = $tablesString . (!empty($table[3]) ? ' ' . $table[3] : '') . ' JOIN ' . $table[0] . ' ON ' . $table[1] . ' = ' . $table[2];
                 }
 
             } else {

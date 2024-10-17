@@ -22,7 +22,7 @@ class Config
                 'translate' => false
             ],
             'langs' => [
-                'de', 'en'
+                'de', 'en', 'ru'
             ],
             'imageFolders' => [
                 'background' => 'backgrounds',

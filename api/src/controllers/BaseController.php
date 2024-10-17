@@ -29,6 +29,15 @@ class BaseController
     public function __construct(array $params)
     {
         $this->params = $params;
+
+        if (!empty($this->params['token'])) {
+            $tokenInfo = $this->checkToken($this->params['token']);
+
+            // set language from settings
+            if (!empty($tokenInfo['user'])) {
+                $GLOBALS['API_LANGUAGE'] = $tokenInfo['user']['language'] ?? 'en';
+            }
+        }
     }
 
     /**
@@ -145,8 +154,14 @@ class BaseController
         // update uses
         $entry->update('api_tokens', ['uses' => ($info['uses'] + 1)], ['token' => $token]);
 
+        // get user info
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['*']])
+            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
+            ->where(['users' => [['id', $info['user_id']]]])
+            ->one();
+
         // return true as token is valid
-        return ['status' => true, 'userId' => $info['user_id']];
+        return ['status' => true, 'user' => $user];
     }
 
     /**
@@ -187,6 +202,6 @@ class BaseController
         }
 
         // set user id and return it
-        return $this->userId = $tokenInfo['userId'];
+        return $this->userId = $tokenInfo['user']['id'];
     }
 }
