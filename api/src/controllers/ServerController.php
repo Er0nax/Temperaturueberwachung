@@ -9,5 +9,10 @@ namespace src\controllers;
  */
 class ServerController extends BaseController
 {
-
+    public function actionAll()
+    {
+        $this->entry->reset();
+        
+        $servers = $this->entry->columns([])
+    }
 }
