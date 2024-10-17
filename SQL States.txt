@@ -1,0 +1,21 @@
+select * from api_tokens;
+
+select * from applications;
+
+select * from images;
+
+select * from pages;
+
+select * from roles;
+
+Select * from sensors join servers on server_id = servers.ID;
+
+select maxtemp from sensors;
+
+select * from temperatures;
+
+select * from translations;
+
+select * from user_settings;
+
+select * from users;
