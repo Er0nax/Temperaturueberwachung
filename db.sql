@@ -31,7 +31,9 @@ CREATE TABLE IF NOT EXISTS `api_tokens` (
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `api_tokens_users` (`user_id`),
+  CONSTRAINT `api_tokens_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COMMENT='Tabelle für Token';
 
 -- Exportiere Daten aus Tabelle temperatur.api_tokens: ~6 rows (ungefähr)
@@ -81,9 +83,9 @@ CREATE TABLE IF NOT EXISTS `images` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.images: ~6 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.images: ~8 rows (ungefähr)
 DELETE FROM `images`;
 INSERT INTO `images` (`id`, `src`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'default.png', 'true', '2024-08-13 12:26:26', '2024-08-13 12:26:26'),
@@ -91,7 +93,9 @@ INSERT INTO `images` (`id`, `src`, `active`, `updated_at`, `created_at`) VALUES
 	(3, 'default.png', 'true', '2024-08-15 11:02:49', '2024-08-15 11:02:49'),
 	(4, 'default.png', 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
 	(5, 'default.png', 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22'),
-	(6, 'default.png', 'true', '2024-08-21 11:09:39', '2024-08-21 11:09:39');
+	(6, 'default.png', 'true', '2024-08-21 11:09:39', '2024-08-21 11:09:39'),
+	(7, 'default.png', 'true', '2024-10-17 11:16:39', '2024-10-17 11:16:40'),
+	(8, 'default.png', 'true', '2024-10-17 11:16:41', '2024-10-17 11:16:41');
 
 -- Exportiere Struktur von Tabelle temperatur.logs
 DROP TABLE IF EXISTS `logs`;
@@ -102,7 +106,11 @@ CREATE TABLE IF NOT EXISTS `logs` (
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `logs_user` (`user_id`),
+  KEY `logs_sensor` (`sensor_id`),
+  CONSTRAINT `logs_sensor` FOREIGN KEY (`sensor_id`) REFERENCES `sensors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `logs_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- Exportiere Daten aus Tabelle temperatur.logs: ~0 rows (ungefähr)
@@ -183,7 +191,11 @@ CREATE TABLE IF NOT EXISTS `sensors` (
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `sensors_server` (`server_id`),
+  KEY `sensors_manufacturer` (`manufacturer_id`),
+  CONSTRAINT `sensors_manufacturer` FOREIGN KEY (`manufacturer_id`) REFERENCES `manufacturers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `sensors_server` FOREIGN KEY (`server_id`) REFERENCES `servers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='Eintrag für die Sensoren';
 
 -- Exportiere Daten aus Tabelle temperatur.sensors: ~3 rows (ungefähr)
@@ -220,7 +232,9 @@ CREATE TABLE IF NOT EXISTS `temperatures` (
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `temperatures_sensors` (`sensor_id`),
+  CONSTRAINT `temperatures_sensors` FOREIGN KEY (`sensor_id`) REFERENCES `sensors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=210 DEFAULT CHARSET=utf8mb4 COMMENT='Aufnahme der Temperatur';
 
 -- Exportiere Daten aus Tabelle temperatur.temperatures: ~209 rows (ungefähr)
@@ -491,7 +505,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `snowflake` varchar(100) DEFAULT NULL,
   `password` varchar(1000) NOT NULL,
   `phone` varchar(100) DEFAULT NULL,
-  `avatar_id` int(11) NOT NULL,
+  `avatar_id` int(11) DEFAULT NULL,
   `role_id` int(11) NOT NULL DEFAULT 1,
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `last_seen` datetime NOT NULL DEFAULT current_timestamp(),
@@ -499,7 +513,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`),
-  UNIQUE KEY `snowflake` (`snowflake`)
+  UNIQUE KEY `snowflake` (`snowflake`),
+  KEY `users_avatars` (`avatar_id`),
+  KEY `users_roles` (`role_id`),
+  CONSTRAINT `users_avatars` FOREIGN KEY (`avatar_id`) REFERENCES `images` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `users_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COMMENT='Datenbank für User in Temperaturüberwachung';
 
 -- Exportiere Daten aus Tabelle temperatur.users: ~8 rows (ungefähr)
@@ -511,8 +529,8 @@ INSERT INTO `users` (`id`, `username`, `snowflake`, `password`, `phone`, `avatar
 	(4, 'Pascal', 'smooth', '$2y$10$UzRrD0rbJQqhvOmj35nP5u1YMCnrcNYrozYWqNRtPl0UPUE7b1fyK', NULL, 4, 1, 'true', '2024-08-16 10:30:24', '2024-10-17 10:08:18', '2024-08-16 10:30:24'),
 	(5, 'Administrator', 'administrator', '$2y$10$JJDU1ZfGogSzOhUzH8ZIHOuN/y7j2/WI0UYiOXnWPxrohbUbbrGVu', NULL, 5, 1, 'true', '2024-08-16 10:45:22', '2024-10-16 13:03:21', '2024-08-16 10:45:22'),
 	(6, 'le', 'le', '$2y$10$Kn.xj9otH9C11PHyR27.fOGaKEgkju6TZeAW.wmvJ7sN1HAteWCve', NULL, 6, 1, 'true', '2024-08-21 11:09:39', '2024-10-17 10:08:05', '2024-08-21 11:09:39'),
-	(7, 'Root', 'root', '$2y$10$/LNlMSyQ6bOFkFvGoJ39x.wd8P870OK4sRx6p./wjjiBJtAu0VEei', NULL, 0, 1, 'true', '2024-10-17 10:02:50', '2024-10-17 10:03:37', '2024-10-17 10:02:50'),
-	(8, 'Tim Zapfe', 'timzapfe', '$2y$10$n/ib2T3Z35L./onktoFIhODxiv/vRAZYA.995EvRLwn4A2VC9LfZO', NULL, 0, 1, 'true', '2024-10-17 10:03:43', '2024-10-17 10:03:43', '2024-10-17 10:03:43');
+	(7, 'Root', 'root', '$2y$10$/LNlMSyQ6bOFkFvGoJ39x.wd8P870OK4sRx6p./wjjiBJtAu0VEei', NULL, 7, 1, 'true', '2024-10-17 10:02:50', '2024-10-17 11:16:45', '2024-10-17 10:02:50'),
+	(8, 'Tim Zapfe', 'timzapfe', '$2y$10$n/ib2T3Z35L./onktoFIhODxiv/vRAZYA.995EvRLwn4A2VC9LfZO', NULL, 8, 1, 'true', '2024-10-17 10:03:43', '2024-10-17 11:16:46', '2024-10-17 10:03:43');
 
 -- Exportiere Struktur von Tabelle temperatur.user_settings
 DROP TABLE IF EXISTS `user_settings`;
@@ -525,10 +543,12 @@ CREATE TABLE IF NOT EXISTS `user_settings` (
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `user_settings_users` (`user_id`),
+  CONSTRAINT `user_settings_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COMMENT='Nutzereinstellungen';
 
--- Exportiere Daten aus Tabelle temperatur.user_settings: ~2 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.user_settings: ~3 rows (ungefähr)
 DELETE FROM `user_settings`;
 INSERT INTO `user_settings` (`id`, `user_id`, `language`, `imperial_system`, `darkmode`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 4, 'ru', 'c', 'true', 'true', '2024-10-17 08:49:04', '2024-10-17 08:47:59'),
