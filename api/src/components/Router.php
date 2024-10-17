@@ -52,7 +52,11 @@ class Router extends BaseComponent
 
         // call action
         $actionName = $this->urlParts['action'];
-        $classObject->$actionName();
+        $result = $classObject->$actionName();
+
+        if (!empty($result)) {
+            ResultHelper::render($result);
+        }
 
         // usually the action should have returned something so this code should not be reached.
         ResultHelper::render([

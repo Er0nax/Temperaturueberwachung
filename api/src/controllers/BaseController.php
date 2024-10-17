@@ -4,7 +4,6 @@ namespace src\controllers;
 
 use src\components\Entry;
 use src\helpers\BaseHelper;
-use src\helpers\FileHelper;
 use src\helpers\ResultHelper;
 
 /**
@@ -15,6 +14,7 @@ use src\helpers\ResultHelper;
  */
 class BaseController
 {
+    protected Entry $entry;
     protected array $params = [];
     protected int $userId = 0;
     protected array $defaultConfig = [
@@ -29,6 +29,7 @@ class BaseController
     public function __construct(array $params)
     {
         $this->params = $params;
+        $this->entry = new Entry();
 
         if (!empty($this->params['token'])) {
             $tokenInfo = $this->checkToken($this->params['token']);
@@ -155,7 +156,7 @@ class BaseController
         $entry->update('api_tokens', ['uses' => ($info['uses'] + 1)], ['token' => $token]);
 
         // get user info
-        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system']])
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system', 'darkmode']])
             ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
             ->where(['users' => [['id', $info['user_id']]]])
             ->one();

@@ -73,7 +73,7 @@ class UserController extends BaseController
         }
 
         // fetch full user information
-        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system']])
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system', 'darkmode']])
             ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
             ->where(['users' => [['username', $username]]])
             ->one();
@@ -191,7 +191,7 @@ class UserController extends BaseController
         $entry->insert('user_settings', ['user_id' => $userId]);
 
         // fetch the user
-        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system']])
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system', 'darkmode']])
             ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
             ->where(['users' => [['username', $username]]])
             ->one();
