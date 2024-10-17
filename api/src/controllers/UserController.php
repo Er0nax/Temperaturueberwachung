@@ -31,9 +31,6 @@ class UserController extends BaseController
         $username = $this->getParam(0, 'username');
         $password = $this->getParam(1, 'password');
 
-        // default config
-        $config = ['translate' => true];
-
         // username given?
         if (empty($username)) {
             ResultHelper::render([
@@ -76,10 +73,17 @@ class UserController extends BaseController
         }
 
         // fetch full user information
-        $user = $entry->columns(['users' => ['*']])
-            ->tables(['users'])
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system']])
+            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
             ->where(['users' => [['username', $username]]])
             ->one();
+
+        // user found?
+        if (empty($user)) {
+            ResultHelper::render([
+                'message' => 'Could not find your user information.'
+            ], 404, $this->defaultConfig);
+        }
 
         // user active
         if (!$user['active']) {
@@ -88,6 +92,7 @@ class UserController extends BaseController
             ], 500, $this->defaultConfig);
         }
 
+        // set password and token
         $user['password'] = $password;
         $user['token'] = UserHelper::getApiToken($user['id']);
         $_SESSION['token'] = $user['token'];
@@ -97,7 +102,7 @@ class UserController extends BaseController
 
         // return user
         ResultHelper::render([
-            'msg' => ResultHelper::t('Welcome back, {username}', ['username' => $userInfo['username']]),
+            'message' => ResultHelper::t('Welcome back, {username}', ['username' => $userInfo['username']]),
             'info' => $user
         ]);
     }
@@ -182,12 +187,16 @@ class UserController extends BaseController
             ], 500, $this->defaultConfig);
         }
 
+        // insert user_settings
+        $entry->insert('user_settings', ['user_id' => $userId]);
+
         // fetch the user
-        $user = $entry->columns(['users' => ['*']])
-            ->tables(['users'])
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system']])
+            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
             ->where(['users' => [['username', $username]]])
             ->one();
 
+        // set password and token
         $user['password'] = $password;
         $user['token'] = UserHelper::getApiToken($user['id']);
         $_SESSION['token'] = $user['token'];

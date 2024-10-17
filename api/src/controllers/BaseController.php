@@ -155,7 +155,7 @@ class BaseController
         $entry->update('api_tokens', ['uses' => ($info['uses'] + 1)], ['token' => $token]);
 
         // get user info
-        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['*']])
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system']])
             ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
             ->where(['users' => [['id', $info['user_id']]]])
             ->one();

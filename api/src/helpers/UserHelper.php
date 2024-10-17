@@ -79,6 +79,6 @@ class UserHelper extends BaseHelper
     public static function generateSnowflake(string $username): array|string|null
     {
         // Use a regular expression to allow only letters, numbers, and underscores
-        return preg_replace('/[^a-zA-Z0-9_]/', '', $username);
+        return strtolower(preg_replace('/[^a-zA-Z0-9_]/', '', $username));
     }
 }
