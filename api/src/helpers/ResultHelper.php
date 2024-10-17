@@ -19,7 +19,7 @@ class ResultHelper extends BaseHelper
      */
     public static function render(mixed $data, int $status = 200, array $config = []): void
     {
-        self::setHeader();
+        self::setHeader($status);
 
         $config = array_merge(Config::getConfig('api', []), $config);
 
@@ -70,8 +70,9 @@ class ResultHelper extends BaseHelper
      * @return void
      * @author Tim Zapfe
      */
-    private static function setHeader(): void
+    private static function setHeader(int $status): void
     {
         header('Content-Type: application/json');
+        http_response_code($status);
     }
 }

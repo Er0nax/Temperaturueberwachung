@@ -204,7 +204,7 @@ class BaseController
             // return error
             ResultHelper::render([
                 'message' => 'Your provided token seems to be wrong.'
-            ], 404, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // set user id and return it
