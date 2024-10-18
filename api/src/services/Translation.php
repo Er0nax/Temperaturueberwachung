@@ -57,6 +57,14 @@ class Translation extends BaseService
         return 'en';
     }
 
+    /**
+     * Returns boolean whether a language is valid or not.
+     * @param mixed $lang
+     * @return bool
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 17.10.2024
+     */
     private function validLanguage(mixed $lang): bool
     {
         $validLangs = Config::getConfig('langs', ['en']);

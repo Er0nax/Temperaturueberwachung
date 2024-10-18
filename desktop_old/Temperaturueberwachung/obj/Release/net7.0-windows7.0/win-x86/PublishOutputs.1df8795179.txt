@@ -1,0 +1,5 @@
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Temperaturueberwachung.pdb
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\assets\images\logo.ico
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Properties\config.settings
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Temperaturueberwachung.dll.config
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Temperaturueberwachung.exe

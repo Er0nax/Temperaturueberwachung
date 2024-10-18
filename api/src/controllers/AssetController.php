@@ -42,7 +42,7 @@ class AssetController extends BaseController
                     'width (optional)' => 'The width of the displayed image in pixels.',
                     'height (optional)' => 'The height of the displayed image in pixels.',
                 ]
-            ], 500, $this->defaultConfig);
+            ], 406, $this->defaultConfig);
         }
     }
 
@@ -61,13 +61,13 @@ class AssetController extends BaseController
         if (empty($info['filename']) || empty($info['extension'])) {
             ResultHelper::render([
                 'info' => 'Please provide a valid name with the extension for the asset.'
-            ], 500, $this->defaultConfig);
+            ], 406, $this->defaultConfig);
         }
 
         if (!in_array($info['extension'], ['jpg', 'jpeg', 'png', 'gif', 'mp4', 'zip', 'rar', 'pdf', 'mp4', 'mp3', 'webp'])) {
             ResultHelper::render([
                 'info' => 'Your asset extension is not valid.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // set values
@@ -87,9 +87,6 @@ class AssetController extends BaseController
      */
     #[NoReturn] public function actionImage(): void
     {
-        var_dump(ResultHelper::t('Seems like nothing was returned.'));
-        die();
-
         // set information
         $this->requireInfo();
 

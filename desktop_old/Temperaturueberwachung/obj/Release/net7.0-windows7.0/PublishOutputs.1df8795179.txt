@@ -1,0 +1,8 @@
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Properties\config.settings
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Temperaturueberwachung.exe
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Temperaturueberwachung.dll
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Temperaturueberwachung.deps.json
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Temperaturueberwachung.runtimeconfig.json
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Temperaturueberwachung.dll.config
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Temperaturueberwachung.pdb
+C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\Newtonsoft.Json.dll

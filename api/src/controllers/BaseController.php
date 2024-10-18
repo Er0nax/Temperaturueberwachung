@@ -4,7 +4,6 @@ namespace src\controllers;
 
 use src\components\Entry;
 use src\helpers\BaseHelper;
-use src\helpers\FileHelper;
 use src\helpers\ResultHelper;
 
 /**
@@ -15,6 +14,7 @@ use src\helpers\ResultHelper;
  */
 class BaseController
 {
+    protected Entry $entry;
     protected array $params = [];
     protected int $userId = 0;
     protected array $defaultConfig = [
@@ -29,6 +29,7 @@ class BaseController
     public function __construct(array $params)
     {
         $this->params = $params;
+        $this->entry = new Entry();
 
         if (!empty($this->params['token'])) {
             $tokenInfo = $this->checkToken($this->params['token']);
@@ -112,14 +113,19 @@ class BaseController
     {
         $param = $default;
 
-        // check if index is given / and it can use the index
+        // check if index is set / and it can use the index
         if (isset($this->params[$index]) && !$mustBeName) {
             $param = $this->params[$index];
         }
 
-        // check if is given by name
+        // check if is given by name and its set
         if (!empty($name) && isset($this->params[$name])) {
             $param = $this->params[$name];
+        }
+
+        // check if the param is given and not empty
+        if (empty($param) && !is_bool($param) && !is_numeric($param)) {
+            $param = $default;
         }
 
         return (is_bool($param)) ? $param : urldecode($param);
@@ -155,7 +161,7 @@ class BaseController
         $entry->update('api_tokens', ['uses' => ($info['uses'] + 1)], ['token' => $token]);
 
         // get user info
-        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['*']])
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system', 'darkmode']])
             ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
             ->where(['users' => [['id', $info['user_id']]]])
             ->one();
@@ -198,7 +204,7 @@ class BaseController
             // return error
             ResultHelper::render([
                 'message' => 'Your provided token seems to be wrong.'
-            ], 404, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // set user id and return it

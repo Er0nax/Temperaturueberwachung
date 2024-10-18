@@ -25,27 +25,24 @@ class UserController extends BaseController
                     'username' => 'The name of the user.',
                     'password' => 'The password of the user.',
                 ]
-            ], 500, $this->defaultConfig);
+            ], 406, $this->defaultConfig);
         }
 
         $username = $this->getParam(0, 'username');
         $password = $this->getParam(1, 'password');
 
-        // default config
-        $config = ['translate' => true];
-
         // username given?
         if (empty($username)) {
             ResultHelper::render([
                 'message' => 'Invalid username provided.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // check if password is given
         if (empty($password)) {
             ResultHelper::render([
                 'message' => 'Invalid password provided.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // check if username exists
@@ -59,7 +56,7 @@ class UserController extends BaseController
         if (!$usernameExists) {
             ResultHelper::render([
                 'message' => 'Username not found.'
-            ], 500, $this->defaultConfig);
+            ], 404, $this->defaultConfig);
         }
 
         // fetch password
@@ -72,22 +69,30 @@ class UserController extends BaseController
         if (!$passwordCorrect) {
             ResultHelper::render([
                 'message' => 'Your password is not correct.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // fetch full user information
-        $user = $entry->columns(['users' => ['*']])
-            ->tables(['users'])
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system', 'darkmode']])
+            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
             ->where(['users' => [['username', $username]]])
             ->one();
+
+        // user found?
+        if (empty($user)) {
+            ResultHelper::render([
+                'message' => 'Could not find your user information.'
+            ], 404, $this->defaultConfig);
+        }
 
         // user active
         if (!$user['active']) {
             ResultHelper::render([
                 'message' => 'Your account is not active.'
-            ], 500, $this->defaultConfig);
+            ], 200, $this->defaultConfig);
         }
 
+        // set password and token
         $user['password'] = $password;
         $user['token'] = UserHelper::getApiToken($user['id']);
         $_SESSION['token'] = $user['token'];
@@ -97,7 +102,7 @@ class UserController extends BaseController
 
         // return user
         ResultHelper::render([
-            'msg' => ResultHelper::t('Welcome back, {username}', ['username' => $userInfo['username']]),
+            'message' => ResultHelper::t('Welcome back, {username}', ['username' => $userInfo['username']]),
             'info' => $user
         ]);
     }
@@ -119,7 +124,7 @@ class UserController extends BaseController
                     'password (index 1)' => 'The password of the user.',
                     'passwordRepeat (index 2)' => 'The repeated password of the user.',
                 ]
-            ], 500, $this->defaultConfig);
+            ], 406, $this->defaultConfig);
         }
 
         // check if username param is given
@@ -131,21 +136,21 @@ class UserController extends BaseController
         if (empty($username)) {
             ResultHelper::render([
                 'message' => 'Invalid username provided.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // check if password is given
         if (empty($password)) {
             ResultHelper::render([
                 'message' => 'Invalid password provided.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // check if passwordRepeat given
         if (empty($passwordRepeat)) {
             ResultHelper::render([
                 'message' => 'Invalid repeated password provided.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // check if username exists
@@ -159,14 +164,14 @@ class UserController extends BaseController
         if ($usernameExists) {
             ResultHelper::render([
                 'message' => 'Username already exists.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // check if password and passwordRepeat not same
         if ($password !== $passwordRepeat) {
             ResultHelper::render([
                 'message' => 'Passwords do not match.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // insert user
@@ -182,12 +187,16 @@ class UserController extends BaseController
             ], 500, $this->defaultConfig);
         }
 
+        // insert user_settings
+        $entry->insert('user_settings', ['user_id' => $userId]);
+
         // fetch the user
-        $user = $entry->columns(['users' => ['*']])
-            ->tables(['users'])
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system', 'darkmode']])
+            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
             ->where(['users' => [['username', $username]]])
             ->one();
 
+        // set password and token
         $user['password'] = $password;
         $user['token'] = UserHelper::getApiToken($user['id']);
         $_SESSION['token'] = $user['token'];
@@ -217,7 +226,7 @@ class UserController extends BaseController
                     'username (optional)' => 'The new username of the user.',
                     'password (optional)' => 'The new password of the user.',
                 ]
-            ], 500, $this->defaultConfig);
+            ], 406, $this->defaultConfig);
         }
 
         // get user id
@@ -240,7 +249,7 @@ class UserController extends BaseController
             if ($entry->exists()) {
                 ResultHelper::render([
                     'message' => 'Username already exists.'
-                ], 500, $this->defaultConfig);
+                ], 400, $this->defaultConfig);
             }
 
             // update username
@@ -258,7 +267,7 @@ class UserController extends BaseController
         if (empty($updates)) {
             ResultHelper::render([
                 'message' => 'Nothing to update.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         // update user
@@ -290,7 +299,7 @@ class UserController extends BaseController
                 'params' => [
                     'id / username / snowflake (index 0)' => 'The ID/username/snowflake of the user.',
                 ]
-            ], 500, $this->defaultConfig);
+            ], 406, $this->defaultConfig);
         }
 
         $userId = $this->getParam(0, 'id');
@@ -300,7 +309,7 @@ class UserController extends BaseController
         if (empty($userId) && empty($username)) {
             ResultHelper::render([
                 'message' => 'Invalid user id or username provided.'
-            ], 500, $this->defaultConfig);
+            ], 400, $this->defaultConfig);
         }
 
         $entry = new Entry();
@@ -315,7 +324,7 @@ class UserController extends BaseController
         if (empty($user)) {
             ResultHelper::render([
                 'message' => 'Could not find any user.'
-            ], 500, $this->defaultConfig);
+            ], 404, $this->defaultConfig);
         }
 
         // unset password
@@ -338,7 +347,7 @@ class UserController extends BaseController
                     'token' => 'Your personal access token.',
                     'all (index 0) (optional) (boolean)' => 'Whether you want to logout all devices or not.'
                 ]
-            ], 500, $this->defaultConfig);
+            ], 406, $this->defaultConfig);
         }
 
         // get user id
@@ -378,7 +387,7 @@ class UserController extends BaseController
                 'params' => [
                     'token' => 'Your personal access token.',
                 ]
-            ], 500, $this->defaultConfig);
+            ], 406, $this->defaultConfig);
         }
 
         // get the token
@@ -389,5 +398,27 @@ class UserController extends BaseController
 
         // return true or false whether the token is valid or not.
         ResultHelper::render($tokenInfo['status']);
+    }
+
+    /**
+     * Returns all users with their avatar and role
+     * @return array|bool|string
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 17.10.2024
+     */
+    public function actionAll(): bool|array|string
+    {
+        $this->entry->reset();
+
+        // get all users
+        return $this->entry->columns([
+            'users' => ['id', 'username', 'snowflake', 'phone', 'last_seen', 'updated_at', 'created_at'],
+            'images' => ["src AS 'avatar'"],
+            'roles' => ["name AS 'role'", 'color']
+        ])->tables(['users',
+            ['images', 'users.avatar_id', 'images.id'],
+            ['roles', 'users.role_id', 'roles.id']
+        ])->order('users.id ASC')->all();
     }
 }
