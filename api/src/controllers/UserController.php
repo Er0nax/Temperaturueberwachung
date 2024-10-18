@@ -12,6 +12,28 @@ use src\helpers\UserHelper;
 class UserController extends BaseController
 {
     /**
+     * Returns the query to select a user with role and avatar without password
+     * @return Entry
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 18.10.2024
+     */
+    private function getUserQuery(): Entry
+    {
+        $entry = new Entry();
+
+        return $entry->columns(['users' => ['id', 'username', 'snowflake', 'phone', 'active', 'last_seen', 'created_at', 'updated_at'],
+            'user_settings' => ['language', 'imperial_system', 'darkmode'],
+            'images' => ["src AS 'avatar'"],
+            'roles' => ["name AS 'role_name'", "color AS 'role_color'"]
+        ])->tables(['users',
+            ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT'],
+            ['images', 'users.avatar_id', 'images.id', 'LEFT'],
+            ['roles', 'users.role_id', 'roles.id', 'LEFT']
+        ]);
+    }
+
+    /**
      * Gets two inputs (username, password) and returns user id when success or error with message
      * @return void
      * @author Tim Zapfe
@@ -73,10 +95,7 @@ class UserController extends BaseController
         }
 
         // fetch full user information
-        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system', 'darkmode']])
-            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
-            ->where(['users' => [['username', $username]]])
-            ->one();
+        $user = $this->getUserQuery()->where(['users' => [['username', $username]]])->one();
 
         // user found?
         if (empty($user)) {
@@ -174,11 +193,15 @@ class UserController extends BaseController
             ], 400, $this->defaultConfig);
         }
 
+        // insert avatar
+        $avatarId = $entry->insert('images', ['src' => 'default.png'], false);
+
         // insert user
         $userId = $entry->insert('users', [
             'username' => $username,
             'password' => password_hash($password, PASSWORD_DEFAULT),
-            'snowflake' => UserHelper::generateSnowflake($username)
+            'snowflake' => UserHelper::generateSnowflake($username),
+            'avatar_id' => $avatarId
         ]);
 
         if (!is_numeric($userId)) {
@@ -191,10 +214,7 @@ class UserController extends BaseController
         $entry->insert('user_settings', ['user_id' => $userId]);
 
         // fetch the user
-        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system', 'darkmode']])
-            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
-            ->where(['users' => [['username', $username]]])
-            ->one();
+        $user = $this->getUserQuery()->where(['users' => [['username', $username]]])->one();
 
         // set password and token
         $user['password'] = $password;
@@ -203,7 +223,7 @@ class UserController extends BaseController
 
         ResultHelper::render([
             'message' => 'Account created successfully.',
-            'user' => $user
+            'info' => $user
         ], 200, $this->defaultConfig);
     }
 
@@ -315,8 +335,7 @@ class UserController extends BaseController
         $entry = new Entry();
 
         // fetch full user information
-        $user = $entry->columns(['users' => ['*']])
-            ->tables(['users'])
+        $user = $this->getUserQuery()
             ->where(['users' => [['username', $username], ['id', $userId], ['snowflake', $snowflake]]], 'OR')
             ->one();
 
@@ -412,13 +431,6 @@ class UserController extends BaseController
         $this->entry->reset();
 
         // get all users
-        return $this->entry->columns([
-            'users' => ['id', 'username', 'snowflake', 'phone', 'last_seen', 'updated_at', 'created_at'],
-            'images' => ["src AS 'avatar'"],
-            'roles' => ["name AS 'role'", 'color']
-        ])->tables(['users',
-            ['images', 'users.avatar_id', 'images.id'],
-            ['roles', 'users.role_id', 'roles.id']
-        ])->order('users.id ASC')->all();
+        return $this->getUserQuery()->order('users.id ASC')->all();
     }
 }
