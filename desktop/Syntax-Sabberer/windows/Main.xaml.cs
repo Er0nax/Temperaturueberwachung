@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Syntax_Sabberer.classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,24 +25,20 @@ namespace Syntax_Sabberer.windows
         public Main()
         {
             InitializeComponent();
+
+            // set username label
+            usernameLabel.Content = Properties.Settings.Default.username;
+
+            // set user avatar
+            string avatar = Properties.Settings.Default.avatar;
+            string avatarUrl = Properties.Settings.Default.apiUrl + $"asset/image?src={avatar}&type=avatar&height=30";
+            user_avatar.ImageSource = new BitmapImage(new Uri(avatarUrl));
         }
 
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private void usernameLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
-            string url = "http://localhost/temperaturueberwachung/api/web/translation/translate";
-            var postParameters = new Dictionary<string, string>
-    {
-        { "t", "Welcome back, {username}" },
-        { "username", "Tim" }
-    };
-
-            string response = await ApiHelper.PostAsync(url, postParameters);
-
-            if (response != null)
-            {
-               MessageBox.Show("API Response: " + response);
-            }
+            Settings settings = new Settings();
+            settings.Show();
         }
     }
 }
