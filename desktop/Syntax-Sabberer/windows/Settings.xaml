@@ -18,17 +18,114 @@
     <Grid>
 
         <Grid x:Name='Grid'>
+            <ScrollViewer x:Name='content'>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height='*' />
-            </Grid.RowDefinitions>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
 
-            <ScrollViewer x:Name='content'
-                          Grid.Row='1'>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
+                    <Grid Grid.Column='0'
+                          Grid.Row='0'>
+
+                        <StackPanel VerticalAlignment='Center'
+                                    Margin='30 10 30 10'>
+                            
+                            <Label Content='API URL:'
+                                   FontWeight='Bold'
+                                   Foreground='White'/>
+                            
+                            <Border BorderBrush='LightBlue'
+                                    BorderThickness='0 0 0 1'
+                                    Padding='5'>
+                                
+                                <TextBlock x:Name='apiUrlInput' 
+                                           Text='http://localhost/temperaturueberwachung/web'
+                                           Foreground='White'/>
+                            
+                            </Border>
+                            
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid Grid.Column='1'
+                          Grid.Row='0'>
+
+                        <StackPanel VerticalAlignment='Center'
+                                    Margin='30 10 30 10'>
+
+                            <Label Content='Imperial System:'
+                                   FontWeight='Bold'
+                                   Foreground='White' />
+
+                            <Border BorderBrush='LightBlue'
+                                    BorderThickness='0 0 0 1'
+                                    Padding='5'>
+
+                                <ComboBox>
+                                    <ComboBoxItem IsSelected="True"
+                                                  Content='Celsius' />
+
+                                    <ComboBoxItem Content='Fahrenheit' />
+
+                                    <ComboBoxItem Content='Kelvin' />
+                                </ComboBox> 
+
+                            </Border>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Border x:Name='saveBtn'
+                            Grid.Row='90'
+                            Grid.Column='90'
+                            Height='30'
+                            Width='100'
+                            HorizontalAlignment='Right'
+                            Margin='0 0 50 0'
+                            Cursor='Hand'
+                            CornerRadius='5'
+                            BorderBrush='LightBlue'
+                            BorderThickness='1'>
+
+                        <Border.Background>
+                            <LinearGradientBrush EndPoint='1,1'
+                                                 StartPoint='0,0'>
+                                <GradientStop Color='#FF4F7B2B' />
+                                <GradientStop Color='#FF0FB56D'
+                                              Offset='1' />
+                            </LinearGradientBrush>
+                        </Border.Background>
+
+                        <Border.Effect>
+                            <DropShadowEffect BlurRadius='10'
+                                              Opacity='0.5' />
+                        </Border.Effect>
+
+                        <Label Content='Save'
+                               Foreground='White'
+                               HorizontalContentAlignment='Center'
+                               VerticalContentAlignment='Center' />
+
+                    </Border>
+
+                </Grid>
+                
             </ScrollViewer>
-
         </Grid>
-
     </Grid>
 </Window>
