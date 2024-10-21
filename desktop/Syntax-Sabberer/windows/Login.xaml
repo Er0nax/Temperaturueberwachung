@@ -10,8 +10,7 @@
         Width="300"
         WindowStartupLocation='CenterScreen'
         ResizeMode='CanMinimize'
-        Background='#111111'
-        Loaded='Window_Loaded'>
+        Background='#111111'>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height='30'/>
