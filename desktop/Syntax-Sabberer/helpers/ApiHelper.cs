@@ -2,13 +2,8 @@
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
 
 namespace YourNamespace
 {
@@ -100,7 +95,7 @@ namespace YourNamespace
 
                 return apiResult;
             }
-            catch (HttpRequestException e)
+            catch (Exception e)
             {
                 // Return default error ApiResponse
                 return apiResponse.getInstance(500, false, "Could not fetch information from the API!");
@@ -110,7 +105,7 @@ namespace YourNamespace
         // returns the data as readable string
         public static dynamic get(JObject json, dynamic key = null, dynamic _default = null)
         {
-            if(key == null)
+            if (key == null)
             {
                 return json.ToString();
             }
@@ -122,7 +117,7 @@ namespace YourNamespace
             }
 
             // If the key doesn't exist or the value is null, return the default value
-            if(_default == null)
+            if (_default == null)
             {
                 return "";
             }
@@ -145,6 +140,16 @@ namespace YourNamespace
             this.status = status;
             this.cached = cached;
             this.response = response;
+
+            // If the response is a string, wrap it in an object with a message property
+            if (response is string message)
+            {
+                this.response = new { message = message }; // Create an anonymous object with a message property
+            }
+            else
+            {
+                this.response = response;
+            }
 
             // return this object
             return this;

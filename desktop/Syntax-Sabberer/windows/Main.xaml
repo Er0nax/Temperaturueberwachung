@@ -82,7 +82,8 @@
                             <RowDefinition />
                         </Grid.RowDefinitions>
 
-                        <Border Grid.Row='0'
+                        <Border x:Name='card' 
+                                Grid.Row='0'
                                 Grid.Column='0'
                                 Background='#232323'
                                 CornerRadius='10'

@@ -46,17 +46,23 @@
                             <Label Content='API URL:'
                                    FontWeight='Bold'
                                    Foreground='White'/>
-                            
+                           
                             <Border BorderBrush='LightBlue'
-                                    BorderThickness='0 0 0 1'
-                                    Padding='5'>
-                                
-                                <TextBlock x:Name='apiUrlInput' 
-                                           Text='http://localhost/temperaturueberwachung/web'
-                                           Foreground='White'/>
-                            
+                                    Padding='5'
+                                    BorderThickness='0 0 0 1'>
+
+                                <TextBox x:Name='apiUrlInput'
+                                         BorderBrush='{x:Null}'
+                                         Background='{x:Null}'
+                                         Foreground='White'
+                                         HorizontalContentAlignment='Left'
+                                         VerticalContentAlignment='Center'
+                                         Text='api-url-text'
+                                         SelectionBrush='White'
+                                         CaretBrush='White' />
+
                             </Border>
-                            
+
                         </StackPanel>
 
                     </Grid>
@@ -116,10 +122,12 @@
                                               Opacity='0.5' />
                         </Border.Effect>
 
-                        <Label Content='Save'
+                        <Label x:Name='btnSave' 
+                               Content='Save'
                                Foreground='White'
                                HorizontalContentAlignment='Center'
-                               VerticalContentAlignment='Center' />
+                               VerticalContentAlignment='Center'
+                               MouseDown='btnSave_MouseDown' />
 
                     </Border>
 

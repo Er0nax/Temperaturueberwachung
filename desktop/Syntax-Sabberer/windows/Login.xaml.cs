@@ -23,6 +23,9 @@ namespace Syntax_Sabberer.windows
         public Login()
         {
             InitializeComponent();
+
+            usernameInput.Text = Properties.Settings.Default.username ?? "Username";
+            passwordInput.Password = Properties.Settings.Default.password ?? "password";
         }
 
         private async void loginBtn_MouseDown(object sender, MouseButtonEventArgs e)
@@ -79,7 +82,7 @@ namespace Syntax_Sabberer.windows
             Properties.Settings.Default.Save();
 
             // show error message as its just a string
-            MessageBox.Show(result.response.message.Value.ToString());
+            MessageBox.Show(result.response.message.ToString());
         }
 
         // Open the mainwindow and close this one

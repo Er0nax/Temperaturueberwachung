@@ -45,16 +45,15 @@
                 Grid.ColumnSpan='2'
                 BorderBrush='LightBlue'
                 BorderThickness='0 0 0 1'
-                CornerRadius='5'
                 Margin='50 10 50 10'>
 
-            <TextBox x:Name='usernameInput' 
+            <TextBox x:Name='usernameInput'
+                     Text='Tim'
                      BorderBrush='{x:Null}'
                      Background='{x:Null}'
                      Foreground='White'
                      HorizontalContentAlignment='Center'
                      VerticalContentAlignment='Center'
-                     Text='Tim'
                      SelectionBrush='White'
                      CaretBrush='White' />
 
@@ -64,7 +63,6 @@
                 Grid.ColumnSpan='2'
                 BorderBrush='LightBlue'
                 BorderThickness='0 0 0 1'
-                CornerRadius='5'
                 Margin='50 10 50 10'>
 
             <PasswordBox x:Name='passwordInput' 
