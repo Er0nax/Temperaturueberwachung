@@ -8,21 +8,32 @@
     <style>
         .circle-container {
             width: 200px;
-            height: 200px;
-            border-radius: 50%;
+            height: 100px;
+            border-radius: 200px 200px 0 0;
             background-color: #eee;
+            z-index: 10;
             position: relative;
         }
 
         .my-circle {
             width: 150px;
-            height: 150px;
-            border-radius: 50%;
+            height: 75px;
+            border-radius: 200px 200px 0 0;
             background-color: white; /* Ändere die Farbe nach Bedarf */
-            position: absolute;
+            z-index: 100;
             top: 25px;
             left: 25px;
+            position: absolute;
             /* mask-image: conic-gradient(from -90deg, white, white 180deg, transparent 180deg, transparent 360deg) */
+        }
+
+        .circle-temp{
+          width: 200px;
+          height: 100px;
+          border-radius: 200px 200px 0 0;
+          background-color: black;
+          z-index: 50;
+          position: absolute;
         }
 
         p.solid {
@@ -46,6 +57,101 @@
 <body>
 
 <div class="row justify-content-center text-center">
+    <div class="card-border">
+        <div><h5 class="mb-2">Server: </h5>
+            <h6 class="text-body-tertiary">Temperatur</h6>
+        </div>
+
+        <div class="d-flex justify-content-left pt-3 flex-1">
+            <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
+                    height="180"></canvas>
+          <div
+            <div class="circle-container">
+              <div class="circle-temp">
+                <div class="my-circle">
+                </div>
+              </div>
+            </div>
+            <!-- Hier kommt die Grafik rein -->
+          </div>
+
+        <div class="mt-3">
+            <div class="d-flex align-items-center mb-2">
+                <div class="bullet-item bg-primary me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Maximal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">30°C</h6>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="bullet-item bg-primary-subtle me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Minimal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">0°C</h6>
+            </div>
+        </div>
+    </div>
+    <div class="card-border">
+        <div><h5 class="mb-2">Server: </h5>
+            <h6 class="text-body-tertiary">Temperatur</h6>
+        </div>
+
+        <div class="d-flex justify-content-left pt-3 flex-1">
+            <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
+                    height="180"></canvas>
+            <div
+            <div class="circle-container">
+                <div class="my-circle">
+                </div>
+            </div>
+            <!-- Hier kommt die Grafik rein -->
+        </div>
+
+        <div class="mt-3">
+            <div class="d-flex align-items-center mb-2">
+                <div class="bullet-item bg-primary me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Maximal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">30°C</h6>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="bullet-item bg-primary-subtle me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Minimal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">0°C</h6>
+            </div>
+        </div>
+    </div>
+    <div class="card-border">
+        <div><h5 class="mb-2">Server: </h5>
+            <h6 class="text-body-tertiary">Temperatur</h6>
+        </div>
+
+        <div class="d-flex justify-content-left pt-3 flex-1">
+            <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
+                    height="180"></canvas>
+            <div
+            <div class="circle-container">
+                <div class="my-circle">
+                </div>
+            </div>
+            <!-- Hier kommt die Grafik rein -->
+        </div>
+
+        <div class="mt-3">
+            <div class="d-flex align-items-center mb-2">
+                <div class="bullet-item bg-primary me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Maximal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">30°C</h6>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="bullet-item bg-primary-subtle me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Minimal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">0°C</h6>
+            </div>
+        </div>
+    </div>
     <div class="card-border">
         <div><h5 class="mb-2">Server: </h5>
             <h6 class="text-body-tertiary">Temperatur</h6>
@@ -78,9 +184,9 @@
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         // Hole die Elemente mit der Klasse "my-circle"
-        const circles = document.querySelectorAll('.my-circle');
+        const circles = document.querySelectorAll('.circle-temp');
 
         // Wurden Circles gefunden?
         if (circles.length) {
@@ -103,7 +209,7 @@
                 }, 100);
             });
         }
-    </script>
+    </script> -->
 </div>
 </body>
-</html>				
+</html>
