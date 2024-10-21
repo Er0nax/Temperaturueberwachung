@@ -25,6 +25,22 @@ namespace Syntax_Sabberer.windows
         public Settings()
         {
             InitializeComponent();
+
+            // set values
+            apiUrlInput.Text = Properties.Settings.Default.apiUrl;
+        }
+
+        private void btnSave_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            // set new values to settings
+            Properties.Settings.Default.apiUrl = apiUrlInput.Text;
+
+            // save values
+            Properties.Settings.Default.Save();
+
+            // show info
+            MessageBox.Show("New settings saved. Please restart the application to apply the new changes.");
+            this.Close();
         }
     }
 }

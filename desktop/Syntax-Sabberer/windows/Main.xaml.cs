@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -22,6 +23,7 @@ namespace Syntax_Sabberer.windows
     /// </summary>
     public partial class Main : Window
     {
+        public ObservableCollection<Sensor> Sensors { get; set; }
         public Main()
         {
             InitializeComponent();
@@ -33,6 +35,24 @@ namespace Syntax_Sabberer.windows
             string avatar = Properties.Settings.Default.avatar;
             string avatarUrl = Properties.Settings.Default.apiUrl + $"asset/image?src={avatar}&type=avatar&height=30";
             user_avatar.ImageSource = new BitmapImage(new Uri(avatarUrl));
+
+            LoadSensors();
+        }
+
+        private async void LoadSensors()
+        {
+            var apiService = new ApiService();
+            var sensors = await apiService.GetAllSensorsAsync();
+
+            Sensors = new ObservableCollection<Sensor>();
+
+            foreach (Sensor sensor in sensors)
+            {
+                sensor.Name = "test";
+                Sensors.Add(sensor);
+            }
+
+            SensorCards.ItemsSource = Sensors;
         }
 
         private void usernameLabel_MouseDown(object sender, MouseButtonEventArgs e)

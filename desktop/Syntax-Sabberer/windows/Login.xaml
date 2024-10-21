@@ -10,8 +10,7 @@
         Width="300"
         WindowStartupLocation='CenterScreen'
         ResizeMode='CanMinimize'
-        Background='#111111'
-        Loaded='Window_Loaded'>
+        Background='#111111'>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height='30'/>
@@ -45,16 +44,15 @@
                 Grid.ColumnSpan='2'
                 BorderBrush='LightBlue'
                 BorderThickness='0 0 0 1'
-                CornerRadius='5'
                 Margin='50 10 50 10'>
 
-            <TextBox x:Name='usernameInput' 
+            <TextBox x:Name='usernameInput'
+                     Text='Tim'
                      BorderBrush='{x:Null}'
                      Background='{x:Null}'
                      Foreground='White'
                      HorizontalContentAlignment='Center'
                      VerticalContentAlignment='Center'
-                     Text='Tim'
                      SelectionBrush='White'
                      CaretBrush='White' />
 
@@ -64,7 +62,6 @@
                 Grid.ColumnSpan='2'
                 BorderBrush='LightBlue'
                 BorderThickness='0 0 0 1'
-                CornerRadius='5'
                 Margin='50 10 50 10'>
 
             <PasswordBox x:Name='passwordInput' 

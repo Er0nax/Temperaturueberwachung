@@ -10,8 +10,7 @@
         Width="300"
         WindowStartupLocation='CenterScreen'
         ResizeMode='CanMinimize'
-        Background='#111111'
-        Loaded='Window_Loaded'>
+        Background='#111111'>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height='30' />
@@ -46,17 +45,17 @@
                 Grid.ColumnSpan='2'
                 BorderBrush='LightBlue'
                 BorderThickness='0 0 0 1'
-                CornerRadius='5'
                 Margin='50 10 50 10'>
 
             <TextBox x:Name='usernameInput'
+                     Text='Username'
                      BorderBrush='{x:Null}'
                      Background='{x:Null}'
                      Foreground='White'
                      HorizontalContentAlignment='Center'
                      VerticalContentAlignment='Center'
-                     Text='Username'
-                     SelectionBrush='{x:Null}' />
+                     SelectionBrush='White'
+                     CaretBrush='White'  />
 
         </Border>
 
@@ -64,17 +63,17 @@
                 Grid.ColumnSpan='2'
                 BorderBrush='LightBlue'
                 BorderThickness='0 0 0 1'
-                CornerRadius='5'
                 Margin='50 10 50 10'>
 
             <PasswordBox x:Name='passwordInput'
+                         Password='password'
                          BorderBrush='{x:Null}'
                          Background='{x:Null}'
                          Foreground='White'
                          HorizontalContentAlignment='Center'
                          VerticalContentAlignment='Center'
-                         Password='password'
-                         SelectionBrush='{x:Null}' />
+                         SelectionBrush='White'
+                         CaretBrush='White' />
 
         </Border>
 
@@ -82,17 +81,17 @@
                 Grid.ColumnSpan='2'
                 BorderBrush='LightBlue'
                 BorderThickness='0 0 0 1'
-                CornerRadius='5'
                 Margin='50 10 50 10'>
 
             <PasswordBox x:Name='passwordRepeatInput'
+                         Password='password'
                          BorderBrush='{x:Null}'
                          Background='{x:Null}'
                          Foreground='White'
                          HorizontalContentAlignment='Center'
                          VerticalContentAlignment='Center'
-                         Password='password'
-                         SelectionBrush='{x:Null}' />
+                         SelectionBrush='White'
+                         CaretBrush='White' />
 
         </Border>
 
