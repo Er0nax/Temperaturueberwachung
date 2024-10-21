@@ -60,6 +60,13 @@
 
             </Grid>
 
+            <Label x:Name='lastUpdatedLbl' 
+                   Content='Last updated: 20:34 Uhr'
+                   Foreground='DarkGray'
+                   FontSize='16'
+                   HorizontalContentAlignment='Center'
+                   VerticalContentAlignment='Center'/>
+
             <ScrollViewer x:Name='content'
                           Grid.Row='1'>
                 <ItemsControl x:Name="SensorCards"
@@ -91,7 +98,7 @@
                                           Height='150'
                                           Width='150'>
 
-                                        <Ellipse Fill='#FF77F573'>
+                                        <Ellipse Fill='{Binding Fill}'>
                                             <Ellipse.Effect>
                                                 <DropShadowEffect BlurRadius='10'
                                                                   Opacity='0.7' />
@@ -102,25 +109,36 @@
                                                  Margin='25' />
 
                                         <Label Content="{Binding CurrentTemperature}"
-                                               HorizontalAlignment='Center'
-                                               VerticalAlignment='Center'
-                                               Foreground='White'
-                                               FontSize='18'
-                                               FontWeight='Bold' />
+                                               ContentStringFormat=" {0}°C"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="White"
+                                               FontSize="18"
+                                               FontWeight="Bold" />
+
                                     </Grid>
                                     <StackPanel VerticalAlignment='Bottom'
                                                 Margin='10 10 10 10'>
+                                        
                                         <Label Content='{Binding MaxTemp}'
+                                               ContentStringFormat="Max-Temp: {0}°C"
+                                               HorizontalContentAlignment='Center'
                                                Foreground='DarkGray'
                                                Padding='0 0 0 5' />
+                                        
                                         <Label Content="{Binding MinTemp}"
+                                               ContentStringFormat="Min-Temp: {0}°C"
                                                Foreground='DarkGray'
+                                               HorizontalContentAlignment='Center'
                                                Padding='0 0 0 5' />
+                                        
                                         <Label Content="{Binding Name}"
                                                Foreground='DarkGray'
                                                FontWeight='Bold'
+                                               HorizontalContentAlignment='Center'
                                                FontSize='16'
                                                Padding='0 0 0 5' />
+                                        
                                     </StackPanel>
                                 </Grid>
                             </Border>
@@ -131,13 +149,15 @@
 
 
             <Grid x:Name='message'
+                  Visibility='Visible'
                   Grid.Row='2'>
 
                 <Border Margin='20 30 20 30'
                         Background='LightCoral'
                         CornerRadius='10'>
 
-                    <Label Content='Sensor #4 is overheating!'
+                    <Label x:Name='messageContent'
+                           Content='Sensor #4 is overheating!'
                            Foreground='White'
                            FontSize='20'
                            FontWeight='Bold'

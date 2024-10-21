@@ -72,7 +72,7 @@ public class ApiService
 
     public async Task<List<User>> GetAllUsersAsync()
     {
-        var response = await _httpClient.GetAsync("user");
+        var response = await _httpClient.GetAsync("user/all");
 
         if (response != null)
         {
@@ -143,11 +143,12 @@ public class SensorResponse
 public class Sensor
 {
     public int Id { get; set; }
-    public int MaxTemp { get; set; }
-    public int MinTemp { get; set; }
+    public double MaxTemp { get; set; }
+    public double MinTemp { get; set; }
     public string Name { get; set; }
     public string Address { get; set; }
     public string Color { get; set; }
+    public string Fill { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public string Manufacturer { get; set; }
