@@ -9,11 +9,11 @@
 </head>
 <body>
 
-<center> <a href="login.php" class="card_User_Login"> <h4> <b> Login </b> </h4> </a> </center>
+<a href="login.php" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4 card_User_Login"> <h4> Login </h4> </a>
 
 <div class="row justify-content-center text-center">
       <!-- mehrere Leerzeilen -->
-    <p class="text-center mt-5"><b>Temperaturüberwachung WEB</b></p>
+    <p class="text-center mt-3"><b> <h1> Temperaturüberwachung WEB </h1> </b></p>
 
     <div class="card-border mt-4">
         <div><h5 class="mb-2">Server: </h5>
@@ -39,14 +39,64 @@
             <div class="d-flex align-items-center mb-2">
                 <div class="bullet-item bg-primary me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Maximal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
                 <h6 class="text-body fw-semibold mb-0">30°C</h6>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <div class="bullet-item bg-primary-subtle me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">0°C</h6>
             </div>
             <div class="d-flex align-items-center">
                 <div class="bullet-item bg-primary-subtle me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Minimal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">10°C</h6>
+            </div>
+        </div>
+        <div>
+          <a href="temp_history.php" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4 card_User_Temp_history"> <h4> Temperatur Log </h4> </a>
+        </div>
+    </div>
+    <div class="card-border mt-4">
+        <div><h5 class="mb-2">Server: </h5>
+            <h6 class="text-body-tertiary">Temperatur</h6>
+        </div>
+
+        <div class="d-flex justify-content-left pt-3 flex-1">
+            <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
+                    height="180"></canvas>
+            <div
+            <div class="circle-container">
+                <div class="circle-temp">
+                </div>
+                <div class="my-circle">
+                    <h1 class="Temp_Text"> 37 °C </h1>
+                </div>
+                <div class="circle-container-bottom">
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 Max_Min_Temp">
+            <div class="d-flex align-items-center mb-2">
+                <div class="bullet-item bg-primary me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">30°C</h6>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <div class="bullet-item bg-primary-subtle me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
                 <h6 class="text-body fw-semibold mb-0">0°C</h6>
+            </div>
+            <div class="d-flex align-items-center">
+                <div class="bullet-item bg-primary-subtle me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">10°C</h6>
             </div>
         </div>
     </div>
@@ -74,14 +124,20 @@
             <div class="d-flex align-items-center mb-2">
                 <div class="bullet-item bg-primary me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Maximal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
                 <h6 class="text-body fw-semibold mb-0">30°C</h6>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <div class="bullet-item bg-primary-subtle me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">0°C</h6>
             </div>
             <div class="d-flex align-items-center">
                 <div class="bullet-item bg-primary-subtle me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Minimal Temperatur: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">0°C</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">10°C</h6>
             </div>
         </div>
     </div>
@@ -109,14 +165,20 @@
             <div class="d-flex align-items-center mb-2">
                 <div class="bullet-item bg-primary me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Maximal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
                 <h6 class="text-body fw-semibold mb-0">30°C</h6>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <div class="bullet-item bg-primary-subtle me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">0°C</h6>
             </div>
             <div class="d-flex align-items-center">
                 <div class="bullet-item bg-primary-subtle me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Minimal Temperatur: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">0°C</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">10°C</h6>
             </div>
         </div>
     </div>
@@ -144,14 +206,20 @@
             <div class="d-flex align-items-center mb-2">
                 <div class="bullet-item bg-primary me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Maximal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
                 <h6 class="text-body fw-semibold mb-0">30°C</h6>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <div class="bullet-item bg-primary-subtle me-2">
+                </div>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">0°C</h6>
             </div>
             <div class="d-flex align-items-center">
                 <div class="bullet-item bg-primary-subtle me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Minimal Temperatur: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">0°C</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">10°C</h6>
             </div>
         </div>
     </div>
@@ -179,49 +247,20 @@
             <div class="d-flex align-items-center mb-2">
                 <div class="bullet-item bg-primary me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Maximal Temperatur: &nbsp</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
                 <h6 class="text-body fw-semibold mb-0">30°C</h6>
             </div>
-            <div class="d-flex align-items-center">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Minimal Temperatur: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">0°C</h6>
-            </div>
-        </div>
-    </div>
-    <div class="card-border mt-4">
-        <div><h5 class="mb-2">Server: </h5>
-            <h6 class="text-body-tertiary">Temperatur</h6>
-        </div>
-
-        <div class="d-flex justify-content-left pt-3 flex-1">
-            <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
-                    height="180"></canvas>
-            <div
-            <div class="circle-container">
-                <div class="circle-temp">
-                </div>
-                <div class="my-circle">
-                    <h1 class="Temp_Text"> 37 °C </h1>
-                </div>
-                <div class="circle-container-bottom">
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3 Max_Min_Temp">
             <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary me-2">
+                <div class="bullet-item bg-primary-subtle me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Maximal Temperatur: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">30°C</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">0°C</h6>
             </div>
             <div class="d-flex align-items-center">
                 <div class="bullet-item bg-primary-subtle me-2">
                 </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Minimal Temperatur: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">0°C</h6>
+                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
+                <h6 class="text-body fw-semibold mb-0">10°C</h6>
             </div>
         </div>
     </div>
