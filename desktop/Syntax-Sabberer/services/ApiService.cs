@@ -44,7 +44,7 @@ public class ApiService
             { "username", username },
             { "password", password },
             { "passwordRepeat", passwordRepeat }
-        }); 
+        });
         var response = await _httpClient.PostAsync("user/register", content);
 
         if (response != null)
@@ -62,9 +62,16 @@ public class ApiService
 
         if (response != null)
         {
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<SensorResponse>(jsonResponse);
-            return result.Response;
+            try
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<SensorResponse>(jsonResponse);
+                return result.Response;
+            }
+            catch (Exception e)
+            {
+                // error
+            }
         }
 
         throw new Exception("Failed to retrieve sensors");

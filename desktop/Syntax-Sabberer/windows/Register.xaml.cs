@@ -78,7 +78,7 @@ namespace Syntax_Sabberer.windows
         // Open the mainwindow and close this one
         private void showMainWindow()
         {
-            Main main = new Main();
+            SensorsWindow main = new SensorsWindow();
             main.Show();
             this.Close();
         }

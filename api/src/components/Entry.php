@@ -743,21 +743,35 @@ class Entry extends BaseComponent
     {
         // table given?
         if (empty($table)) {
+
+            // set error
+            $message = 'Unknown table while inserting into db.';
             if ($dump) {
                 ResultHelper::render([
-                    'message' => 'Unknown table while inserting into db.'
+                    'message' => $message
                 ], 500, ['translate' => true]);
             }
+
+            // set to session
+            $_SESSION['entry']['error'] = $message;
+
             return false;
         }
 
         // values given?
         if (empty($keysAndValues)) {
+
+            // set error
+            $message = 'Unknown keys and values while inserting into db.';
             if ($dump) {
                 ResultHelper::render([
-                    'message' => 'Unknown keys and values while inserting into db.'
+                    'message' => $message
                 ], 500, ['translate' => true]);
             }
+
+            // set to session
+            $_SESSION['entry']['error'] = $message;
+
             return false;
         }
 
@@ -767,11 +781,18 @@ class Entry extends BaseComponent
         foreach ($keysAndValues as $key => $value) {
             // does key do not have a valid name?
             if (is_numeric($key)) {
+
+                // set error
+                $message = 'key "' . $key . '" with value "' . $value . '" is not valid!';
                 if ($dump) {
                     ResultHelper::render([
-                        'message' => 'key "' . $key . '" with value "' . $value . '" is not valid!'
+                        'message' => $message
                     ], 500);
                 }
+
+                // set to session
+                $_SESSION['entry']['error'] = $message;
+
                 return false;
             }
 
@@ -802,11 +823,17 @@ class Entry extends BaseComponent
 
             // entry found?
             if ($exists) {
+
+                // set error
+                $message = 'row already exists while inserting into db.';
                 if ($dump) {
                     ResultHelper::render([
-                        'message' => 'row already exists while inserting into db.'
+                        'message' => $message
                     ], 500, ['translate' => true]);
                 }
+
+                // set to session
+                $_SESSION['entry']['error'] = $message;
 
                 $IdOfExistingRow = $existingRowQuery->one();
                 if (is_numeric($IdOfExistingRow['id'])) {
@@ -847,11 +874,18 @@ class Entry extends BaseComponent
 
             return $this->con->lastInsertId();
         } catch (PDOException $e) {
+
+            // set error
+            $message = $e->getMessage();
             if ($dump) {
                 ResultHelper::render([
-                    'message' => $e->getMessage()
+                    'message' => $message
                 ], 500);
             }
+
+            // set to session
+            $_SESSION['entry']['error'] = $message;
+
             return false;
         }
     }

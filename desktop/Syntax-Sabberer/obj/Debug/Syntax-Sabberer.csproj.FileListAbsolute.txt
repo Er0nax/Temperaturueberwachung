@@ -3,7 +3,6 @@ C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\Settings.g.cs
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\Register.g.cs
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\Login.g.cs
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\Main.g.cs
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\App.g.cs
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer_MarkupCompile.cache
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer_MarkupCompile.lref
@@ -15,7 +14,6 @@ C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Newtons
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\Settings.baml
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\Register.baml
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\Login.baml
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\Main.baml
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.g.resources
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax_Sabberer.Properties.Resources.resources
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.csproj.GenerateResource.cache
@@ -23,3 +21,7 @@ C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.csproj.CopyComplete
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.exe
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.pdb
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\SensorsWindow.g.cs
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\SensorsWindow.baml
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\UsersWindow.g.cs
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\UsersWindow.baml

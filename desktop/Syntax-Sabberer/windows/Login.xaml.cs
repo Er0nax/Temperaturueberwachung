@@ -23,8 +23,14 @@ namespace Syntax_Sabberer.windows
         {
             InitializeComponent();
 
-            usernameInput.Text = Properties.Settings.Default.username ?? "Username";
-            passwordInput.Password = Properties.Settings.Default.password ?? "password";
+            string username = Properties.Settings.Default.username;
+            string password = Properties.Settings.Default.password;
+
+            if (username != String.Empty && password != String.Empty)
+            {
+                usernameInput.Text = username ?? "Username";
+                passwordInput.Password = password ?? "password";
+            }
         }
 
         private async void loginBtn_MouseDown(object sender, MouseButtonEventArgs e)
@@ -81,7 +87,7 @@ namespace Syntax_Sabberer.windows
         // Open the mainwindow and close this one
         private void showMainWindow()
         {
-            Main main = new Main();
+            SensorsWindow main = new SensorsWindow();
             main.Show();
             this.Close();
         }

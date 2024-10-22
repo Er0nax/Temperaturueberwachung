@@ -23,12 +23,12 @@ namespace Syntax_Sabberer.windows
     /// <summary>
     /// Interaktionslogik für Main.xaml
     /// </summary>
-    public partial class Main : Window
+    public partial class SensorsWindow : Window
     {
         public ObservableCollection<Sensor> Sensors { get; set; }
         private Timer _timer;
 
-        public Main()
+        public SensorsWindow()
         {
             InitializeComponent();
 
@@ -125,6 +125,34 @@ namespace Syntax_Sabberer.windows
         {
             Settings settings = new Settings();
             settings.Show();
+        }
+
+        private void logoutBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Properties.Settings.Default.username = null;
+            Properties.Settings.Default.password = null;
+            Properties.Settings.Default.logged_in = false;
+            Properties.Settings.Default.Save();
+
+            Environment.Exit(0);
+        }
+
+        private void usersBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            UsersWindow users = new UsersWindow();
+            users.Show();
+            this.Close();
+        }
+
+        private void settingsBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Settings settings = new Settings();
+            settings.Show();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _timer.Stop();
         }
     }
 }
