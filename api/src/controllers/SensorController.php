@@ -147,4 +147,60 @@ class SensorController extends BaseController
             'message' => ResultHelper::t('Successfully inserted {loops}x temperatures for all sensors.', ['loops' => $loops])
         ], 200, ['translate' => false]);
     }
+
+    /**
+     * Updates a sensors max and min temp
+     * @return void
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 22.10.2024
+     */
+    public function actionUpdateSensor(): void
+    {
+        $userId = $this->requireUser();
+
+        $sensorId = $this->getParam(0, 'sensor_id');
+        $maxTemp = $this->getParam(1, 'maxTemp', null, true);
+        $minTemp = $this->getParam(2, 'minTemp', null, true);
+
+        $updates = [];
+
+        // new max Temp?
+        if (isset($maxTemp)) {
+            $updates['maxTemp'] = $maxTemp;
+        }
+
+        // new min temp?
+        if (isset($minTemp)) {
+            $updates['minTemp'] = $minTemp;
+        }
+
+        // try to update sensor
+        $updated = $this->entry->update('sensors', $updates, ['id' => $sensorId]);
+
+        // update successfull?
+        if (!$updated) {
+            ResultHelper::render([
+                'message' => 'Could not update the sensor.'
+            ], 500, $this->defaultConfig);
+        }
+
+        // new log inserted?
+        $success = $this->entry->insert('logs', [
+            'user_id' => $userId,
+            'sensor_id' => $sensorId
+        ]);
+
+        // is success? (returned int then)
+        if (!is_numeric($success)) {
+            ResultHelper::render([
+                'message' => 'Could not insert into log table.'
+            ], 500, $this->defaultConfig);
+        }
+
+        // return success
+        ResultHelper::render([
+            'message' => 'Successfully updated the sensor.'
+        ], 200, $this->defaultConfig);
+    }
 }

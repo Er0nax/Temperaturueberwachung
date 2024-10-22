@@ -68,6 +68,7 @@ namespace Syntax_Sabberer.windows
                     Users.Add(user);
                 }
 
+                loadingLbl.Visibility = Visibility.Hidden;
                 DateTime currentTime = DateTime.Now;
                 lastUpdatedLbl.Content = "Last updated: " + currentTime.ToString("HH:mm:ss") + " Uhr";
                 UserCards.ItemsSource = Users;

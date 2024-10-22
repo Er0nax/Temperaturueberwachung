@@ -78,6 +78,15 @@
                    HorizontalContentAlignment='Center'
                    VerticalContentAlignment='Center' />
 
+            <Label x:Name='loadingLbl'
+                   Grid.Row='1'
+                   Grid.Column='1'
+                   HorizontalAlignment='Center'
+                   FontSize='20'
+                   Foreground='DarkGray'
+                   VerticalAlignment='Center'
+                   Content='Loading...' />
+
             <ScrollViewer x:Name='content'
                           Grid.Column='1'
                           Grid.Row='1'>
