@@ -33,7 +33,9 @@ namespace Syntax_Sabberer.windows
             InitializeComponent();
 
             // set username label
+            var bc = new BrushConverter();
             usernameLabel.Content = Properties.Settings.Default.username;
+            usernameLabel.Foreground = (Brush)bc.ConvertFrom(Properties.Settings.Default.role_color);
 
             // set user avatar
             string avatar = Properties.Settings.Default.avatar;

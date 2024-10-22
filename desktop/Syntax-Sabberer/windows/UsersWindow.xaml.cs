@@ -33,7 +33,9 @@ namespace Syntax_Sabberer.windows
             InitializeComponent();
 
             // set username label
+            var bc = new BrushConverter();
             usernameLabel.Content = Properties.Settings.Default.username;
+            usernameLabel.Foreground = (Brush)bc.ConvertFrom(Properties.Settings.Default.role_color);
 
             // set user avatar
             string avatar = Properties.Settings.Default.avatar;
@@ -61,6 +63,7 @@ namespace Syntax_Sabberer.windows
                 foreach (User user in users)
                 {
                     // custom user logic
+                    user.Avatar = Properties.Settings.Default.apiUrl + $"asset/image?src={user.Avatar}&type=avatar&height=100";
 
                     Users.Add(user);
                 }

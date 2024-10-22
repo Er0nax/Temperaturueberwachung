@@ -67,6 +67,13 @@ class UserController extends BaseController
             ], 400, $this->defaultConfig);
         }
 
+        // check if username is valid
+        if (!UserHelper::isValidUsername($username)) {
+            ResultHelper::render([
+                'message' => 'This username is not valid! You can not use any banned words or special chars.'
+            ], 400, $this->defaultConfig);
+        }
+
         // check if username exists
         $entry = new Entry();
         $usernameExists = $entry->columns(['users' => ['username', 'password']])
@@ -169,6 +176,13 @@ class UserController extends BaseController
         if (empty($passwordRepeat)) {
             ResultHelper::render([
                 'message' => 'Invalid repeated password provided.'
+            ], 400, $this->defaultConfig);
+        }
+
+        // check if username is valid
+        if (!UserHelper::isValidUsername($username)) {
+            ResultHelper::render([
+                'message' => 'This username is not valid! You can not use any banned words or special chars.'
             ], 400, $this->defaultConfig);
         }
 
@@ -431,6 +445,6 @@ class UserController extends BaseController
         $this->entry->reset();
 
         // get all users
-        return $this->getUserQuery()->order('users.id ASC')->all();
+        return $this->getUserQuery()->where(['users' => [['active', true]]])->order('users.id ASC')->all();
     }
 }

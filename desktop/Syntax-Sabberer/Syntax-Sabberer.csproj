@@ -62,6 +62,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="services\ApiService.cs" />
+    <Compile Include="windows\DataTemplates\SensorCard.xaml.cs">
+      <DependentUpon>SensorCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\DataTemplates\UserCard.xaml.cs">
+      <DependentUpon>UserCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="windows\UsersWindow.xaml.cs">
       <DependentUpon>UsersWindow.xaml</DependentUpon>
     </Compile>
@@ -74,6 +80,14 @@
     <Compile Include="windows\SensorsWindow.xaml.cs">
       <DependentUpon>SensorsWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="windows\DataTemplates\SensorCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\DataTemplates\UserCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="windows\UsersWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -138,5 +152,6 @@
   <ItemGroup>
     <Resource Include="assets\images\settings-white.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
