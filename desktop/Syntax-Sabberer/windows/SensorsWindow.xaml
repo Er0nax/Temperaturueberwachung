@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Syntax_Sabberer.windows"
+        xmlns:controls="clr-namespace:Syntax_Sabberer.windows.DataTemplates"
         mc:Ignorable="d"
         Title="Main"
         Height="700"
@@ -72,7 +73,6 @@
                    Grid.Row='0'
                    Grid.Column='1'
                    Grid.ColumnSpan='1'
-                   Content='Last updated: 20:34 Uhr'
                    Foreground='DarkGray'
                    FontSize='16'
                    HorizontalContentAlignment='Center'
@@ -94,67 +94,7 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border x:Name='card'
-                                    Background='#232323'
-                                    CornerRadius='10'
-                                    MaxHeight='250'
-                                    Margin='10 10'>
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius='10'
-                                                      Opacity='0.3' />
-                                </Border.Effect>
-
-                                <Grid Height='250'>
-                                    <Grid VerticalAlignment='Top'
-                                          HorizontalAlignment='Center'
-                                          Margin='10 10 10 0'
-                                          Height='150'
-                                          Width='150'>
-
-                                        <Ellipse Fill='{Binding Fill}'>
-                                            <Ellipse.Effect>
-                                                <DropShadowEffect BlurRadius='10'
-                                                                  Opacity='0.7' />
-                                            </Ellipse.Effect>
-                                        </Ellipse>
-
-                                        <Ellipse Fill='#232323'
-                                                 Margin='25' />
-
-                                        <Label Content="{Binding CurrentTemperature}"
-                                               ContentStringFormat=" {0}°C"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               Foreground="White"
-                                               FontSize="18"
-                                               FontWeight="Bold" />
-
-                                    </Grid>
-                                    <StackPanel VerticalAlignment='Bottom'
-                                                Margin='10 10 10 10'>
-
-                                        <Label Content='{Binding MaxTemp}'
-                                               ContentStringFormat="Max-Temp: {0}°C"
-                                               HorizontalContentAlignment='Center'
-                                               Foreground='DarkGray'
-                                               Padding='0 0 0 5' />
-
-                                        <Label Content="{Binding MinTemp}"
-                                               ContentStringFormat="Min-Temp: {0}°C"
-                                               Foreground='DarkGray'
-                                               HorizontalContentAlignment='Center'
-                                               Padding='0 0 0 5' />
-
-                                        <Label Content="{Binding Name}"
-                                               Foreground='DarkGray'
-                                               FontWeight='Bold'
-                                               HorizontalContentAlignment='Center'
-                                               FontSize='16'
-                                               Padding='0 0 0 5' />
-
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
+                            <controls:SensorCard />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
@@ -162,7 +102,7 @@
             </ScrollViewer>
 
             <Grid x:Name='message'
-                  Visibility='Visible'
+                  Visibility='Hidden'
                   Grid.Column='1'
                   Grid.Row='2'>
 

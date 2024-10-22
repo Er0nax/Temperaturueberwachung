@@ -81,4 +81,36 @@ class UserHelper extends BaseHelper
         // Use a regular expression to allow only letters, numbers, and underscores
         return strtolower(preg_replace('/[^a-zA-Z0-9_]/', '', $username));
     }
+
+    /**
+     * Returns boolean whether a username is valid or not.
+     * @param string $username
+     * @return true
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 22.10.2024
+     */
+    public static function isValidUsername(string $username): bool
+    {
+        // Define the disallowed characters
+        $disallowedCharacters = "'/!\"\\#*+~;,:§$%&{([)]=}?°^´`<>|";
+
+        // Define an array of disallowed words
+        $disallowedWords = ['Nigga', 'Nigger', 'Niger', 'Niga', 'root', 'admin', 'administrator'];
+
+        // Check for disallowed characters
+        if (strpbrk($username, $disallowedCharacters) !== false) {
+            return false; // Return false if any disallowed character is found
+        }
+
+        // Check for disallowed words (case-insensitive)
+        foreach ($disallowedWords as $word) {
+            if (stripos($username, $word) !== false) {
+                return false; // Return false if any disallowed word is found
+            }
+        }
+
+        return true; // Return true if the username is valid
+    }
+
 }

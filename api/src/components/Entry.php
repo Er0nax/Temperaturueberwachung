@@ -421,7 +421,7 @@ class Entry extends BaseComponent
                     if (!empty($conditions) && is_array($conditions)) {
                         foreach ($conditions as $condition) {
                             $column = $condition[0];
-                            $is = (is_bool($condition[1]) ? $this->convertToString($condition[1]) : $condition[1]);
+                            $is = $this->convertToString($condition[1]);
                             $customEqual = $condition[2] ?? '=';
                             $isCustomEqual = $condition[3] ?? false;
                             $addTablePrefix = $condition[4] ?? true;
@@ -488,7 +488,7 @@ class Entry extends BaseComponent
                     if (!empty($conditions) && is_array($conditions)) {
                         foreach ($conditions as $condition) {
                             $column = $condition[0];
-                            $is = (is_bool($condition[1]) ? $this->convertToString($condition[1]) : $condition[1]);
+                            $is = $this->convertToString($condition[1]);
                             $customEqual = $condition[2] ?? '=';
                             $isCustomEqual = $condition[3] ?? false;
 
@@ -539,7 +539,7 @@ class Entry extends BaseComponent
         }
 
         // todo convert others to string...
-        return $variable;
+        return str_replace("'", "\\'", $variable);
     }
 
     /**
@@ -709,18 +709,15 @@ class Entry extends BaseComponent
      * @return Entry
      * @author Tim Zapfe
      */
-    public function dumpQuery(bool $die = true): static
+    public function dumpQuery(): static
     {
         if (Config::getConfig('debugMode', false)) {
             try {
                 $query = $this->buildQuery();
 
-                echo '<pre style="background-color: #fff; border: 3px solid #ddd; margin: 10px; padding: 5px;">';
-                var_dump($query);
-                echo '</pre>';
-                if ($die) {
-                    die();
-                }
+                ResultHelper::render([
+                    'message' => $query
+                ], 500, ['translate' => false]);
 
             } catch (\Exception $e) {
                 exit('Could not build query: ' . $e->getMessage());

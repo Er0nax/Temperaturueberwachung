@@ -70,6 +70,7 @@ public class ApiService
             }
             catch (Exception e)
             {
+                Clipboard.SetText(e.Message);
                 // error
             }
         }
@@ -85,6 +86,7 @@ public class ApiService
         {
             var jsonResponse = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<UserResponse>(jsonResponse);
+
             return result.Response;
         }
 
@@ -114,15 +116,15 @@ public class UserInfo
     public string Snowflake { get; set; }
     public string Phone { get; set; }
     public bool Active { get; set; }
-    public DateTime LastSeen { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTime Last_Seen { get; set; }
+    public DateTime Created_At { get; set; }
+    public DateTime Updated_At { get; set; }
     public string Language { get; set; }
-    public string ImperialSystem { get; set; }
+    public string Imperial_System { get; set; }
     public bool? Darkmode { get; set; }
     public string Avatar { get; set; }
-    public string RoleName { get; set; }
-    public string RoleColor { get; set; }
+    public string role_name { get; set; }
+    public string role_color { get; set; }
     public string Password { get; set; }
     public string Token { get; set; }
 }
@@ -185,13 +187,13 @@ public class User
     public string Snowflake { get; set; }
     public string Phone { get; set; }
     public bool Active { get; set; }
-    public DateTime LastSeen { get; set; }
-    public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set; }
+    public DateTime Last_Seen { get; set; }
+    public DateTime Created_At { get; set; }
+    public DateTime Updated_At { get; set; }
     public string Language { get; set; }
-    public string ImperialSystem { get; set; }
+    public string Imperial_System { get; set; }
     public bool? Darkmode { get; set; }
     public string Avatar { get; set; }
-    public string RoleName { get; set; }
-    public string RoleColor { get; set; }
+    public string Role_Name { get; set; }
+    public string Role_Color { get; set; }
 }

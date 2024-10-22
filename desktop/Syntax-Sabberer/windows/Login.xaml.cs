@@ -53,15 +53,15 @@ namespace Syntax_Sabberer.windows
                 Properties.Settings.Default.snowflake = result.Response.Info.Snowflake;
                 Properties.Settings.Default.phone = result.Response.Info.Phone ?? null;
                 Properties.Settings.Default.active = result.Response.Info.Active;
-                Properties.Settings.Default.last_seen = result.Response.Info.LastSeen;
-                Properties.Settings.Default.created_at = result.Response.Info.CreatedAt;
-                Properties.Settings.Default.updated_at = result.Response.Info.UpdatedAt;
+                Properties.Settings.Default.last_seen = result.Response.Info.Last_Seen;
+                Properties.Settings.Default.created_at = result.Response.Info.Created_At;
+                Properties.Settings.Default.updated_at = result.Response.Info.Updated_At;
                 Properties.Settings.Default.language = result.Response.Info.Language ?? "en";
-                Properties.Settings.Default.imperial_system = result.Response.Info.ImperialSystem ?? "c";
+                Properties.Settings.Default.imperial_system = result.Response.Info.Imperial_System ?? "c";
                 Properties.Settings.Default.darkmode = result.Response.Info.Darkmode ?? true;
                 Properties.Settings.Default.avatar = result.Response.Info.Avatar;
-                Properties.Settings.Default.role_name = result.Response.Info.RoleName;
-                Properties.Settings.Default.role_color = result.Response.Info.RoleColor;
+                Properties.Settings.Default.role_name = result.Response.Info.role_name;
+                Properties.Settings.Default.role_color = result.Response.Info.role_color;
                 Properties.Settings.Default.password = result.Response.Info.Password;
                 Properties.Settings.Default.token = result.Response.Info.Token;
 
