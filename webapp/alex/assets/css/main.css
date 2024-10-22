@@ -71,3 +71,13 @@ p.solid {
 .Temp_Text {
     margin: 20px 0 0 0;
 }
+
+.card_User_Login{
+  width: 200px !important;
+  height: 75px;
+  border: 2px solid black;
+  padding: 20px;
+  position: relative;
+  top: 20px;
+  right: 20px;
+}
