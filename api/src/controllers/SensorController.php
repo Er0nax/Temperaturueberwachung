@@ -2,7 +2,6 @@
 
 namespace src\controllers;
 
-use Random\RandomException;
 use src\components\Entry;
 use src\helpers\ResultHelper;
 
@@ -45,7 +44,7 @@ class SensorController extends BaseController
      */
     public function actionAll(): bool|array|string
     {
-        $temperaturesLimit = 10;
+        $temperaturesLimit = $this->getParam(0, 'tempLimit', 10);
 
         // get all sensors
         $sensors = $this->getSensorQuery()->all();
@@ -55,27 +54,35 @@ class SensorController extends BaseController
 
             // build temperature query
             $this->entry->reset();
-            $query = $this->entry->columns(['temperatures' => ['id', 'temperature', 'updated_at', 'created_at']])
+            $temperatureQuery = $this->entry->columns(['temperatures' => ['id', 'temperature', 'updated_at', 'created_at']])
                 ->tables('temperatures')
                 ->where(['temperatures' => [['active', true], ['sensor_id', $sensor['id']]]])
                 ->limit($temperaturesLimit)
                 ->order('temperatures.created_at DESC');
 
             // get last temperature row
-            $lastTemperature = $query->one();
+            $lastTemperature = $temperatureQuery->one();
 
-            // does it exist?
+            // does last temperature exist?
             if (!empty($lastTemperature)) {
-                $currentTemperature = $query->one();
 
-                if ($currentTemperature) {
-                    // add current temperature
-                    $sensor['currentTemperature'] = $currentTemperature['temperature'] ?? 0;
-                }
+                // add current temperature
+                $sensor['currentTemperature'] = $lastTemperature['temperature'] ?? 0;
             }
 
+            // get the highest and lowest meassured temp
+            $minMaxTempEntry = new Entry();
+
+            $minMaxTempQuery = $minMaxTempEntry->columns(['temperatures' => ['temperature']])
+                ->tables('temperatures')
+                ->where(['temperatures' => [['active', true], ['sensor_id', $sensor['id']]]]);
+
+            $sensor['highestTemp'] = $minMaxTempQuery->max();
+            $sensor['lowestTemp'] = $minMaxTempQuery->min();
+            $sensor['avgTemp'] = $minMaxTempQuery->avg();
+
             // add latest temperatures
-            $sensor['temperatures'] = $query->all();
+            $sensor['temperatures'] = $temperatureQuery->all();
         }
 
         // return all sensors
@@ -155,28 +162,77 @@ class SensorController extends BaseController
      * @copyright Tim Zapfe
      * @date 22.10.2024
      */
-    public function actionUpdateSensor(): void
+    public function actionUpdate(): void
     {
-        $userId = $this->requireUser();
+        $user = $this->requireUser();
+        $this->requireRole('Admin');
 
         $sensorId = $this->getParam(0, 'sensor_id');
+        $name = $this->getParam(3, 'name', null, true);
+        $color = $this->getParam(3, 'color', null, true);
         $maxTemp = $this->getParam(1, 'maxTemp', null, true);
         $minTemp = $this->getParam(2, 'minTemp', null, true);
+        $address = $this->getParam(3, 'address', null, true);
+        $active = $this->getParam(3, 'active', null, true);
+
+        // get old value
+        $sensor = $this->entry->columns(['sensors' => ['maxTemp', 'minTemp', 'name', 'address', 'color', 'active']])
+            ->tables('sensors')
+            ->where(['sensors' => [['id', $sensorId]]])
+            ->one();
+
+        if (empty($sensor)) {
+            ResultHelper::render([
+                'message' => 'Could not find a sensor to update.'
+            ], 404, $this->defaultConfig);
+        }
 
         $updates = [];
 
         // new max Temp?
-        if (isset($maxTemp)) {
-            $updates['maxTemp'] = $maxTemp;
+        if (is_numeric($maxTemp)) {
+            if ($sensor['maxTemp'] !== $maxTemp)
+                $updates['maxTemp'] = $maxTemp;
         }
 
         // new min temp?
-        if (isset($minTemp)) {
-            $updates['minTemp'] = $minTemp;
+        if (is_numeric($minTemp)) {
+            if ($sensor['minTemp'] !== $minTemp)
+                $updates['minTemp'] = $minTemp;
+        }
+
+        // new name?
+        if (!empty($name)) {
+            if ($sensor['name'] !== $name)
+                $updates['name'] = $name;
+        }
+
+        // new address?
+        if (!empty($address)) {
+            if ($sensor['address'] !== $address)
+                $updates['address'] = $address;
+        }
+
+        // new color?
+        if (!empty($color)) {
+            if ($sensor['color'] !== $color)
+                $updates['color'] = $color;
+        }
+
+        // new active?
+        if (is_bool($active)) {
+            if ($sensor['active'] !== $active)
+                $updates['active'] = $active;
+        }
+
+        if (empty($updates)) {
+            ResultHelper::render([
+                'message' => 'Nothing to update.'
+            ], 404, $this->defaultConfig);
         }
 
         // try to update sensor
-        $updated = $this->entry->update('sensors', $updates, ['id' => $sensorId]);
+        $updated = $this->entry->update('sensors', $updates, ['id' => $sensorId], true);
 
         // update successfull?
         if (!$updated) {
@@ -185,22 +241,106 @@ class SensorController extends BaseController
             ], 500, $this->defaultConfig);
         }
 
-        // new log inserted?
-        $success = $this->entry->insert('logs', [
-            'user_id' => $userId,
-            'sensor_id' => $sensorId
-        ]);
-
-        // is success? (returned int then)
-        if (!is_numeric($success)) {
-            ResultHelper::render([
-                'message' => 'Could not insert into log table.'
-            ], 500, $this->defaultConfig);
+        // insert into logs
+        foreach ($updates as $column => $value) {
+            $this->entry->insert('logs', [
+                'user_id' => $user['id'],
+                'action' => 'update',
+                'relation' => 'sensors',
+                'relation_id' => $sensorId,
+                'old_value' => $sensor[$column],
+                'new_value' => $value,
+                'column_name' => $column
+            ], false, false);
         }
 
         // return success
         ResultHelper::render([
             'message' => 'Successfully updated the sensor.'
+        ], 200, $this->defaultConfig);
+    }
+
+    /**
+     * Creates a new sensor.
+     * @return void
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 23.10.2024
+     */
+    public function actionCreate(): void
+    {
+        $user = $this->requireUser();
+        $this->requireRole('Admin');
+
+        $name = $this->getParam(0, 'name');
+        $serverId = $this->getParam(1, 'server_id');
+        $manufacturerId = $this->getParam(2, 'manufacturer_id');
+        $maxTemp = $this->getParam(3, 'maxTemp', 30);
+        $minTemp = $this->getParam(4, 'minTemp', -30);
+        $address = $this->getParam(5, 'address');
+        $color = $this->getParam(6, 'color', '#ffffff');
+
+        // name given?
+        if (empty($name)) {
+            ResultHelper::render([
+                'message' => 'Could not find a valid name.'
+            ], 404, $this->defaultConfig);
+        }
+
+        // server id given?
+        if (!is_numeric($serverId)) {
+            ResultHelper::render([
+                'message' => 'Could not find a valid server id.'
+            ], 404, $this->defaultConfig);
+        }
+
+        // manufacturer id given?
+        if (!is_numeric($manufacturerId)) {
+            ResultHelper::render([
+                'message' => 'Could not find a valid manufacturer id.'
+            ], 404, $this->defaultConfig);
+        }
+
+        // maxTemp given?
+        if (!is_numeric($maxTemp)) {
+            ResultHelper::render([
+                'message' => 'Could not find a valid maxTemp.'
+            ], 404, $this->defaultConfig);
+        }
+
+        // minTemp given?
+        if (!is_numeric($minTemp)) {
+            ResultHelper::render([
+                'message' => 'Could not find a valid minTemp.'
+            ], 404, $this->defaultConfig);
+        }
+
+        $sensorId = $this->entry->insert('sensors', [
+            'name' => $name,
+            'manufacturer_id' => $manufacturerId,
+            'address' => $address,
+            'color' => $color,
+            'server_id' => $serverId,
+            'minTemp' => $minTemp,
+            'maxTemp' => $maxTemp,
+        ]);
+
+        if (!is_numeric($maxTemp)) {
+            ResultHelper::render([
+                'message' => 'Could not create the sensor.'
+            ], 500, $this->defaultConfig);
+        }
+
+        // log
+        $this->entry->insert('logs', [
+            'user_id' => $user['id'],
+            'action' => 'create',
+            'relation' => 'sensors',
+            'relation_id' => $sensorId,
+        ]);
+
+        ResultHelper::render([
+            'message' => 'Successfully created the sensor.'
         ], 200, $this->defaultConfig);
     }
 }

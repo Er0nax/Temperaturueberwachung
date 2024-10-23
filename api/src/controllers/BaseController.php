@@ -16,7 +16,7 @@ class BaseController
 {
     protected Entry $entry;
     protected array $params = [];
-    protected int $userId = 0;
+    protected array $user = [];
     protected array $defaultConfig = [
         'translate' => true
     ];
@@ -128,19 +128,32 @@ class BaseController
             $param = $default;
         }
 
-        return (is_bool($param)) ? $param : urldecode($param);
+        $param = urldecode($param);
+
+        if ($param == 'true') {
+            return true;
+        }
+
+        if ($param == 'false') {
+            return false;
+        }
+
+        return $param;
     }
 
     /**
      * Returns array with status if the token is valid or not. If valid, it also returns the userId in relation to the token.
      * @param string|null $token
-     * @return array|false[]
+     * @return array
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 23.10.2024
      */
     protected function checkToken(string $token = null): array
     {
         // token not provided?
         if (empty($token)) {
-            return ['status' => false];
+            return ['status' => false, 'user' => []];
         }
 
         // build query
@@ -154,15 +167,15 @@ class BaseController
 
         // info empty?
         if (empty($info)) {
-            return ['status' => false];
+            return ['status' => false, 'user' => []];
         }
 
         // update uses
         $entry->update('api_tokens', ['uses' => ($info['uses'] + 1)], ['token' => $token]);
 
         // get user info
-        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system', 'darkmode']])
-            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
+        $user = $entry->columns(['users' => ['*'], 'user_settings' => ['language', 'imperial_system', 'darkmode'], 'roles' => ["name AS 'role'"]])
+            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT'], ['roles', 'users.role_id', 'roles.id']])
             ->where(['users' => [['id', $info['user_id']]]])
             ->one();
 
@@ -173,12 +186,12 @@ class BaseController
     /**
      * Checks if a user is logged in with either user token or session.
      * Also returns the user id by token.
-     * @return int|bool
+     * @return array|bool
      * @author Tim Zapfe
      * @copyright Tim Zapfe
      * @date 16.10.2024
      */
-    protected function requireUser(): int|bool
+    protected function requireUser(): array
     {
         // get token only by named param
         $token = $this->getParam(999, 'token', null, true);
@@ -208,6 +221,55 @@ class BaseController
         }
 
         // set user id and return it
-        return $this->userId = $tokenInfo['user']['id'];
+        return $this->user = $tokenInfo['user'];
+    }
+
+    /**
+     * Returns error message when user does not have the desired role.
+     * @param string|array $roles Can be a single string as the name or an array of strings (role names)
+     * @return bool
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 23.10.2024
+     */
+    public function requireRole(string|array $roles): bool
+    {
+        if (empty($this->user) || empty($this->user['role'])) {
+            ResultHelper::render([
+                'message' => 'Seems like you do not have the right role for that.'
+            ], 400, $this->defaultConfig);
+        }
+
+        // just single role given?
+        if (is_string($roles)) {
+
+            // does the user not have the role?
+            if ($this->user['role'] !== $roles) {
+                ResultHelper::render([
+                    'message' => ResultHelper::t('In order to perform this action you need the {roleName} role.', ['roleName' => $roles])
+                ], 400);
+            }
+
+            return true;
+        }
+
+        $hasRole = false;
+
+        // loop through all roles which are allowed
+        foreach ($roles as $role) {
+            if ($this->user['role'] === $role) {
+                $hasRole = true;
+                break;
+            }
+        }
+
+        // user has any allowed role?
+        if (!$hasRole) {
+            ResultHelper::render([
+                'message' => 'Seems like you do not have the right role for that.'
+            ], 400, $this->defaultConfig);
+        }
+
+        return true;
     }
 }

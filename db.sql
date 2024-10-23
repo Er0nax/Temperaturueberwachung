@@ -36,11 +36,11 @@ CREATE TABLE IF NOT EXISTS `api_tokens` (
   CONSTRAINT `api_tokens_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COMMENT='Tabelle für Token';
 
--- Exportiere Daten aus Tabelle temperatur.api_tokens: ~14 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.api_tokens: ~17 rows (ungefähr)
 DELETE FROM `api_tokens`;
 INSERT INTO `api_tokens` (`id`, `user_id`, `ip`, `token`, `uses`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 118, 'true', '2024-10-22 12:03:45', '2024-08-15 11:45:40'),
-	(2, 4, '10.204.193.170', '8l1Zyohk4V8s0XkPbqlE', 35, 'true', '2024-10-17 10:10:43', '2024-08-16 10:30:24'),
+	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 335, 'true', '2024-10-23 11:25:22', '2024-08-15 11:45:40'),
+	(2, 4, '10.204.193.170', '8l1Zyohk4V8s0XkPbqlE', 49, 'true', '2024-10-23 11:10:58', '2024-08-16 10:30:24'),
 	(3, 5, '10.204.193.170', '0MVWT7bHr1qstx3GL8LR', 0, 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22'),
 	(4, 6, '10.204.161.165', 'FcxB5RhcT8A9dGgzgzAe', 18, 'true', '2024-10-17 10:08:05', '2024-08-21 11:09:39'),
 	(5, 7, '127.0.0.1', 'wnGvNy1EjgNiPIHUs9Db', 0, 'true', '2024-10-17 10:02:50', '2024-10-17 10:02:50'),
@@ -48,12 +48,12 @@ INSERT INTO `api_tokens` (`id`, `user_id`, `ip`, `token`, `uses`, `active`, `upd
 	(7, 9, '::1', 'gnwPLiGgf4cZ3uXAqWWX', 0, 'true', '2024-10-18 11:36:34', '2024-10-18 11:36:34'),
 	(8, 10, '::1', 'kHEMB7d3v5on4FwIrHcv', 0, 'true', '2024-10-18 11:38:35', '2024-10-18 11:38:35'),
 	(9, 11, '127.0.0.1', 'kxvCKneYkcu8YRbJ0f4O', 0, 'true', '2024-10-18 11:38:58', '2024-10-18 11:38:58'),
-	(10, 12, '::1', 'yFeUEHJdg9XsQ4FTgvIQ', 2, 'true', '2024-10-18 11:43:39', '2024-10-18 11:39:34'),
+	(10, 12, '::1', 'yFeUEHJdg9XsQ4FTgvIQ', 4, 'true', '2024-10-23 11:25:01', '2024-10-18 11:39:34'),
 	(11, 2, '::1', 'UidO6RLxk83sDUNT75HY', 12, 'true', '2024-10-21 11:39:15', '2024-10-21 11:12:03'),
 	(12, 13, '::1', 'tyeRajEt8ln8FaV3Zzp1', 6, 'true', '2024-10-21 12:27:59', '2024-10-21 11:39:15'),
 	(13, 14, '127.0.0.1', 'Ei7cmxMnVrhcsqJ1z83v', 6, 'true', '2024-10-21 12:41:45', '2024-10-21 11:56:16'),
 	(14, 15, '::1', 'PjmXBOLfx4eUfAPGUzCt', 25, 'true', '2024-10-22 09:31:54', '2024-10-21 12:28:40'),
-	(15, 19, '::1', '0FlG0RJL007PH4q0OZvu', 0, 'true', '2024-10-22 10:29:49', '2024-10-22 10:29:49'),
+	(15, 19, '::1', '0FlG0RJL007PH4q0OZvu', 22, 'true', '2024-10-23 11:32:26', '2024-10-22 10:29:49'),
 	(16, 23, '127.0.0.1', 'A5qfRQtTmMHm8I2sQj9I', 3, 'true', '2024-10-22 11:34:21', '2024-10-22 10:47:45'),
 	(17, 24, '::1', 'agmO9aAk7mdVSV8ElC2D', 13, 'true', '2024-10-22 11:21:58', '2024-10-22 10:49:00');
 
@@ -83,7 +83,7 @@ INSERT INTO `applications` (`id`, `name`, `version`, `downloads`, `active`, `upd
 	(8, 'Syntax-Sabberer', 'v.2.0.0', 2, 'true', '2024-08-15 09:01:24', '2024-08-15 08:56:39'),
 	(9, 'Syntax-Sabberer', 'v.2.0.1', 1, 'true', '2024-08-16 07:14:37', '2024-08-15 10:26:33'),
 	(10, 'Syntax-Sabberer', 'v.2.0.2', 1, 'true', '2024-08-16 08:27:56', '2024-08-16 08:26:58'),
-	(11, 'Syntax-Sabberer', 'v.2.0.3', 6, 'true', '2024-10-17 10:20:55', '2024-08-16 08:47:45');
+	(11, 'Syntax-Sabberer', 'v.2.0.3', 7, 'true', '2024-10-23 09:26:29', '2024-08-16 08:47:45');
 
 -- Exportiere Struktur von Tabelle temperatur.images
 DROP TABLE IF EXISTS `images`;
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `images` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.images: ~14 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.images: ~23 rows (ungefähr)
 DELETE FROM `images`;
 INSERT INTO `images` (`id`, `src`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'default.png', 'true', '2024-08-13 12:26:26', '2024-08-13 12:26:26'),
@@ -127,20 +127,50 @@ INSERT INTO `images` (`id`, `src`, `active`, `updated_at`, `created_at`) VALUES
 DROP TABLE IF EXISTS `logs`;
 CREATE TABLE IF NOT EXISTS `logs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL DEFAULT 0,
-  `sensor_id` int(11) NOT NULL DEFAULT 0,
+  `user_id` int(11) NOT NULL,
+  `action` enum('create','update','delete','login','register') DEFAULT 'create',
+  `relation` enum('users','sensors','servers','manufacturers','applications','roles','temperatures','pages') DEFAULT 'users',
+  `relation_id` int(11) DEFAULT NULL,
+  `old_value` varchar(255) DEFAULT NULL,
+  `new_value` varchar(255) DEFAULT NULL,
+  `column_name` varchar(255) DEFAULT NULL,
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `logs_user` (`user_id`),
-  KEY `logs_sensor` (`sensor_id`),
-  CONSTRAINT `logs_sensor` FOREIGN KEY (`sensor_id`) REFERENCES `sensors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `logs_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.logs: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.logs: ~25 rows (ungefähr)
 DELETE FROM `logs`;
+INSERT INTO `logs` (`id`, `user_id`, `action`, `relation`, `relation_id`, `old_value`, `new_value`, `column_name`, `active`, `updated_at`, `created_at`) VALUES
+	(1, 1, 'update', 'sensors', 1, '90', '90', 'maxTemp', 'true', '2024-10-23 09:12:52', '2024-10-23 09:12:52'),
+	(2, 1, 'update', 'sensors', 1, '30', '30', 'minTemp', 'true', '2024-10-23 09:12:52', '2024-10-23 09:12:52'),
+	(3, 1, 'update', 'sensors', 1, 'Ein Test Name', 'Ein Test Name', 'name', 'true', '2024-10-23 09:12:52', '2024-10-23 09:12:52'),
+	(4, 1, 'update', 'sensors', 1, 'Tonndorf', 'Tonndorf', 'address', 'true', '2024-10-23 09:12:52', '2024-10-23 09:12:52'),
+	(5, 1, 'update', 'sensors', 1, '90', '60', 'maxTemp', 'true', '2024-10-23 09:13:43', '2024-10-23 09:13:43'),
+	(6, 1, 'update', 'users', 1, 'tim', 'Eronax', 'snowflake', 'true', '2024-10-23 09:20:13', '2024-10-23 09:20:13'),
+	(7, 1, 'update', 'users', 1, 'Eronax', 'tim', 'snowflake', 'true', '2024-10-23 09:20:28', '2024-10-23 09:20:28'),
+	(8, 1, 'update', 'users', 1, NULL, '$2y$10$w/ec1vPpfZ469.2sbEigBOPA5HDAZ3uoCPl3cdDVYmVanERJ1mGO2', 'password', 'true', '2024-10-23 09:22:39', '2024-10-23 09:22:39'),
+	(9, 1, 'update', 'users', 1, '$2y$10$w/ec1vPpfZ469.2sbEigBOPA5HDAZ3uoCPl3cdDVYmVanERJ1mGO2', '$2y$10$LH1HlbPYXVPJjvy..GB/Kex5PhUMu0i0i0kkLKEC087AZLMvy6n.q', 'password', 'true', '2024-10-23 09:22:59', '2024-10-23 09:22:59'),
+	(10, 1, 'update', 'users', 1, '$2y$10$LH1HlbPYXVPJjvy..GB/Kex5PhUMu0i0i0kkLKEC087AZLMvy6n.q', '$2y$10$wGt8lnlPTZzojT58e9QPne8I9FrrOaiKA2uSGtscFg4KgIr0mqrDa', 'password', 'true', '2024-10-23 09:23:16', '2024-10-23 09:23:16'),
+	(11, 1, 'update', 'users', 1, NULL, '01729499985', 'phone', 'true', '2024-10-23 09:23:39', '2024-10-23 09:23:39'),
+	(12, 1, 'update', 'users', 1, '01729499985', '017294999851', 'phone', 'true', '2024-10-23 09:23:56', '2024-10-23 09:23:56'),
+	(13, 1, 'update', 'users', 1, '017294999851', '01729499985', 'phone', 'true', '2024-10-23 09:24:00', '2024-10-23 09:24:00'),
+	(14, 1, 'create', 'servers', 4, NULL, 'Zentrale', 'name', 'true', '2024-10-23 09:31:58', '2024-10-23 09:31:58'),
+	(15, 1, 'create', 'sensors', 0, NULL, NULL, NULL, 'true', '2024-10-23 10:46:08', '2024-10-23 10:46:08'),
+	(16, 1, 'create', 'sensors', 7, NULL, NULL, NULL, 'true', '2024-10-23 10:49:31', '2024-10-23 10:49:31'),
+	(17, 1, 'update', 'sensors', 1, 'Ein Test Name', 'Okay yo', 'name', 'true', '2024-10-23 11:14:27', '2024-10-23 11:14:27'),
+	(18, 1, 'update', 'sensors', 1, '1', '1', 'active', 'true', '2024-10-23 11:17:17', '2024-10-23 11:17:17'),
+	(19, 1, 'update', 'sensors', 1, '1', '1', 'active', 'true', '2024-10-23 11:18:10', '2024-10-23 11:18:10'),
+	(20, 1, 'update', 'sensors', 1, '1', '', 'active', 'true', '2024-10-23 11:21:38', '2024-10-23 11:21:38'),
+	(21, 1, 'update', 'sensors', 1, '', '1', 'active', 'true', '2024-10-23 11:22:59', '2024-10-23 11:22:59'),
+	(22, 1, 'update', 'sensors', 1, '1', '', 'active', 'true', '2024-10-23 11:23:43', '2024-10-23 11:23:43'),
+	(23, 1, 'update', 'sensors', 1, '', '1', 'active', 'true', '2024-10-23 11:23:50', '2024-10-23 11:23:50'),
+	(24, 1, 'update', 'servers', 1, 'Main', 'Test', 'name', 'true', '2024-10-23 11:25:11', '2024-10-23 11:25:11'),
+	(25, 1, 'update', 'servers', 1, 'Test', 'Main', 'name', 'true', '2024-10-23 11:25:18', '2024-10-23 11:25:18'),
+	(28, 19, 'update', 'users', 19, '0172 3958501', '0172 3958502', 'phone', 'true', '2024-10-23 11:32:22', '2024-10-23 11:32:22');
 
 -- Exportiere Struktur von Tabelle temperatur.manufacturers
 DROP TABLE IF EXISTS `manufacturers`;
@@ -180,10 +210,15 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `index` (`index`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='K.a wofür aber für die Seiten IG';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COMMENT='K.a wofür aber für die Seiten IG';
 
--- Exportiere Daten aus Tabelle temperatur.pages: ~0 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.pages: ~4 rows (ungefähr)
 DELETE FROM `pages`;
+INSERT INTO `pages` (`id`, `index`, `showAlways`, `hideInHeader`, `hideInFooter`, `mustBeLoggedIn`, `color`, `icon`, `name`, `title`, `headline`, `subline`, `active`, `updated_at`, `created_at`) VALUES
+	(1, 1, 'true', 'false', 'false', 'both', '#ffffff', '', 'index', 'Home', '', '', 'true', '2024-10-22 14:07:42', '2024-10-22 14:07:42'),
+	(2, 2, 'false', 'false', 'false', 'both', '#ffffff', '', 'sensors', 'Sensors', '', '', 'true', '2024-10-22 14:07:53', '2024-10-22 14:07:53'),
+	(3, 3, 'false', 'false', 'false', 'both', '#ffffff', '', 'users', 'Users', '', '', 'true', '2024-10-22 14:08:00', '2024-10-22 14:08:00'),
+	(4, 99, 'false', 'false', 'false', 'both', '#ffffff', '', 'error', 'Error', '', '', 'true', '2024-10-22 14:08:12', '2024-10-22 14:08:12');
 
 -- Exportiere Struktur von Tabelle temperatur.roles
 DROP TABLE IF EXISTS `roles`;
@@ -222,16 +257,17 @@ CREATE TABLE IF NOT EXISTS `sensors` (
   KEY `sensors_manufacturer` (`manufacturer_id`),
   CONSTRAINT `sensors_manufacturer` FOREIGN KEY (`manufacturer_id`) REFERENCES `manufacturers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `sensors_server` FOREIGN KEY (`server_id`) REFERENCES `servers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COMMENT='Eintrag für die Sensoren';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='Eintrag für die Sensoren';
 
--- Exportiere Daten aus Tabelle temperatur.sensors: ~5 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.sensors: ~6 rows (ungefähr)
 DELETE FROM `sensors`;
 INSERT INTO `sensors` (`id`, `server_id`, `manufacturer_id`, `maxTemp`, `minTemp`, `name`, `address`, `color`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 1, 1, 30, -30, 'Sensor #1', 'Berlin', '#fff', 'true', '2024-10-17 10:54:31', '2024-08-12 00:00:00'),
-	(2, 3, 2, 60, 0, 'Peter', 'Magdeburg', '#fff', 'true', '2024-10-22 10:08:44', '2024-08-12 00:00:00'),
-	(3, 2, 3, 90, 30, 'Sensor #3', 'München', '#fff', 'true', '2024-10-22 08:41:40', '2024-08-12 00:00:00'),
-	(4, 1, 2, 100, 80, 'Main', 'Raum 42', '#ffffff', 'true', '2024-10-22 08:42:00', '2024-10-22 08:41:25'),
-	(5, 2, 3, 30, -30, 'Temporär', '', '#ffffff', 'true', '2024-10-22 09:42:52', '2024-10-22 09:42:52');
+	(1, 1, 1, 60, 30, 'Okay yo', 'Tonndorf', '#ffffff', 'true', '2024-10-23 11:23:50', '2024-08-12 00:00:00'),
+	(2, 3, 2, 60, 0, 'Peter', 'Magdeburg', '#ffffff', 'true', '2024-10-23 08:46:13', '2024-08-12 00:00:00'),
+	(3, 2, 3, 90, 30, 'Sensor #3', 'München', '#ffffff', 'true', '2024-10-23 08:46:13', '2024-08-12 00:00:00'),
+	(4, 1, 2, 25, 0, 'Main', 'Raum 42', '#ffffff', 'true', '2024-10-22 14:26:20', '2024-10-22 08:41:25'),
+	(5, 2, 3, 30, -30, 'Temporär', '', '#ffffff', 'true', '2024-10-22 09:42:52', '2024-10-22 09:42:52'),
+	(7, 1, 2, 30, -30, 'Luis', '', '#ffffff', 'true', '2024-10-23 10:49:31', '2024-10-23 10:49:31');
 
 -- Exportiere Struktur von Tabelle temperatur.servers
 DROP TABLE IF EXISTS `servers`;
@@ -242,14 +278,15 @@ CREATE TABLE IF NOT EXISTS `servers` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.servers: ~3 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.servers: ~4 rows (ungefähr)
 DELETE FROM `servers`;
 INSERT INTO `servers` (`id`, `name`, `active`, `created_at`, `updated_at`) VALUES
-	(1, 'Main', 'true', '2024-10-17 08:49:19', '2024-10-17 08:49:19'),
+	(1, 'Main', 'true', '2024-10-17 08:49:19', '2024-10-23 09:25:18'),
 	(2, 'Raum 42', 'true', '2024-10-17 08:49:24', '2024-10-17 08:49:24'),
-	(3, 'Erfurt', 'true', '2024-10-17 08:49:30', '2024-10-17 08:49:30');
+	(3, 'Erfurt', 'true', '2024-10-17 08:49:30', '2024-10-17 08:49:30'),
+	(4, 'Zentrale', 'true', '2024-10-23 07:31:58', '2024-10-23 07:31:58');
 
 -- Exportiere Struktur von Tabelle temperatur.temperatures
 DROP TABLE IF EXISTS `temperatures`;
@@ -263,9 +300,9 @@ CREATE TABLE IF NOT EXISTS `temperatures` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `temperatures_sensors` (`sensor_id`),
   CONSTRAINT `temperatures_sensors` FOREIGN KEY (`sensor_id`) REFERENCES `sensors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4979 DEFAULT CHARSET=utf8mb4 COMMENT='Aufnahme der Temperatur';
+) ENGINE=InnoDB AUTO_INCREMENT=5030 DEFAULT CHARSET=utf8mb4 COMMENT='Aufnahme der Temperatur';
 
--- Exportiere Daten aus Tabelle temperatur.temperatures: ~4.278 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.temperatures: ~5.029 rows (ungefähr)
 DELETE FROM `temperatures`;
 INSERT INTO `temperatures` (`id`, `sensor_id`, `temperature`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 1, 23, 'true', '2024-08-12 00:00:00', '2024-08-12 00:00:00'),
@@ -5245,7 +5282,58 @@ INSERT INTO `temperatures` (`id`, `sensor_id`, `temperature`, `active`, `updated
 	(4975, 2, 5, 'true', '2024-10-22 11:34:31', '2024-10-22 11:34:31'),
 	(4976, 3, 34, 'true', '2024-10-22 11:34:31', '2024-10-22 11:34:31'),
 	(4977, 4, 84, 'true', '2024-10-22 11:34:31', '2024-10-22 11:34:31'),
-	(4978, 5, -28, 'true', '2024-10-22 11:34:31', '2024-10-22 11:34:31');
+	(4978, 5, -28, 'true', '2024-10-22 11:34:31', '2024-10-22 11:34:31'),
+	(4979, 1, -26, 'true', '2024-10-22 14:25:27', '2024-10-22 14:25:27'),
+	(4980, 2, 5, 'true', '2024-10-22 14:25:27', '2024-10-22 14:25:27'),
+	(4981, 3, 33, 'true', '2024-10-22 14:25:27', '2024-10-22 14:25:27'),
+	(4982, 4, 85, 'true', '2024-10-22 14:25:27', '2024-10-22 14:25:27'),
+	(4983, 5, -27, 'true', '2024-10-22 14:25:27', '2024-10-22 14:25:27'),
+	(4984, 1, -25, 'true', '2024-10-22 14:25:28', '2024-10-22 14:25:28'),
+	(4985, 2, 4, 'true', '2024-10-22 14:25:28', '2024-10-22 14:25:28'),
+	(4986, 3, 34, 'true', '2024-10-22 14:25:28', '2024-10-22 14:25:28'),
+	(4987, 4, 85, 'true', '2024-10-22 14:25:28', '2024-10-22 14:25:28'),
+	(4988, 5, -28, 'true', '2024-10-22 14:25:28', '2024-10-22 14:25:28'),
+	(4989, 1, -25, 'true', '2024-10-22 14:25:29', '2024-10-22 14:25:29'),
+	(4990, 2, 5, 'true', '2024-10-22 14:25:29', '2024-10-22 14:25:29'),
+	(4991, 3, 33, 'true', '2024-10-22 14:25:29', '2024-10-22 14:25:29'),
+	(4992, 4, 85, 'true', '2024-10-22 14:25:29', '2024-10-22 14:25:29'),
+	(4993, 5, -27, 'true', '2024-10-22 14:25:29', '2024-10-22 14:25:29'),
+	(4994, 1, -25, 'true', '2024-10-22 14:25:30', '2024-10-22 14:25:30'),
+	(4995, 2, 5, 'true', '2024-10-22 14:25:30', '2024-10-22 14:25:30'),
+	(4996, 3, 32, 'true', '2024-10-22 14:25:30', '2024-10-22 14:25:30'),
+	(4997, 4, 85, 'true', '2024-10-22 14:25:30', '2024-10-22 14:25:30'),
+	(4998, 5, -26, 'true', '2024-10-22 14:25:30', '2024-10-22 14:25:30'),
+	(4999, 1, -25, 'true', '2024-10-22 14:25:31', '2024-10-22 14:25:31'),
+	(5000, 2, 4, 'true', '2024-10-22 14:25:31', '2024-10-22 14:25:31'),
+	(5001, 3, 31, 'true', '2024-10-22 14:25:31', '2024-10-22 14:25:31'),
+	(5002, 4, 85, 'true', '2024-10-22 14:25:31', '2024-10-22 14:25:31'),
+	(5003, 5, -25, 'true', '2024-10-22 14:25:31', '2024-10-22 14:25:31'),
+	(5004, 1, -26, 'true', '2024-10-22 14:25:32', '2024-10-22 14:25:32'),
+	(5005, 2, 5, 'true', '2024-10-22 14:25:32', '2024-10-22 14:25:32'),
+	(5006, 3, 30, 'true', '2024-10-22 14:25:32', '2024-10-22 14:25:32'),
+	(5007, 4, 85, 'true', '2024-10-22 14:25:32', '2024-10-22 14:25:32'),
+	(5008, 5, -25, 'true', '2024-10-22 14:25:32', '2024-10-22 14:25:32'),
+	(5009, 1, -25, 'true', '2024-10-22 14:25:33', '2024-10-22 14:25:33'),
+	(5010, 2, 5, 'true', '2024-10-22 14:25:33', '2024-10-22 14:25:33'),
+	(5011, 3, 31, 'true', '2024-10-22 14:25:33', '2024-10-22 14:25:33'),
+	(5012, 4, 85, 'true', '2024-10-22 14:25:33', '2024-10-22 14:25:33'),
+	(5013, 5, -25, 'true', '2024-10-22 14:25:33', '2024-10-22 14:25:33'),
+	(5014, 1, -26, 'true', '2024-10-22 14:25:34', '2024-10-22 14:25:34'),
+	(5015, 2, 4, 'true', '2024-10-22 14:25:34', '2024-10-22 14:25:34'),
+	(5016, 3, 30, 'true', '2024-10-22 14:25:34', '2024-10-22 14:25:34'),
+	(5017, 4, 84, 'true', '2024-10-22 14:25:34', '2024-10-22 14:25:34'),
+	(5018, 5, -25, 'true', '2024-10-22 14:25:34', '2024-10-22 14:25:34'),
+	(5019, 1, -25, 'true', '2024-10-22 14:25:35', '2024-10-22 14:25:35'),
+	(5020, 2, 5, 'true', '2024-10-22 14:25:35', '2024-10-22 14:25:35'),
+	(5021, 3, 31, 'true', '2024-10-22 14:25:35', '2024-10-22 14:25:35'),
+	(5022, 4, 85, 'true', '2024-10-22 14:25:35', '2024-10-22 14:25:35'),
+	(5023, 5, -25, 'true', '2024-10-22 14:25:35', '2024-10-22 14:25:35'),
+	(5024, 1, -25, 'true', '2024-10-22 14:25:36', '2024-10-22 14:25:36'),
+	(5025, 2, 5, 'true', '2024-10-22 14:25:36', '2024-10-22 14:25:36'),
+	(5026, 3, 32, 'true', '2024-10-22 14:25:36', '2024-10-22 14:25:36'),
+	(5027, 4, 85, 'true', '2024-10-22 14:25:36', '2024-10-22 14:25:36'),
+	(5028, 5, -25, 'true', '2024-10-22 14:25:36', '2024-10-22 14:25:36'),
+	(5029, 1, 35, 'true', '2024-10-23 10:23:32', '2024-10-23 10:23:32');
 
 -- Exportiere Struktur von Tabelle temperatur.translations
 DROP TABLE IF EXISTS `translations`;
@@ -5260,9 +5348,9 @@ CREATE TABLE IF NOT EXISTS `translations` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.translations: ~34 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.translations: ~38 rows (ungefähr)
 DELETE FROM `translations`;
 INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `ru`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'site', 'controller not found.', 'Der Controller wurde nicht gefunden.', 'Controller not found.', NULL, 'true', '2024-08-13 10:35:53', '2024-08-13 10:27:19'),
@@ -5299,7 +5387,11 @@ INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `ru`, `active
 	(32, 'okay', 'aaaand another {test}', NULL, 'aaaand another {test}', NULL, 'true', '2024-10-17 11:51:48', '2024-10-17 11:51:48'),
 	(33, '', 'username not found.', NULL, 'Username not found.', NULL, 'true', '2024-10-17 11:53:25', '2024-10-17 11:53:25'),
 	(34, '', 'controller not found.', NULL, 'Controller not found.', NULL, 'true', '2024-10-17 11:53:30', '2024-10-17 11:53:30'),
-	(35, 'site', 'successfully inserted {loops}x temperatures for all sensors.', NULL, 'Successfully inserted {loops}x temperatures for all sensors.', NULL, 'true', '2024-10-22 09:14:32', '2024-10-22 09:14:32');
+	(35, 'site', 'successfully inserted {loops}x temperatures for all sensors.', NULL, 'Successfully inserted {loops}x temperatures for all sensors.', NULL, 'true', '2024-10-22 09:14:32', '2024-10-22 09:14:32'),
+	(36, 'site', 'sensors', NULL, 'Sensors', NULL, 'true', '2024-10-22 14:08:14', '2024-10-22 14:08:14'),
+	(37, 'site', 'users', NULL, 'Users', NULL, 'true', '2024-10-22 14:08:14', '2024-10-22 14:08:14'),
+	(38, 'site', 'could not create a new twig environment.', NULL, 'Could not create a new twig environment.', NULL, 'true', '2024-10-22 14:10:06', '2024-10-22 14:10:06'),
+	(39, 'site', 'in order to perform this action you need the {rolename} role.', NULL, 'In order to perform this action you need the {roleName} role.', NULL, 'true', '2024-10-23 11:10:58', '2024-10-23 11:10:58');
 
 -- Exportiere Struktur von Tabelle temperatur.users
 DROP TABLE IF EXISTS `users`;
@@ -5327,7 +5419,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Exportiere Daten aus Tabelle temperatur.users: ~21 rows (ungefähr)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `username`, `snowflake`, `password`, `phone`, `avatar_id`, `role_id`, `active`, `last_seen`, `created_at`, `updated_at`) VALUES
-	(1, 'Tim', 'tim', '$2y$10$RXDSPXFNo0s2tyFX6oIUqO1LyRphtkXmQdkiMgrMgyFbbMFfKhBvK', NULL, 1, 2, 'true', '2024-10-22 12:03:45', '2024-10-22 12:03:45', '2024-08-13 12:26:26'),
+	(1, 'Tim', 'tim', '$2y$10$wGt8lnlPTZzojT58e9QPne8I9FrrOaiKA2uSGtscFg4KgIr0mqrDa', '01729499985', 1, 2, 'true', '2024-10-23 09:30:01', '2024-10-23 09:30:01', '2024-08-13 12:26:26'),
 	(2, 'Alex', 'alex', '$2y$10$ULr9T0RYziJDgQh2cLwHb.FhPiiBt1QB2Wto/v7uHSDcgM2XllStu', NULL, 2, 1, 'true', '2024-10-21 11:12:03', '2024-10-21 11:12:03', '2024-08-15 07:59:34'),
 	(3, 'Leander', 'leander', '$2y$10$7K4sFPy9GBePczX0rFCeXueAJUQgMk6LEX0ExEQ7dat4m7LIVMwj2', NULL, 3, 1, 'true', '2024-08-15 11:02:49', '2024-10-16 13:03:13', '2024-08-15 11:02:49'),
 	(4, 'Pascal', 'smooth', '$2y$10$UzRrD0rbJQqhvOmj35nP5u1YMCnrcNYrozYWqNRtPl0UPUE7b1fyK', NULL, 4, 1, 'true', '2024-08-16 10:30:24', '2024-10-17 10:08:18', '2024-08-16 10:30:24'),
@@ -5343,7 +5435,7 @@ INSERT INTO `users` (`id`, `username`, `snowflake`, `password`, `phone`, `avatar
 	(14, 'Testabc', 'testabc', '$2y$10$4jjccQl9wA.lUMHisXMGf.TBK8TEWfARQxbPCEroOTf81PJf2jEcu', NULL, 13, 1, 'true', '2024-10-21 11:56:16', '2024-10-21 11:56:16', '2024-10-21 11:56:16'),
 	(15, 'Lenovo', 'lenovo', '$2y$10$sdrpIu/T0SsgZVGX9QeI2ON8aiaCAhDLfjnjJQz0dAvT/Ed/IcI.C', NULL, 14, 1, 'true', '2024-10-22 09:31:54', '2024-10-22 09:31:54', '2024-10-21 12:28:40'),
 	(17, 'Alex\\\'_', 'alex_', '$2y$10$0ziKH93x/.MKZ0i9ZyeDZuPT/wK1uBMhaHctXT7ciboimI4ZtR.cu', NULL, 16, 1, 'false', '2024-10-22 10:11:35', '2024-10-22 10:42:29', '2024-10-22 10:11:35'),
-	(19, '\'_Alex_\'', '_alex_', '$2y$10$0ziKH93x/.MKZ0i9ZyeDZuPT/wK1uBMhaHctXT7ciboimI4ZtR.cu', NULL, 18, 1, 'false', '2024-10-22 10:29:49', '2024-10-22 10:42:28', '2024-10-22 10:14:53'),
+	(19, '\'_Alex_\'', '_alex_', '$2y$10$0ziKH93x/.MKZ0i9ZyeDZuPT/wK1uBMhaHctXT7ciboimI4ZtR.cu', '0172 3958502', 18, 1, 'false', '2024-10-22 10:29:49', '2024-10-23 11:32:22', '2024-10-22 10:14:53'),
 	(20, 'Alex\'33v,\\\'', 'alex33v', '$2y$10$CHpqUz50JhiQG8VR6WfR2uVHpENQM./r.xZ6JvVc6FI7LCBhEX0pW', NULL, 19, 1, 'false', '2024-10-22 10:42:46', '2024-10-22 10:47:20', '2024-10-22 10:42:46'),
 	(21, 'Alex\'\\\'234', 'alex234', '$2y$10$2xMJpfXPQ9e6Xhxz/0EJnOmX7ILSZT2RVkI1WO76Z9F9SLrxSzrRm', NULL, 20, 1, 'false', '2024-10-22 10:46:20', '2024-10-22 10:47:20', '2024-10-22 10:46:20'),
 	(23, 'Alex.okay', 'alexokay', '$2y$10$Qis0FuPsft3Jrpmv1yCn3OJ8vS/dBdocbIzjfYyDDk1qGNF9Zl6.e', NULL, 22, 1, 'true', '2024-10-22 10:47:45', '2024-10-22 10:47:45', '2024-10-22 10:47:45'),
@@ -5365,7 +5457,7 @@ CREATE TABLE IF NOT EXISTS `user_settings` (
   CONSTRAINT `user_settings_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COMMENT='Nutzereinstellungen';
 
--- Exportiere Daten aus Tabelle temperatur.user_settings: ~10 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.user_settings: ~16 rows (ungefähr)
 DELETE FROM `user_settings`;
 INSERT INTO `user_settings` (`id`, `user_id`, `language`, `imperial_system`, `darkmode`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 4, 'ru', 'c', 'true', 'true', '2024-10-17 08:49:04', '2024-10-17 08:47:59'),
