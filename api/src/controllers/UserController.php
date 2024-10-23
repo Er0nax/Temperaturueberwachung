@@ -126,6 +126,14 @@ class UserController extends BaseController
         // update last seen
         $entry->update('users', ['last_seen' => date('Y-m-d H:i:s')], ['id' => $user['id']]);
 
+        // log
+        $this->entry->insert('logs', [
+            'user_id' => $user['id'],
+            'action' => 'login',
+            'relation' => 'users',
+            'relation_id' => $user['id']
+        ]);
+
         // return user
         ResultHelper::render([
             'message' => ResultHelper::t('Welcome back, {username}', ['username' => $userInfo['username']]),
@@ -235,6 +243,13 @@ class UserController extends BaseController
         $user['token'] = UserHelper::getApiToken($user['id']);
         $_SESSION['token'] = $user['token'];
 
+        $this->entry->insert('logs', [
+            'user_id' => $user['id'],
+            'action' => 'register',
+            'relation' => 'users',
+            'relation_id' => $user['id']
+        ]);
+
         ResultHelper::render([
             'message' => 'Account created successfully.',
             'info' => $user
@@ -250,7 +265,7 @@ class UserController extends BaseController
      */
     public function actionUpdate(): void
     {
-        $this->requireUser();
+        $currentUser = $this->requireUser();
 
         if (empty($this->params)) {
             ResultHelper::render([
@@ -263,15 +278,25 @@ class UserController extends BaseController
             ], 406, $this->defaultConfig);
         }
 
-        // get user id
-        $userId = $this->requireUser();
-
         // get updates
         $username = $this->getParam(1, 'username', null, true);
         $password = $this->getParam(2, 'password', null, true);
+        $snowflake = $this->getParam(2, 'snowflake', null, true);
+        $phone = $this->getParam(2, 'phone', null, true);
+        $active = $this->getParam(2, 'active', null, true);
 
         $entry = new Entry();
         $updates = [];
+
+        // get current user values
+        $user = $entry->columns(['users' => ['username', 'snowflake', 'phone', 'password', 'active']])->tables('users')->where(['users' => [['id', $currentUser['id']]]])->one();
+
+        // user found?
+        if (empty($user)) {
+            ResultHelper::render([
+                'message' => 'Could not find a user to update.'
+            ], 404, $this->defaultConfig);
+        }
 
         // username exists?
         if (!empty($username)) {
@@ -297,6 +322,35 @@ class UserController extends BaseController
             $updates['password'] = password_hash($password, PASSWORD_DEFAULT);
         }
 
+        // new snowflake?
+        if (!empty($snowflake)) {
+
+            // check if username exists
+            $entry->columns(['users' => ['snowflake']])->tables('users')->where(['users' => [['snowflake', $snowflake]]]);
+
+            // username exists?
+            if ($entry->exists()) {
+                ResultHelper::render([
+                    'message' => 'Snowflake already exists.'
+                ], 400, $this->defaultConfig);
+            }
+
+            // update username
+            $updates['snowflake'] = $snowflake;
+        }
+
+        // new phone?
+        if (!empty($phone)) {
+            if ($user['phone'] !== $phone)
+                $updates['phone'] = $phone;
+        }
+
+        // new active status?
+        if (is_bool($active)) {
+            if ($user['active'] !== $active)
+                $updates['active'] = $active;
+        }
+
         // no values given
         if (empty($updates)) {
             ResultHelper::render([
@@ -305,18 +359,31 @@ class UserController extends BaseController
         }
 
         // update user
-        $updated = $entry->update('users', $updates, ['id' => $userId]);
+        $updated = $entry->update('users', $updates, ['id' => $currentUser['id']]);
 
         // was updated?
-        if ($updated) {
+        if (!$updated) {
             ResultHelper::render([
-                'message' => 'Account updated successfully.'
-            ], 200, $this->defaultConfig);
+                'message' => 'Error while updating account.'
+            ], 500, $this->defaultConfig);
+        }
+
+        // insert into logs
+        foreach ($updates as $column => $value) {
+            $this->entry->insert('logs', [
+                'user_id' => $currentUser['id'],
+                'action' => 'update',
+                'relation' => 'users',
+                'relation_id' => $currentUser['id'],
+                'old_value' => $user[$column],
+                'new_value' => $value,
+                'column_name' => $column
+            ], false, true);
         }
 
         ResultHelper::render([
-            'message' => 'Error while updating account.'
-        ], 500, $this->defaultConfig);
+            'message' => 'Account updated successfully.'
+        ], 200, $this->defaultConfig);
     }
 
     /**
@@ -385,13 +452,13 @@ class UserController extends BaseController
 
         // get user id
         $entry = new Entry();
-        $userId = $this->requireUser();
+        $user = $this->requireUser();
         $allDevices = (bool)$this->getParam(0, 'all', false);
         $token = $this->getParam(0, 'token', null, true);
 
         if ($allDevices) {
             // logout all devices with the user id
-            $success = $entry->update('api_tokens', ['active' => false], ['userId' => $userId]);
+            $success = $entry->update('api_tokens', ['active' => false], ['userId' => $user['id']]);
         } else {
             $success = $entry->update('api_tokens', ['active' => false], ['token' => $token]);
         }

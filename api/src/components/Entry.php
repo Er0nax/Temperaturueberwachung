@@ -934,6 +934,7 @@ class Entry extends BaseComponent
             // build keys and values strings
             $setValues = [];
             foreach ($keysAndValues as $key => $value) {
+
                 // any part not given?
                 if (!isset($key) || !isset($value)) {
                     if ($dump) {
@@ -971,14 +972,12 @@ class Entry extends BaseComponent
 
             // bind values to parameters
             foreach ($keysAndValues as $key => $value) {
-                $param = ':' . $key;
-
                 // check if boolean
                 if (is_bool($value)) {
                     $value = $value ? 'true' : 'false';
                 }
 
-                $stmt->bindValue($param, $value);
+                $stmt->bindValue(':' . $key, $value);
             }
 
             // bind values for where conditions
