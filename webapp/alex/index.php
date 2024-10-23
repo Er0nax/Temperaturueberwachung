@@ -82,216 +82,10 @@
       </div>
 
     </div>
-    <div class="card-border mt-4">
-        <div><h5 class="mb-2">Server: </h5>
-            <h6 class="text-body-tertiary">Temperatur</h6>
-        </div>
-
-        <div class="d-flex justify-content-left pt-3 flex-1">
-            <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
-                    height="180"></canvas>
-            <div
-            <div class="circle-container">
-                <div class="circle-temp">
-                </div>
-                <div class="my-circle">
-                    <h1 class="Temp_Text"> 37 °C </h1>
-                </div>
-                <div class="circle-container-bottom">
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3 Max_Min_Temp">
-            <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">30°C</h6>
-            </div>
-            <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">0°C</h6>
-            </div>
-            <div class="d-flex align-items-center">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">10°C</h6>
-            </div>
-        </div>
-    </div>
-    <div class="card-border mt-4">
-        <div><h5 class="mb-2">Server: </h5>
-            <h6 class="text-body-tertiary">Temperatur</h6>
-        </div>
-
-        <div class="d-flex justify-content-left pt-3 flex-1">
-            <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
-                    height="180"></canvas>
-            <div
-            <div class="circle-container">
-                <div class="circle-temp">
-                </div>
-                <div class="my-circle">
-                    <h1 class="Temp_Text"> 37 °C </h1>
-                </div>
-                <div class="circle-container-bottom">
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3 Max_Min_Temp">
-            <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">30°C</h6>
-            </div>
-            <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">0°C</h6>
-            </div>
-            <div class="d-flex align-items-center">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">10°C</h6>
-            </div>
-        </div>
-    </div>
-    <div class="card-border mt-4">
-        <div><h5 class="mb-2">Server: </h5>
-            <h6 class="text-body-tertiary">Temperatur</h6>
-        </div>
-
-        <div class="d-flex justify-content-left pt-3 flex-1">
-            <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
-                    height="180"></canvas>
-            <div
-            <div class="circle-container">
-                <div class="circle-temp">
-                </div>
-                <div class="my-circle">
-                    <h1 class="Temp_Text"> 37 °C </h1>
-                </div>
-                <div class="circle-container-bottom">
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3 Max_Min_Temp">
-            <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">30°C</h6>
-            </div>
-            <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">0°C</h6>
-            </div>
-            <div class="d-flex align-items-center">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">10°C</h6>
-            </div>
-        </div>
-    </div>
-    <div class="card-border mt-4">
-        <div><h5 class="mb-2">Server: </h5>
-            <h6 class="text-body-tertiary">Temperatur</h6>
-        </div>
-
-        <div class="d-flex justify-content-left pt-3 flex-1">
-            <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
-                    height="180"></canvas>
-            <div
-            <div class="circle-container">
-                <div class="circle-temp">
-                </div>
-                <div class="my-circle">
-                    <h1 class="Temp_Text"> 37 °C </h1>
-                </div>
-                <div class="circle-container-bottom">
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3 Max_Min_Temp">
-            <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">30°C</h6>
-            </div>
-            <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">0°C</h6>
-            </div>
-            <div class="d-flex align-items-center">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">10°C</h6>
-            </div>
-        </div>
-    </div>
-    <div class="card-border mt-4">
-        <div><h5 class="mb-2">Server: </h5>
-            <h6 class="text-body-tertiary">Temperatur</h6>
-        </div>
-
-        <div class="d-flex justify-content-left pt-3 flex-1">
-            <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
-                    height="180"></canvas>
-            <div
-            <div class="circle-container">
-                <div class="circle-temp">
-                </div>
-                <div class="my-circle">
-                    <h1 class="Temp_Text"> 37 °C </h1>
-                </div>
-                <div class="circle-container-bottom">
-                </div>
-            </div>
-        </div>
-
-        <div class="mt-3 Max_Min_Temp">
-            <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">30°C</h6>
-            </div>
-            <div class="d-flex align-items-center mb-2">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">0°C</h6>
-            </div>
-            <div class="d-flex align-items-center">
-                <div class="bullet-item bg-primary-subtle me-2">
-                </div>
-                <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
-                <h6 class="text-body fw-semibold mb-0">10°C</h6>
-            </div>
-        </div>
-    </div>
-
     <script>
 
         const circles = document.querySelectorAll('.circle-temp');
-        const temperature = 37; // Assuming temperature in Celsius
+        const temperature = ${sensor.currentTemperature}; // Assuming temperature in Celsius
 
         function rotateCircle() {
             circles.forEach((circle) => {
@@ -319,6 +113,71 @@
 
                 // Loop through each sensor
                 sensors.forEach(sensor => {
+                  document.createElement('<div class="card-border mt-4">
+                    <div><h5 class="mb-2">Server:' + sensor.name + ' </h5>
+                        <h6 class="text-body-tertiary">Temperatur</h6>
+                    </div>
+
+                    <div class="d-flex justify-content-left pt-3 flex-1">
+                        <canvas style="position: absolute; left: 0; top: 0; width: 144px; height: 144px; user-select: none; padding: 0; margin: 0; border-width: 0px;" data-zr-dom-id="zr_0" width="668"
+                                height="180"></canvas>
+                        <div
+                        <div class="circle-container">
+                            <div class="circle-temp">
+                            </div>
+                            <div class="my-circle">
+                                <h1 class="Temp_Text">' + sensor.currentTemperature + '</h1>
+                            </div>
+                            <div class="circle-container-bottom">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3 Max_Min_Temp">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="bullet-item bg-primary me-2">
+                            </div>
+                            <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.: &nbsp</h6>
+                            <h6 class="text-body fw-semibold mb-0">'+ sensor.maxTemp+ '</h6>
+                        </div>
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="bullet-item bg-primary-subtle me-2">
+                            </div>
+                            <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.: &nbsp</h6>
+                            <h6 class="text-body fw-semibold mb-0">' + sensor.minTemp + '</h6>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="bullet-item bg-primary-subtle me-2">
+                            </div>
+                            <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.: &nbsp</h6>
+                            <h6 class="text-body fw-semibold mb-0">' + sensor.avgTemp + '</h6>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary card_User_Temp_history" autofocus type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+                        Temperatur Log
+                      </button>
+                    <div style="min-height: 120px;">
+                      <div class="collapse collapse-horizontal" id="collapseWidthExample">
+                        <div class="card card-body" style="width: 300px; top: 100px;">
+
+                          <table id="temperatureTable">
+                              <thead>
+                                  <tr>
+                                      <th>Date</th>
+                                      <th>Time</th>
+                                      <th>Temperature</th>
+                                      </tr>
+                              </thead>
+                              <tbody>
+                              </tbody>
+                          </table>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>')
                     console.log(`Sensor ID: ${sensor.id}`);
                     console.log(`Name: ${sensor.name}`);
                     console.log(`Current Temperature: ${sensor.currentTemperature}`);
