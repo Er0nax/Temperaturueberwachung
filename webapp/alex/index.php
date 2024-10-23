@@ -74,34 +74,6 @@
                         </tr>
                 </thead>
                 <tbody>
-                  <script>
-                  // JavaScript code to create the table dynamically
-                  // JavaScript mit JSON-Integration
-                    function createTemperatureTable(jsonData) {
-                      const table = document.getElementById("temperatureTable");
-                      const tbody = table.querySelector("tbody");
-
-                      jsonData.forEach((row) => {
-                          const tr = document.createElement("tr");
-                          for (const value of Object.values(row)) {
-                              const td = document.createElement("td");
-                              td.textContent = value;
-                              tr.appendChild(td);
-                          }
-                          tbody.appendChild(tr);
-                      });
-                    }
-
-                    // Beispiel-JSON-Daten
-                    const temperatureData = [
-                      { date: "2023-10-23", time: "12:00", temperature: 22.5 },
-                      { date: "2023-10-23", time: "13:00", temperature: 23.0 },
-                      // ... Weitere Einträge
-                    ];
-
-                    // Funktion aufrufen, um die Tabelle zu erstellen
-                    createTemperatureTable(temperatureData);
-                  </script>
                 </tbody>
             </table>
 
@@ -330,6 +302,41 @@
         }
 
         rotateCircle();
+
+
+        const url = "http://localhost/temperaturueberwachung/api/web/sensor/all";
+
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch data. Status code: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Access the sensors array from the JSON response
+                const sensors = data.response;
+
+                // Loop through each sensor
+                sensors.forEach(sensor => {
+                    console.log(`Sensor ID: ${sensor.id}`);
+                    console.log(`Name: ${sensor.name}`);
+                    console.log(`Current Temperature: ${sensor.currentTemperature}`);
+                    console.log(`Manufacturer: ${sensor.manufacturer}`);
+                    console.log('---');
+
+                    // If you want to loop through the temperatures of each sensor:
+                    sensor.temperatures.forEach(temp => {
+                        console.log(`Temperature ID: ${temp.id}, Temperature: ${temp.temperature}`);
+                    });
+
+                    console.log('=====================');
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
 
     </script>
 </body>
