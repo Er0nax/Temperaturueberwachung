@@ -2,6 +2,8 @@
 
 namespace src\controllers;
 
+use src\helpers\UserHelper;
+
 /**
  * @author Tim Zapfe
  * @copyright Tim Zapfe
@@ -26,6 +28,7 @@ class LogController extends BaseController
         $query = $this->entry->columns(['logs' => ['*']])
             ->tables('logs')
             ->where(['logs' => [['active', true]]])
+            ->order('logs.created_at DESC')
             ->limit($limit)
             ->offset($offset);
 
@@ -35,6 +38,16 @@ class LogController extends BaseController
         }
 
         // return all logs
-        return $query->all();
+        $logs = $query->all();
+
+        foreach ($logs as &$log) {
+            // get user data
+            $log['user'] = UserHelper::getUserQuery()->where(['users' => [['id', $log['user_id']]]])->one();
+
+            // unset useless variables
+            unset($log['user_id']);
+        }
+
+        return $logs;
     }
 }

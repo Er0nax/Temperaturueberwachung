@@ -65,8 +65,14 @@
     <Compile Include="windows\DataTemplates\SensorCard.xaml.cs">
       <DependentUpon>SensorCard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="windows\DataTemplates\LogCard.xaml.cs">
+      <DependentUpon>LogCard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="windows\DataTemplates\UserCard.xaml.cs">
       <DependentUpon>UserCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\LogsWindow.xaml.cs">
+      <DependentUpon>LogsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="windows\UsersWindow.xaml.cs">
       <DependentUpon>UsersWindow.xaml</DependentUpon>
@@ -84,9 +90,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="windows\DataTemplates\LogCard.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="windows\DataTemplates\UserCard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\LogsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="windows\UsersWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

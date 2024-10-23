@@ -157,5 +157,12 @@ namespace Syntax_Sabberer.windows
         {
             _timer.Stop();
         }
+
+        private void logsBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            LogsWindow logs = new LogsWindow();
+            logs.Show();
+            this.Close();
+        }
     }
 }

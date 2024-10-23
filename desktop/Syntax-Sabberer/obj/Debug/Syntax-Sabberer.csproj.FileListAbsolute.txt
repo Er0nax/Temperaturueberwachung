@@ -30,3 +30,7 @@ C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\DataTemplates\SensorCard.g.cs
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\DataTemplates\SensorCard.baml
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\DataTemplates\LogCard.baml
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\DataTemplates\LogCard.g.cs
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\LogsWindow.g.cs
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\LogsWindow.baml

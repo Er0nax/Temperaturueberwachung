@@ -25,7 +25,8 @@ public class ApiService
     {
         var content = new FormUrlEncodedContent(new Dictionary<string, string>{
             { "username", username },
-            { "password", password }
+            { "password", password },
+            { "token", Syntax_Sabberer.Properties.Settings.Default.token }
         });
         var response = await _httpClient.PostAsync("user/login", content);
 
@@ -43,7 +44,8 @@ public class ApiService
         var content = new FormUrlEncodedContent(new Dictionary<string, string>{
             { "username", username },
             { "password", password },
-            { "passwordRepeat", passwordRepeat }
+            { "passwordRepeat", passwordRepeat },
+            { "token", Syntax_Sabberer.Properties.Settings.Default.token }
         });
         var response = await _httpClient.PostAsync("user/register", content);
 
@@ -58,7 +60,10 @@ public class ApiService
 
     public async Task<List<Sensor>> GetAllSensorsAsync()
     {
-        var response = await _httpClient.GetAsync("sensor/all");
+        var content = new FormUrlEncodedContent(new Dictionary<string, string>{
+            { "token", Syntax_Sabberer.Properties.Settings.Default.token }
+        });
+        var response = await _httpClient.PostAsync("sensor/all", content);
 
         if (response != null)
         {
@@ -78,9 +83,37 @@ public class ApiService
         throw new Exception("Failed to retrieve sensors");
     }
 
+    public async Task<List<Log>> GetAllLogsAsync()
+    {
+        var content = new FormUrlEncodedContent(new Dictionary<string, string>{
+            { "token", Syntax_Sabberer.Properties.Settings.Default.token }
+        });
+        var response = await _httpClient.PostAsync("log/all", content);
+
+        if (response != null)
+        {
+            try
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<LogResponse>(jsonResponse);
+                return result.Response;
+            }
+            catch (Exception e)
+            {
+                Clipboard.SetText(e.Message);
+                // error
+            }
+        }
+
+        throw new Exception("Failed to retrieve sensors");
+    }
+
     public async Task<List<User>> GetAllUsersAsync()
     {
-        var response = await _httpClient.GetAsync("user/all");
+        var content = new FormUrlEncodedContent(new Dictionary<string, string>{
+            { "token", Syntax_Sabberer.Properties.Settings.Default.token }
+        });
+        var response = await _httpClient.PostAsync("user/all", content);
 
         if (response != null)
         {
@@ -92,8 +125,6 @@ public class ApiService
 
         throw new Exception("Failed to retrieve users");
     }
-
-    // Weitere Methoden können hier hinzugefügt werden
 }
 
 public class LoginResponse
@@ -103,10 +134,32 @@ public class LoginResponse
     public LoginInfo Response { get; set; }
 }
 
+public class LogResponse
+{
+    public int Status { get; set; }
+    public bool Cached { get; set; }
+    public List<Log> Response { get; set; }
+}
+
 public class LoginInfo
 {
     public string Message { get; set; }
     public UserInfo Info { get; set; }
+}
+
+public class Log
+{
+    public int Id { get; set; }
+    public string action { get; set; }
+    public string relation { get; set; }
+    public int relation_id { get; set; }
+    public string old_value { get; set; }
+    public string new_value { get; set; }
+    public string column_name { get; set; }
+    public bool active { get; set; }
+    public DateTime created_at { get; set; }
+    public DateTime updated_at { get; set; }
+    public UserInfo User { get; set; }
 }
 
 public class UserInfo
