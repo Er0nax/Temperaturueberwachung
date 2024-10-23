@@ -84,7 +84,7 @@ p.solid {
 .card_User_Temp_history{
   width: 150px !important;
   height: 100px;
-  padding: 20px;
   position: relative;
   z-index: 200;
+  top: 100px;
 }
