@@ -237,7 +237,7 @@ class BaseController
         if (empty($this->user) || empty($this->user['role'])) {
             ResultHelper::render([
                 'message' => 'Seems like you do not have the right role for that.'
-            ], 400, $this->defaultConfig);
+            ], 403, $this->defaultConfig);
         }
 
         // just single role given?
@@ -247,7 +247,7 @@ class BaseController
             if ($this->user['role'] !== $roles) {
                 ResultHelper::render([
                     'message' => ResultHelper::t('In order to perform this action you need the {roleName} role.', ['roleName' => $roles])
-                ], 400);
+                ], 403);
             }
 
             return true;
@@ -267,7 +267,7 @@ class BaseController
         if (!$hasRole) {
             ResultHelper::render([
                 'message' => 'Seems like you do not have the right role for that.'
-            ], 400, $this->defaultConfig);
+            ], 403, $this->defaultConfig);
         }
 
         return true;

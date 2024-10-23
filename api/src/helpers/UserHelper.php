@@ -113,4 +113,43 @@ class UserHelper extends BaseHelper
         return true; // Return true if the username is valid
     }
 
+    /**
+     * Returns boolean whether a username exists or not.
+     * @param string $username
+     * @return bool
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 23.10.2024
+     */
+    public static function checkIfUsernameExists(string $username): bool
+    {
+        $entry = new Entry();
+        $entry->columns(['users' => ['username']])
+            ->tables('users')
+            ->where(['users' => [['username', $username]]]);
+
+        return $entry->exists();
+    }
+
+    /**
+     * Returns the Entry for a user.
+     * @return Entry
+     * @author Tim Zapfe
+     * @copyright Tim Zapfe
+     * @date 23.10.2024
+     */
+    public static function getUserQuery(): Entry
+    {
+        $entry = new Entry();
+
+        return $entry->columns(['users' => ['id', 'username', 'snowflake', 'phone', 'active', 'last_seen', 'created_at', 'updated_at'],
+            'user_settings' => ['language', 'imperial_system', 'darkmode'],
+            'images' => ["src AS 'avatar'"],
+            'roles' => ["name AS 'role_name'", "color AS 'role_color'"]
+        ])->tables(['users',
+            ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT'],
+            ['images', 'users.avatar_id', 'images.id', 'LEFT'],
+            ['roles', 'users.role_id', 'roles.id', 'LEFT']
+        ]);
+    }
 }

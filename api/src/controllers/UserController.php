@@ -12,28 +12,6 @@ use src\helpers\UserHelper;
 class UserController extends BaseController
 {
     /**
-     * Returns the query to select a user with role and avatar without password
-     * @return Entry
-     * @author Tim Zapfe
-     * @copyright Tim Zapfe
-     * @date 18.10.2024
-     */
-    private function getUserQuery(): Entry
-    {
-        $entry = new Entry();
-
-        return $entry->columns(['users' => ['id', 'username', 'snowflake', 'phone', 'active', 'last_seen', 'created_at', 'updated_at'],
-            'user_settings' => ['language', 'imperial_system', 'darkmode'],
-            'images' => ["src AS 'avatar'"],
-            'roles' => ["name AS 'role_name'", "color AS 'role_color'"]
-        ])->tables(['users',
-            ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT'],
-            ['images', 'users.avatar_id', 'images.id', 'LEFT'],
-            ['roles', 'users.role_id', 'roles.id', 'LEFT']
-        ]);
-    }
-
-    /**
      * Gets two inputs (username, password) and returns user id when success or error with message
      * @return void
      * @author Tim Zapfe
@@ -102,7 +80,7 @@ class UserController extends BaseController
         }
 
         // fetch full user information
-        $user = $this->getUserQuery()->where(['users' => [['username', $username]]])->one();
+        $user = UserHelper::getUserQuery()->where(['users' => [['username', $username]]])->one();
 
         // user found?
         if (empty($user)) {
@@ -132,7 +110,7 @@ class UserController extends BaseController
             'action' => 'login',
             'relation' => 'users',
             'relation_id' => $user['id']
-        ]);
+        ], false);
 
         // return user
         ResultHelper::render([
@@ -194,15 +172,8 @@ class UserController extends BaseController
             ], 400, $this->defaultConfig);
         }
 
-        // check if username exists
-        $entry = new Entry();
-        $usernameExists = $entry->columns(['users' => ['username']])
-            ->tables('users')
-            ->where(['users' => [['username', $username]]])
-            ->exists();
-
-        // does username already exists?
-        if ($usernameExists) {
+        // check if username already exist
+        if (UserHelper::checkIfUsernameExists($username)) {
             ResultHelper::render([
                 'message' => 'Username already exists.'
             ], 400, $this->defaultConfig);
@@ -216,16 +187,17 @@ class UserController extends BaseController
         }
 
         // insert avatar
-        $avatarId = $entry->insert('images', ['src' => 'default.png'], false);
+        $avatarId = $this->entry->insert('images', ['src' => 'default.png'], false);
 
         // insert user
-        $userId = $entry->insert('users', [
+        $userId = $this->entry->insert('users', [
             'username' => $username,
             'password' => password_hash($password, PASSWORD_DEFAULT),
             'snowflake' => UserHelper::generateSnowflake($username),
             'avatar_id' => $avatarId
         ]);
 
+        // user is number? yes => success
         if (!is_numeric($userId)) {
             ResultHelper::render([
                 'message' => 'There was an error while creating your account.'
@@ -233,10 +205,10 @@ class UserController extends BaseController
         }
 
         // insert user_settings
-        $entry->insert('user_settings', ['user_id' => $userId]);
+        $this->entry->insert('user_settings', ['user_id' => $userId]);
 
         // fetch the user
-        $user = $this->getUserQuery()->where(['users' => [['username', $username]]])->one();
+        $user = UserHelper::getUserQuery()->where(['users' => [['username', $username]]])->one();
 
         // set password and token
         $user['password'] = $password;
@@ -299,20 +271,21 @@ class UserController extends BaseController
         }
 
         // username exists?
-        if (!empty($username)) {
+        if (!empty($username) && $username !== $user['username']) {
 
-            // check if username exists
-            $entry->columns(['users' => ['username']])->tables('users')->where(['users' => [['username', $username]]]);
+            // check if username is valid
+            if (!UserHelper::isValidUsername($username)) {
+                ResultHelper::render([
+                    'message' => 'This username is not valid! You can not use any banned words or special chars.'
+                ], 400, $this->defaultConfig);
+            }
 
-            // username exists?
-            if ($entry->exists()) {
+            // check if username already exist
+            if (UserHelper::checkIfUsernameExists($username)) {
                 ResultHelper::render([
                     'message' => 'Username already exists.'
                 ], 400, $this->defaultConfig);
             }
-
-            // update username
-            $updates['username'] = $username;
         }
 
         // password exists?
@@ -416,7 +389,7 @@ class UserController extends BaseController
         $entry = new Entry();
 
         // fetch full user information
-        $user = $this->getUserQuery()
+        $user = UserHelper::getUserQuery()
             ->where(['users' => [['username', $username], ['id', $userId], ['snowflake', $snowflake]]], 'OR')
             ->one();
 
@@ -512,6 +485,66 @@ class UserController extends BaseController
         $this->entry->reset();
 
         // get all users
-        return $this->getUserQuery()->where(['users' => [['active', true]]])->order('users.id ASC')->all();
+        return UserHelper::getUserQuery()->where(['users' => [['active', true]]])->order('users.id ASC')->all();
+    }
+
+    public function actionUpdateAsAdmin()
+    {
+        $currentUser = $this->requireUser();
+        $this->requireRole('Admin');
+
+        //  get the user id
+        $userId = $this->getParam(0, 'id');
+
+        // user id given?
+        if (empty($userId)) {
+            ResultHelper::render([
+                'message' => 'Could not find user to update.'
+            ], 404, $this->defaultConfig);
+        }
+
+        // get user
+        $userToUpdate = $this->entry->columns(['users' => ['username', 'snowflake', 'role_id', 'avatar_id', 'active', 'phone']])
+            ->tables('users')
+            ->where(['users' => [['id', $userId]]])
+            ->one();
+
+        if (empty($userToUpdate)) {
+            ResultHelper::render([
+                'message' => 'Could not find any user.'
+            ], 404, $this->defaultConfig);
+        }
+
+        // get update values
+        $username = $this->getParam(1, 'username');
+        $snowflake = $this->getParam(2, 'snowflake');
+        $active = $this->getParam(3, 'active');
+        $role_id = $this->getParam(4, 'role_id');
+        $avatar_id = $this->getParam(5, 'avatar_id');
+        $phone = $this->getParam(6, 'phone');
+
+        $updates = [];
+
+        // update username?
+        if (!empty($username) && $username !== $userToUpdate['username']) {
+
+            // check if username is valid
+            if (!UserHelper::isValidUsername($username)) {
+                ResultHelper::render([
+                    'message' => 'This username is not valid! You can not use any banned words or special chars.'
+                ], 400, $this->defaultConfig);
+            }
+
+            // check if username already exist
+            if (UserHelper::checkIfUsernameExists($username)) {
+                ResultHelper::render([
+                    'message' => 'Username already exists.'
+                ], 400, $this->defaultConfig);
+            }
+
+            $updates['username'] = $username;
+        }
+
+        ResultHelper::render($updates);
     }
 }

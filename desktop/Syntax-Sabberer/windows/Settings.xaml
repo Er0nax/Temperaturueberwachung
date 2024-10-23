@@ -96,6 +96,126 @@
 
                     </Grid>
 
+                    <Grid Grid.Column='0'
+                          Grid.Row='1'>
+
+                        <StackPanel VerticalAlignment='Center'
+                                    Margin='30 10 30 10'>
+
+                            <Label Content='Username:'
+                                   FontWeight='Bold'
+                                   Foreground='White' />
+
+                            <Border BorderBrush='LightBlue'
+                                    Padding='5'
+                                    BorderThickness='0 0 0 1'>
+
+                                <TextBox x:Name='usernameInput'
+                                         BorderBrush='{x:Null}'
+                                         Background='{x:Null}'
+                                         Foreground='White'
+                                         HorizontalContentAlignment='Left'
+                                         VerticalContentAlignment='Center'
+                                         Text='username'
+                                         SelectionBrush='White'
+                                         CaretBrush='White' />
+
+                            </Border>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid Grid.Column='1'
+                          Grid.Row='1'>
+
+                        <StackPanel VerticalAlignment='Center'
+                                    Margin='30 10 30 10'>
+
+                            <Label Content='Password:'
+                                   FontWeight='Bold'
+                                   Foreground='White' />
+
+                            <Border BorderBrush='LightBlue'
+                                    Padding='5'
+                                    BorderThickness='0 0 0 1'>
+
+                                <PasswordBox x:Name='passwordInput'
+                                         BorderBrush='{x:Null}'
+                                         Background='{x:Null}'
+                                         Foreground='White'
+                                         HorizontalContentAlignment='Left'
+                                         VerticalContentAlignment='Center'
+                                         Password='password'
+                                         SelectionBrush='White'
+                                         CaretBrush='White' />
+
+                            </Border>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid Grid.Column='0'
+                          Grid.Row='2'>
+
+                        <StackPanel VerticalAlignment='Center'
+                                    Margin='30 10 30 10'>
+
+                            <Label Content='Snowflake:'
+                                   FontWeight='Bold'
+                                   Foreground='White' />
+
+                            <Border BorderBrush='LightBlue'
+                                    Padding='5'
+                                    BorderThickness='0 0 0 1'>
+
+                                <TextBox x:Name='snowflakeInput'
+                                         BorderBrush='{x:Null}'
+                                         Background='{x:Null}'
+                                         Foreground='White'
+                                         HorizontalContentAlignment='Left'
+                                         VerticalContentAlignment='Center'
+                                         Text='username'
+                                         SelectionBrush='White'
+                                         CaretBrush='White' />
+
+                            </Border>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid Grid.Column='1'
+                          Grid.Row='2'>
+
+                        <StackPanel VerticalAlignment='Center'
+                                    Margin='30 10 30 10'>
+
+                            <Label Content='Phone:'
+                                   FontWeight='Bold'
+                                   Foreground='White' />
+
+                            <Border BorderBrush='LightBlue'
+                                    Padding='5'
+                                    BorderThickness='0 0 0 1'>
+
+                                <TextBox x:Name='phoneInput'
+                                         BorderBrush='{x:Null}'
+                                         Background='{x:Null}'
+                                         Foreground='White'
+                                         HorizontalContentAlignment='Left'
+                                         VerticalContentAlignment='Center'
+                                         Text='phone'
+                                         SelectionBrush='White'
+                                         CaretBrush='White' />
+
+                            </Border>
+
+                        </StackPanel>
+
+                    </Grid>
+
                     <Border x:Name='saveBtn'
                             Grid.Row='90'
                             Grid.Column='90'

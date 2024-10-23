@@ -1,4 +1,4 @@
-﻿<Window x:Class="Syntax_Sabberer.windows.SensorsWindow"
+﻿<Window x:Class="Syntax_Sabberer.windows.LogsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -28,7 +28,7 @@
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width='150' />
+                <ColumnDefinition Width='150'/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
@@ -91,45 +91,25 @@
                           Grid.Column='1'
                           Grid.Row='1'>
 
-                <ItemsControl x:Name="SensorCards"
-                              ItemsSource="{Binding Sensors}">
-
+                <ItemsControl x:Name="LogsCards"
+                              ItemsSource="{Binding Logs}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid Rows="20"
-                                         Columns="4" />
+                            <UniformGrid Rows="1000"
+                                         Columns="1" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <controls:SensorCard />
+                            <controls:LogCard />
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
+
+
             </ScrollViewer>
-
-            <Grid x:Name='message'
-                  Visibility='Hidden'
-                  Grid.Column='1'
-                  Grid.Row='2'>
-
-                <Border Margin='20 30 20 30'
-                        Background='LightCoral'
-                        CornerRadius='10'>
-
-                    <Label x:Name='messageContent'
-                           Content='Sensor #4 is overheating!'
-                           Foreground='White'
-                           FontSize='20'
-                           FontWeight='Bold'
-                           VerticalContentAlignment='Center'
-                           HorizontalContentAlignment='Center' />
-
-                </Border>
-
-            </Grid>
 
             <Grid x:Name='menu'
                   Background='#232323'
@@ -140,34 +120,17 @@
                 <Label Content='Syntax Sabberer'
                        FontWeight='Bold'
                        FontSize='16'
-                       HorizontalContentAlignment='Center'
+                       HorizontalContentAlignment='Center' 
                        VerticalContentAlignment='Center'
                        HorizontalAlignment='Center'
                        VerticalAlignment='Top'
                        Padding='0'
                        Margin='5 15 5 15'
-                       Foreground='White' />
+                       Foreground='White'/>
 
                 <StackPanel Margin='0 80 0 0'>
 
-                    <Border Background='#FF4D4D4D'
-                            Padding='5'
-                            Margin='0 10'
-                            BorderBrush='DarkGray'
-                            BorderThickness='2 0 0 0'
-                            CornerRadius='0'
-                            Cursor='Hand'>
-
-                        <Label Content='Sensors'
-                               FontSize='14'
-                               FontWeight='Bold'
-                               HorizontalContentAlignment='Center'
-                               VerticalContentAlignment='Center'
-                               Foreground='White' />
-
-                    </Border>
-
-                    <Border x:Name='usersBtn'
+                    <Border x:Name='sensorsBtn' 
                             Background='#FF343434'
                             Padding='5'
                             Margin='0 10'
@@ -175,7 +138,24 @@
                             BorderThickness='0 0 0 0'
                             CornerRadius='0'
                             Cursor='Hand'
-                            MouseDown='usersBtn_MouseDown'>
+                            MouseDown='sensorsBtn_MouseDown'>
+
+                        <Label Content='Sensors'
+                               FontSize='14'
+                               FontWeight='Normal'
+                               HorizontalContentAlignment='Center'
+                               VerticalContentAlignment='Center'
+                               Foreground='White' />
+
+                    </Border>
+
+                    <Border Background='#FF343434'
+                            Padding='5'
+                            Margin='0 10'
+                            BorderBrush='DarkGray'
+                            BorderThickness='0 0 0 0'
+                            CornerRadius='0'
+                            Cursor='Hand'>
 
                         <Label Content='Users'
                                FontSize='14'
@@ -186,19 +166,17 @@
 
                     </Border>
 
-                    <Border x:Name='logsBtn'
-                            Background='#FF343434'
+                    <Border Background='#FF4D4D4D'
                             Padding='5'
                             Margin='0 10'
                             BorderBrush='DarkGray'
-                            BorderThickness='0 0 0 0'
+                            BorderThickness='2 0 0 0'
                             CornerRadius='0'
-                            Cursor='Hand'
-                            MouseDown='logsBtn_MouseDown'>
+                            Cursor='Hand'>
 
                         <Label Content='Logs'
                                FontSize='14'
-                               FontWeight='Normal'
+                               FontWeight='Bold'
                                HorizontalContentAlignment='Center'
                                VerticalContentAlignment='Center'
                                Foreground='White' />
@@ -226,7 +204,7 @@
 
                 </StackPanel>
 
-                <Border x:Name='logoutBtn'
+                <Border x:Name='logoutBtn' 
                         Background='#FF343434'
                         Padding='5'
                         Margin='0 10 0 30'
