@@ -101,8 +101,7 @@ namespace Syntax_Sabberer.windows
         {
             this.Close();
         }
-
-        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        private void drag_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }

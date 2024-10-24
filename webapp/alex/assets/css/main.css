@@ -72,15 +72,6 @@ p.solid {
     margin: 20px 0 0 0;
 }
 
-.card_User_Login{
-  width: 120px !important;
-  height: 70px;
-  padding: 20px;
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
 .card_User_Temp_history{
   height: 60px;
   position: relative;

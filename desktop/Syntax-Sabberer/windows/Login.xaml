@@ -27,17 +27,24 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
-            <StackPanel x:Name='titleBar' 
+            <Border x:Name='drag'
+                    Background='Black'
+                    Opacity='0.3'
+                    Grid.Row='0'
+                    Cursor='Hand'
+                    CornerRadius='5 5 0 0'
+                    MouseDown='drag_MouseDown' />
+
+            <StackPanel x:Name='titleBar'
                         Cursor='Hand'
                         Height='30'
                         Grid.Row='0'
                         Orientation='Vertical'
-                        HorizontalAlignment='Right'
-                        MouseDown='titleBar_MouseDown'>
-                
+                        HorizontalAlignment='Right'>
+
                 <Label x:Name='closeBtn'
                        Content='X'
-                       Foreground='#FFFF4242' 
+                       Foreground='#FFFF4242'
                        Padding='0'
                        FontSize='18'
                        Height='30'
@@ -47,7 +54,7 @@
                        VerticalContentAlignment='Center'
                        FontWeight='Bold'
                        MouseDown='closeBtn_MouseDown' />
-                
+
             </StackPanel>
 
             <Image x:Name='settingsBtn'

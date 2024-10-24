@@ -9,7 +9,7 @@
         Height="450"
         Width="300"
         WindowStartupLocation='CenterScreen'
-        ResizeMode='CanMinimize'
+        ResizeMode='NoResize'
         Background='{x:Null}'
         Icon='/assets/images/favicon.ico'
         WindowStyle='None'
@@ -28,12 +28,20 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
 
+            <Border x:Name='drag'
+                    Background='Black'
+                    Opacity='0.3'
+                    Grid.Row='0'
+                    Grid.ColumnSpan='1'
+                    Cursor='Hand'
+                    CornerRadius='5 5 0 0'
+                    MouseDown='drag_MouseDown' />
+            
             <StackPanel x:Name='titleBar' 
                         Grid.Row='0'
                         Cursor='Hand'
                         Orientation='Vertical'
-                        HorizontalAlignment='Right'
-                        MouseDown='titleBar_MouseDown'>
+                        HorizontalAlignment='Right'>
 
                 <Label x:Name='closeBtn'
                        Content='X'

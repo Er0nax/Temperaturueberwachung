@@ -47,5 +47,10 @@ namespace Syntax_Sabberer.windows
         {
             this.Close();
         }
+
+        private void drag_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }
