@@ -20,133 +20,134 @@
     <div class="card-container row">
         <!-- card will be here -->
     </div>
+  </div>
 
-    <script>
-        const url = "http://localhost/temperaturueberwachung/api/web/sensor/all";
+  <script>
+    const url = "http://localhost/temperaturueberwachung/api/web/sensor/all";
 
-        fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Failed to fetch data. Status code: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                const container = document.querySelector('.card-container');
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch data. Status code: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            const container = document.querySelector('.card-container');
 
-                if (!container) {
-                    console.error("Could not find the container.");
-                    return;
-                }
+            if (!container) {
+                console.error("Could not find the container.");
+                return;
+            }
 
-                // Access the sensors array from the JSON response
-                const sensors = data.response;
+            // Access the sensors array from the JSON response
+            const sensors = data.response;
 
-                // Loop through each sensor
-                sensors.forEach(sensor => {
-                    // Create a new card for each sensor
-                    const card = document.createElement('div');
-                    card.classList.add('card-border', 'mt-4');
+            // Loop through each sensor
+            sensors.forEach(sensor => {
+                // Create a new card for each sensor
+                const card = document.createElement('div');
+                card.classList.add('card-border', 'mt-4');
 
-                    // Generate the HTML for the sensor card
-                    card.innerHTML = `
-                <div>
-                    <h5 class="mb-2">Server: </h5>
-                    <h6 class="text-body-tertiary">${sensor.name}</h6>
+                // Generate the HTML for the sensor card
+                card.innerHTML = `
+            <div>
+                <h5 class="mb-2">Server: </h5>
+                <h6 class="text-body-tertiary">${sensor.name}</h6>
+            </div>
+            <div class="d-flex justify-content-left pt-3 flex-1">
+                <div class="circle-container">
+                    <div class="circle-temp"></div>
+                    <div class="my-circle">
+                        <h1 class="Temp_Text">${sensor.currentTemperature}°C</h1>
+                    </div>
+                    <div class="circle-container-bottom"></div>
                 </div>
-                <div class="d-flex justify-content-left pt-3 flex-1">
-                    <div class="circle-container">
-                        <div class="circle-temp"></div>
-                        <div class="my-circle">
-                            <h1 class="Temp_Text">${sensor.currentTemperature}°C</h1>
-                        </div>
-                        <div class="circle-container-bottom"></div>
+            </div>
+            <div class="mt-3 Max_Min_Temp">
+                <div class="d-flex align-items-center mb-2">
+                    <div class="bullet-item bg-primary me-2"></div>
+                    <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.:</h6>
+                    <h6 class="text-body fw-semibold mb-0">${sensor.maxTemp}°C</h6>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <div class="bullet-item bg-primary-subtle me-2"></div>
+                    <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.:</h6>
+                    <h6 class="text-body fw-semibold mb-0">${sensor.minTemp}°C</h6>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="bullet-item bg-primary-subtle me-2"></div>
+                    <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.:</h6>
+                    <h6 class="text-body fw-semibold mb-0">${sensor.avgTemp}°C</h6>
+                </div>
+            </div>
+            <button class="btn btn-primary card_User_Temp_history w-100" autofocus type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapse-${sensor.id}" aria-expanded="false" aria-controls="collapse-${sensor.id}">
+                Temperatur Log
+            </button>
+            <div style="min-height: 120px;">
+                <div class="collapse collapse-horizontal" id="collapse-${sensor.id}">
+                    <div class="card card-body" style="width: 300px; top: 100px; z-index:250">
+                        <table id="temperatureTable">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Temperature</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                ${sensor.temperatures.map(temp => `
+                                    <tr>
+                                        <td>${temp.created_at}</td>
+                                        <td>${temp.time}</td>
+                                        <td>${temp.temperature}°C</td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-                <div class="mt-3 Max_Min_Temp">
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="bullet-item bg-primary me-2"></div>
-                        <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.:</h6>
-                        <h6 class="text-body fw-semibold mb-0">${sensor.maxTemp}°C</h6>
-                    </div>
-                    <div class="d-flex align-items-center mb-2">
-                        <div class="bullet-item bg-primary-subtle me-2"></div>
-                        <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.:</h6>
-                        <h6 class="text-body fw-semibold mb-0">${sensor.minTemp}°C</h6>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <div class="bullet-item bg-primary-subtle me-2"></div>
-                        <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.:</h6>
-                        <h6 class="text-body fw-semibold mb-0">${sensor.avgTemp}°C</h6>
-                    </div>
-                </div>
-                <button class="btn btn-primary card_User_Temp_history" autofocus type="button" data-bs-toggle="collapse"
-                        data-bs-target="#collapse-${sensor.id}" aria-expanded="false" aria-controls="collapse-${sensor.id}">
-                    Temperatur Log
-                </button>
-                <div style="min-height: 120px;">
-                    <div class="collapse collapse-horizontal" id="collapse-${sensor.id}">
-                        <div class="card card-body" style="width: 300px; top: 100px;">
-                            <table id="temperatureTable">
-                                <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Time</th>
-                                    <th>Temperature</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                    ${sensor.temperatures.map(temp => `
-                                        <tr>
-                                            <td>${temp.created_at}</td>
-                                            <td>${temp.time}</td>
-                                            <td>${temp.temperature}°C</td>
-                                        </tr>
-                                    `).join('')}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>`;
+            </div>
+            <h6 class="Text-center"><b>Hersteller: ${sensor.manufacturer} </b></h6>`;
+                // Append the card to the container
+                container.appendChild(card);
 
-                    // Append the card to the container
-                    container.appendChild(card);
+                const circle = card.querySelector('.circle-temp');
 
-                    const circle = card.querySelector('.circle-temp');
+                if (circle) {
+                    const currentTemp = sensor.currentTemperature;
+                    const maxTemp = sensor.maxTemp;
+                    const minTemp = sensor.minTemp;
 
-                    if (circle) {
-                        const currentTemp = sensor.currentTemperature;
-                        const maxTemp = sensor.maxTemp;
-                        const minTemp = sensor.minTemp;
+                    let procent = ((currentTemp - minTemp) / (maxTemp - minTemp)) * 100;
 
-                        let procent = ((currentTemp - minTemp) / (maxTemp - minTemp)) * 100;
+                    if(procent > 100) procent = 100;
+                    if(procent < 0) procent = 100;
 
-                        if(procent > 100) procent = 100;
-                        if(procent < 0) procent = 100;
+                    const angle = procent * 1.8;
+                    circle.style.transform = `rotate(${angle}deg)`;
 
-                        const angle = procent * 1.8;
-                        circle.style.transform = `rotate(${angle}deg)`;
-
-                        // to hot?
-                        if (currentTemp > maxTemp) {
-                            circle.style.backgroundColor = "#ff1f1f";
-                        }
-                        // to cold?
-                        else if (currentTemp < minTemp) {
-                            circle.style.backgroundColor = "#1fbcff";
-                        }
-                        // perfect?
-                        else {
-                            circle.style.backgroundColor = "#4bd31f";
-                        }
+                    // to hot?
+                    if (currentTemp > maxTemp) {
+                        circle.style.backgroundColor = "#ff1f1f";
                     }
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
+                    // to cold?
+                    else if (currentTemp < minTemp) {
+                        circle.style.backgroundColor = "#1fbcff";
+                    }
+                    // perfect?
+                    else {
+                        circle.style.backgroundColor = "#4bd31f";
+                    }
+                }
             });
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 
 
-    </script>
+  </script>
 </body>
 </html>
