@@ -2,7 +2,7 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <PublishUrlHistory>C:\xampp\htdocs\temperaturueberwachung\api\web\assets\app\files\</PublishUrlHistory>
-    <InstallUrlHistory>http://localhost/temperaturueberwachung/api/web/assets/app/files/</InstallUrlHistory>
+    <InstallUrlHistory>http://10.204.161.163/temperaturueberwachung/api/web/assets/app/files/|http://localhost/temperaturueberwachung/api/web/assets/app/files/</InstallUrlHistory>
     <SupportUrlHistory />
     <UpdateUrlHistory />
     <BootstrapperUrlHistory />
