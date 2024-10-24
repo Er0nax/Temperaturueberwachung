@@ -11,7 +11,13 @@
 </head>
 <body>
 
-<a href="login.php" type="button" class="btn btn-primary btn-block mb-4 card_User_Login"><h4> Login </h4></a>
+<header class="d-flex justify-content-center py-3">
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a href="index.php" class="nav-link active" aria-current="page">Dashboard</a></li>
+        <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
+        <li class="nav-item"><a href="http://localhost/temperaturueberwachung/api/web/app/download" target="_blank" class="nav-link">Download</a></li>
+    </ul>
+</header>
 
 <div class="row justify-content-center text-center">
     <!-- mehrere Leerzeilen -->
@@ -121,8 +127,8 @@
 
                         let procent = ((currentTemp - minTemp) / (maxTemp - minTemp)) * 100;
 
-                        if(procent > 100) procent = 100;
-                        if(procent < 0) procent = 100;
+                        if (procent > 100) procent = 100;
+                        if (procent < 0) procent = 100;
 
                         const angle = procent * 1.8;
                         circle.style.transform = `rotate(${angle}deg)`;
