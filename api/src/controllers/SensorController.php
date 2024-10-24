@@ -82,7 +82,13 @@ class SensorController extends BaseController
             $sensor['avgTemp'] = $minMaxTempQuery->avg();
 
             // add latest temperatures
-            $sensor['temperatures'] = $temperatureQuery->all();
+            foreach ($temperatureQuery->all() as $temp) {
+                $sensor['temperatures'][] = [
+                    'created_at' => date('d.m.y', strtotime($temp['created_at'])),
+                    'time' => date('H:i:s', strtotime($temp['created_at'])),
+                    'temperature' => $temp['temperature'],
+                ];
+            }
         }
 
         // return all sensors
