@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Timers;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Application = System.Windows.Application;
+using Timer = System.Timers.Timer;
 
 namespace Syntax_Sabberer.windows
 {
@@ -23,7 +27,7 @@ namespace Syntax_Sabberer.windows
             // set username label
             var bc = new BrushConverter();
             usernameLabel.Content = Properties.Settings.Default.username;
-            usernameLabel.Foreground = (Brush)bc.ConvertFrom(Properties.Settings.Default.role_color);
+            usernameLabel.Foreground = (System.Windows.Media.Brush)bc.ConvertFrom(Properties.Settings.Default.role_color);
 
             // set user avatar
             string avatar = Properties.Settings.Default.avatar;
@@ -96,6 +100,11 @@ namespace Syntax_Sabberer.windows
                     {
                         message.Visibility = Visibility.Visible;
                         messageContent.Content = messageText;
+
+                        var notifyIcon = new NotifyIcon();
+                        notifyIcon.Icon = new Icon("");
+                        notifyIcon.Visible = true;
+                        notifyIcon.ShowBalloonTip(5000, "Info", messageText, ToolTipIcon.Info);
                     }
                     else
                     {
