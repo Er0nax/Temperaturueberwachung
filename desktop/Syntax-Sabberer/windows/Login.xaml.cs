@@ -101,8 +101,18 @@ namespace Syntax_Sabberer.windows
 
         private void settingsBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Settings settings = new Settings();
+            SettingsWindow settings = new SettingsWindow();
             settings.Show();
+        }
+
+        private void closeBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

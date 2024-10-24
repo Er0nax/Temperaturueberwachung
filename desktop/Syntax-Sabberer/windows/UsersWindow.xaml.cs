@@ -77,8 +77,9 @@ namespace Syntax_Sabberer.windows
 
         private void usernameLabel_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Settings settings = new Settings();
+            SettingsWindow settings = new SettingsWindow();
             settings.Show();
+            WindowState = WindowState.Minimized;
         }
 
         private void logoutBtn_MouseDown(object sender, MouseButtonEventArgs e)
@@ -100,8 +101,9 @@ namespace Syntax_Sabberer.windows
 
         private void settingsBtn_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Settings settings = new Settings();
+            SettingsWindow settings = new SettingsWindow();
             settings.Show();
+            WindowState = WindowState.Minimized;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -114,6 +116,16 @@ namespace Syntax_Sabberer.windows
             LogsWindow logs = new LogsWindow();
             logs.Show();
             this.Close();
+        }
+
+        private void closeBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void titleBar_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

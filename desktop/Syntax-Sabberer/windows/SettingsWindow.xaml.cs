@@ -20,9 +20,9 @@ namespace Syntax_Sabberer.windows
     /// <summary>
     /// Interaktionslogik für Main.xaml
     /// </summary>
-    public partial class Settings : Window
+    public partial class SettingsWindow : Window
     {
-        public Settings()
+        public SettingsWindow()
         {
             InitializeComponent();
 
@@ -40,6 +40,11 @@ namespace Syntax_Sabberer.windows
 
             // show info
             MessageBox.Show("New settings saved. Please restart the application to apply the new changes.");
+            this.Close();
+        }
+
+        private void closeBtn_MouseDown(object sender, MouseButtonEventArgs e)
+        {
             this.Close();
         }
     }

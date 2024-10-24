@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\App.xaml
-9-1585215150
+9-387004094
 
-14537673241
+14850270845
 14-127895518
-windows\DataTemplates\SensorCard.xaml;windows\DataTemplates\LogCard.xaml;windows\DataTemplates\UserCard.xaml;windows\LogsWindow.xaml;windows\UsersWindow.xaml;windows\Settings.xaml;windows\Register.xaml;windows\Login.xaml;windows\SensorsWindow.xaml;
+windows\DataTemplates\SensorCard.xaml;windows\DataTemplates\LogCard.xaml;windows\DataTemplates\UserCard.xaml;windows\LogsWindow.xaml;windows\UsersWindow.xaml;windows\SettingsWindow.xaml;windows\Register.xaml;windows\Login.xaml;windows\SensorsWindow.xaml;
 
 False
 

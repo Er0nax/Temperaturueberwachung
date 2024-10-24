@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Syntax_Sabberer.windows"
         xmlns:controls="clr-namespace:Syntax_Sabberer.windows.DataTemplates"
         mc:Ignorable="d"
-        Title="Main"
+        Title="Users"
         Height="700"
         MinHeight='400'
         MaxHeight='800'
@@ -14,221 +14,253 @@
         MinWidth='800'
         MaxWidth='1200'
         ResizeMode='CanMinimize'
+        Background='{x:Null}'
+        Closing='Window_Closing'
+        Topmost='True'
+        Icon='/assets/images/favicon.ico'
         WindowStartupLocation='CenterScreen'
-        Background='#111111'
-        Closing='Window_Closing'>
-    <Grid>
+        WindowStyle='None'
+        AllowsTransparency='True'>
+    <Border Background='#FF111111'
+            CornerRadius='5'>
+        <Grid>
 
-        <Grid x:Name='Grid'>
+            <Grid x:Name='Grid'>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height='50' />
-                <RowDefinition Height='*' />
-                <RowDefinition Height='100' />
-            </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height='30' />
+                    <RowDefinition Height='50' />
+                    <RowDefinition Height='*' />
+                    <RowDefinition Height='100' />
+                </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width='150'/>
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width='150' />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-            <Grid x:Name='topbar'
-                  Grid.Column='0'
-                  Grid.Row='0'
-                  Grid.ColumnSpan='2'>
+                <StackPanel x:Name='titleBar' 
+                            Grid.Row='0'
+                            Grid.Column='0'
+                            Grid.ColumnSpan='2'
+                            Cursor='Hand'
+                            Orientation='Vertical'
+                            HorizontalAlignment='Right'
+                            MouseDown='titleBar_MouseDown'>
 
-                <StackPanel Orientation='Horizontal'
-                            HorizontalAlignment='Right'>
-
-                    <Label x:Name='usernameLabel'
-                           Content='Eronax'
-                           Foreground='White'
-                           Cursor='Hand'
+                    <Label x:Name='closeBtn'
+                           Content='X'
+                           Foreground='#FFFF4242'
                            Padding='0'
+                           Height='30'
+                           FontSize='18'
+                           Cursor='Hand'
+                           Width='30'
+                           HorizontalContentAlignment='Center'
+                           VerticalContentAlignment='Center'
                            FontWeight='Bold'
-                           Margin='10 0 10 0'
-                           HorizontalContentAlignment='Center'
-                           VerticalContentAlignment='Center'
-                           MouseDown='usernameLabel_MouseDown' />
-
-                    <Ellipse Height='30'
-                             Width='30'
-                             Margin='0 0 10 0'
-                             Stroke='White'>
-
-                        <Ellipse.Fill>
-                            <ImageBrush x:Name='user_avatar'
-                                        ImageSource="/assets/images/default.png" />
-                        </Ellipse.Fill>
-
-                    </Ellipse>
-
-
+                           MouseDown='closeBtn_MouseDown' />
 
                 </StackPanel>
 
-            </Grid>
+                <Grid x:Name='topbar'
+                      Grid.Column='0'
+                      Grid.Row='1'
+                      Grid.ColumnSpan='2'>
 
-            <Label x:Name='lastUpdatedLbl'
-                   Grid.Row='0'
-                   Grid.Column='1'
-                   Grid.ColumnSpan='1'
-                   Foreground='DarkGray'
-                   FontSize='16'
-                   HorizontalContentAlignment='Center'
-                   VerticalContentAlignment='Center' />
+                    <StackPanel Orientation='Horizontal'
+                                HorizontalAlignment='Right'>
 
-            <Label x:Name='loadingLbl'
-                   Grid.Row='1'
-                   Grid.Column='1'
-                   HorizontalAlignment='Center'
-                   FontSize='20'
-                   Foreground='DarkGray'
-                   VerticalAlignment='Center'
-                   Content='Loading...' />
-
-            <ScrollViewer x:Name='content'
-                          Grid.Column='1'
-                          Grid.Row='1'>
-
-                <ItemsControl x:Name="UserCards"
-                              ItemsSource="{Binding Sensors}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Rows="20"
-                                         Columns="4" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <controls:UserCard />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-
-
-
-            </ScrollViewer>
-
-            <Grid x:Name='menu'
-                  Background='#232323'
-                  Grid.Column='0'
-                  Grid.Row='0'
-                  Grid.RowSpan='3'>
-
-                <Label Content='Syntax Sabberer'
-                       FontWeight='Bold'
-                       FontSize='16'
-                       HorizontalContentAlignment='Center' 
-                       VerticalContentAlignment='Center'
-                       HorizontalAlignment='Center'
-                       VerticalAlignment='Top'
-                       Padding='0'
-                       Margin='5 15 5 15'
-                       Foreground='White'/>
-
-                <StackPanel Margin='0 80 0 0'>
-
-                    <Border x:Name='sensorsBtn' 
-                            Background='#FF343434'
-                            Padding='5'
-                            Margin='0 10'
-                            BorderBrush='DarkGray'
-                            BorderThickness='0 0 0 0'
-                            CornerRadius='0'
-                            Cursor='Hand'
-                            MouseDown='sensorsBtn_MouseDown'>
-
-                        <Label Content='Sensors'
-                               FontSize='14'
-                               FontWeight='Normal'
-                               HorizontalContentAlignment='Center'
-                               VerticalContentAlignment='Center'
-                               Foreground='White' />
-
-                    </Border>
-
-                    <Border Background='#FF4D4D4D'
-                            Padding='5'
-                            Margin='0 10'
-                            BorderBrush='DarkGray'
-                            BorderThickness='2 0 0 0'
-                            CornerRadius='0'
-                            Cursor='Hand'>
-
-                        <Label Content='Users'
-                               FontSize='14'
+                        <Label x:Name='usernameLabel'
+                               Content='Eronax'
+                               Foreground='White'
+                               Cursor='Hand'
+                               Padding='0'
                                FontWeight='Bold'
+                               Margin='10 0 10 0'
                                HorizontalContentAlignment='Center'
                                VerticalContentAlignment='Center'
-                               Foreground='White' />
+                               MouseDown='usernameLabel_MouseDown' />
 
-                    </Border>
+                        <Ellipse Height='30'
+                                 Width='30'
+                                 Margin='0 0 10 0'
+                                 Stroke='White'>
 
-                    <Border x:Name='logsBtn'
-                            Background='#FF343434'
-                            Padding='5'
-                            Margin='0 10'
-                            BorderBrush='DarkGray'
-                            BorderThickness='0 0 0 0'
-                            CornerRadius='0'
-                            Cursor='Hand'
-                            MouseDown='logsBtn_MouseDown'>
+                            <Ellipse.Fill>
+                                <ImageBrush x:Name='user_avatar'
+                                            ImageSource="/assets/images/default.png" />
+                            </Ellipse.Fill>
 
-                        <Label Content='Logs'
-                               FontSize='14'
-                               FontWeight='Normal'
-                               HorizontalContentAlignment='Center'
-                               VerticalContentAlignment='Center'
-                               Foreground='White' />
+                        </Ellipse>
 
-                    </Border>
 
-                    <Border x:Name='settingsBtn' 
-                            Background='#FF343434'
-                            Padding='5'
-                            Margin='0 10'
-                            BorderBrush='DarkGray'
-                            BorderThickness='0 0 0 0'
-                            CornerRadius='0'
-                            Cursor='Hand'
-                            MouseDown='settingsBtn_MouseDown'>
 
-                        <Label Content='Settings'
-                               FontSize='14'
-                               FontWeight='Normal'
-                               HorizontalContentAlignment='Center'
-                               VerticalContentAlignment='Center'
-                               Foreground='White' />
+                    </StackPanel>
 
-                    </Border>
+                </Grid>
 
-                </StackPanel>
+                <Label x:Name='lastUpdatedLbl'
+                       Grid.Row='1'
+                       Grid.Column='1'
+                       Grid.ColumnSpan='1'
+                       Foreground='DarkGray'
+                       FontSize='16'
+                       HorizontalContentAlignment='Center'
+                       VerticalContentAlignment='Center' />
 
-                <Border x:Name='logoutBtn' 
-                        Background='#FF343434'
-                        Padding='5'
-                        Margin='0 10 0 30'
-                        VerticalAlignment='Bottom'
-                        BorderBrush='DarkGray'
-                        BorderThickness='0 0 0 0'
-                        CornerRadius='0'
-                        Cursor='Hand'
-                        MouseDown='logoutBtn_MouseDown'>
+                <Label x:Name='loadingLbl'
+                       Grid.Row='2'
+                       Grid.Column='1'
+                       HorizontalAlignment='Center'
+                       FontSize='20'
+                       Foreground='DarkGray'
+                       VerticalAlignment='Center'
+                       Content='Loading...' />
 
-                    <Label Content='Logout'
-                           FontSize='14'
-                           FontWeight='Normal'
+                <ScrollViewer x:Name='content'
+                              Grid.Column='1'
+                              Grid.Row='2'>
+
+                    <ItemsControl x:Name="UserCards"
+                                  ItemsSource="{Binding Sensors}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="20"
+                                             Columns="4" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <controls:UserCard />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+
+
+                </ScrollViewer>
+
+                <Grid x:Name='menu'
+                      Background='#232323'
+                      Grid.Column='0'
+                      Grid.Row='0'
+                      Grid.RowSpan='4'>
+
+                    <Label Content='Syntax Sabberer'
+                           FontWeight='Bold'
+                           FontSize='16'
                            HorizontalContentAlignment='Center'
                            VerticalContentAlignment='Center'
-                           Foreground='LightCoral' />
+                           HorizontalAlignment='Center'
+                           VerticalAlignment='Top'
+                           Padding='0'
+                           Margin='5 15 5 15'
+                           Foreground='White' />
 
-                </Border>
+                    <StackPanel Margin='0 80 0 0'>
+
+                        <Border x:Name='sensorsBtn'
+                                Background='#FF343434'
+                                Padding='5'
+                                Margin='0 10'
+                                BorderBrush='DarkGray'
+                                BorderThickness='0 0 0 0'
+                                CornerRadius='0'
+                                Cursor='Hand'
+                                MouseDown='sensorsBtn_MouseDown'>
+
+                            <Label Content='Sensors'
+                                   FontSize='14'
+                                   FontWeight='Normal'
+                                   HorizontalContentAlignment='Center'
+                                   VerticalContentAlignment='Center'
+                                   Foreground='White' />
+
+                        </Border>
+
+                        <Border Background='#FF4D4D4D'
+                                Padding='5'
+                                Margin='0 10'
+                                BorderBrush='DarkGray'
+                                BorderThickness='2 0 0 0'
+                                CornerRadius='0'
+                                Cursor='Hand'>
+
+                            <Label Content='Users'
+                                   FontSize='14'
+                                   FontWeight='Bold'
+                                   HorizontalContentAlignment='Center'
+                                   VerticalContentAlignment='Center'
+                                   Foreground='White' />
+
+                        </Border>
+
+                        <Border x:Name='logsBtn'
+                                Background='#FF343434'
+                                Padding='5'
+                                Margin='0 10'
+                                BorderBrush='DarkGray'
+                                BorderThickness='0 0 0 0'
+                                CornerRadius='0'
+                                Cursor='Hand'
+                                MouseDown='logsBtn_MouseDown'>
+
+                            <Label Content='Logs'
+                                   FontSize='14'
+                                   FontWeight='Normal'
+                                   HorizontalContentAlignment='Center'
+                                   VerticalContentAlignment='Center'
+                                   Foreground='White' />
+
+                        </Border>
+
+                        <Border x:Name='settingsBtn'
+                                Background='#FF343434'
+                                Padding='5'
+                                Margin='0 10'
+                                BorderBrush='DarkGray'
+                                BorderThickness='0 0 0 0'
+                                CornerRadius='0'
+                                Cursor='Hand'
+                                MouseDown='settingsBtn_MouseDown'>
+
+                            <Label Content='Settings'
+                                   FontSize='14'
+                                   FontWeight='Normal'
+                                   HorizontalContentAlignment='Center'
+                                   VerticalContentAlignment='Center'
+                                   Foreground='White' />
+
+                        </Border>
+
+                    </StackPanel>
+
+                    <Border x:Name='logoutBtn'
+                            Background='#FF343434'
+                            Padding='5'
+                            Margin='0 10 0 30'
+                            VerticalAlignment='Bottom'
+                            BorderBrush='DarkGray'
+                            BorderThickness='0 0 0 0'
+                            CornerRadius='0'
+                            Cursor='Hand'
+                            MouseDown='logoutBtn_MouseDown'>
+
+                        <Label Content='Logout'
+                               FontSize='14'
+                               FontWeight='Normal'
+                               HorizontalContentAlignment='Center'
+                               VerticalContentAlignment='Center'
+                               Foreground='LightCoral' />
+
+                    </Border>
+
+                </Grid>
 
             </Grid>
 
         </Grid>
-
-    </Grid>
+    </Border>
 </Window>

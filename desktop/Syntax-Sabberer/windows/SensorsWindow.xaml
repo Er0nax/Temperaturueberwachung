@@ -14,241 +14,271 @@
         MinWidth='800'
         MaxWidth='1200'
         ResizeMode='CanMinimize'
+        Background='{x:Null}'
+        Closing='Window_Closing'
+        Icon='/assets/images/favicon.ico'
         WindowStartupLocation='CenterScreen'
-        Background='#111111'
-        Closing='Window_Closing'>
-    <Grid>
+        WindowStyle='None'>
+    <Border Background='#FF111111'
+            CornerRadius='5'>
+        <Grid>
 
-        <Grid x:Name='Grid'>
+            <Grid x:Name='Grid'>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height='50' />
-                <RowDefinition Height='*' />
-                <RowDefinition Height='100' />
-            </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height='30' />
+                    <RowDefinition Height='50' />
+                    <RowDefinition Height='*' />
+                    <RowDefinition Height='100' />
+                </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width='150' />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width='150' />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
 
-            <Grid x:Name='topbar'
-                  Grid.Column='0'
-                  Grid.Row='0'
-                  Grid.ColumnSpan='2'>
+                <StackPanel x:Name='titleBar' 
+                            Grid.Row='0'
+                            Cursor='Hand'
+                            Grid.Column='0'
+                            Grid.ColumnSpan='2'
+                            Orientation='Vertical'
+                            HorizontalAlignment='Right'
+                            MouseDown='titleBar_MouseDown'>
 
-                <StackPanel Orientation='Horizontal'
-                            HorizontalAlignment='Right'>
-
-                    <Label x:Name='usernameLabel'
-                           Content='Eronax'
-                           Foreground='White'
-                           Cursor='Hand'
+                    <Label x:Name='closeBtn'
+                           Content='X'
+                           Foreground='#FFFF4242'
                            Padding='0'
-                           FontWeight='Bold'
-                           Margin='10 0 10 0'
+                           FontSize='18'
+                           Height='30'
+                           Cursor='Hand'
+                           Width='30'
                            HorizontalContentAlignment='Center'
                            VerticalContentAlignment='Center'
-                           MouseDown='usernameLabel_MouseDown' />
-
-                    <Ellipse Height='30'
-                             Width='30'
-                             Margin='0 0 10 0'
-                             Stroke='White'>
-
-                        <Ellipse.Fill>
-                            <ImageBrush x:Name='user_avatar'
-                                        ImageSource="/assets/images/default.png" />
-                        </Ellipse.Fill>
-
-                    </Ellipse>
-
-
+                           FontWeight='Bold'
+                           MouseDown='closeBtn_MouseDown' />
 
                 </StackPanel>
 
-            </Grid>
+                <Grid x:Name='topbar'
+                      Grid.Column='0'
+                      Grid.Row='1'
+                      Grid.ColumnSpan='2'>
 
-            <Label x:Name='lastUpdatedLbl'
-                   Grid.Row='0'
-                   Grid.Column='1'
-                   Grid.ColumnSpan='1'
-                   Foreground='DarkGray'
-                   FontSize='16'
-                   HorizontalContentAlignment='Center'
-                   VerticalContentAlignment='Center' />
+                    <StackPanel Orientation='Horizontal'
+                                HorizontalAlignment='Right'>
 
-            <Label x:Name='loadingLbl'
-                   Grid.Row='1'
-                   Grid.Column='1'
-                   HorizontalAlignment='Center'
-                   FontSize='20'
-                   Foreground='DarkGray'
-                   VerticalAlignment='Center'
-                   Content='Loading...' />
+                        <Label x:Name='usernameLabel'
+                               Content='Eronax'
+                               Foreground='White'
+                               Cursor='Hand'
+                               Padding='0'
+                               FontWeight='Bold'
+                               Margin='10 0 10 0'
+                               HorizontalContentAlignment='Center'
+                               VerticalContentAlignment='Center'
+                               MouseDown='usernameLabel_MouseDown' />
 
-            <ScrollViewer x:Name='content'
-                          Grid.Column='1'
-                          Grid.Row='1'>
+                        <Ellipse Height='30'
+                                 Width='30'
+                                 Margin='0 0 10 0'
+                                 Stroke='White'>
 
-                <ItemsControl x:Name="SensorCards"
-                              ItemsSource="{Binding Sensors}">
+                            <Ellipse.Fill>
+                                <ImageBrush x:Name='user_avatar'
+                                            ImageSource="/assets/images/default.png" />
+                            </Ellipse.Fill>
 
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <UniformGrid Rows="20"
-                                         Columns="4" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
+                        </Ellipse>
 
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <controls:SensorCard />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
 
-            </ScrollViewer>
 
-            <Grid x:Name='message'
-                  Visibility='Hidden'
-                  Grid.Column='1'
-                  Grid.Row='2'>
+                    </StackPanel>
 
-                <Border Margin='20 30 20 30'
-                        Background='LightCoral'
-                        CornerRadius='10'>
+                </Grid>
 
-                    <Label x:Name='messageContent'
-                           Content='Sensor #4 is overheating!'
-                           Foreground='White'
-                           FontSize='20'
-                           FontWeight='Bold'
-                           VerticalContentAlignment='Center'
-                           HorizontalContentAlignment='Center' />
-
-                </Border>
-
-            </Grid>
-
-            <Grid x:Name='menu'
-                  Background='#232323'
-                  Grid.Column='0'
-                  Grid.Row='0'
-                  Grid.RowSpan='3'>
-
-                <Label Content='Syntax Sabberer'
-                       FontWeight='Bold'
+                <Label x:Name='lastUpdatedLbl'
+                       Grid.Row='1'
+                       Grid.Column='1'
+                       Grid.ColumnSpan='1'
+                       Foreground='DarkGray'
                        FontSize='16'
                        HorizontalContentAlignment='Center'
-                       VerticalContentAlignment='Center'
+                       VerticalContentAlignment='Center' />
+
+                <Label x:Name='loadingLbl'
+                       Grid.Row='2'
+                       Grid.Column='1'
                        HorizontalAlignment='Center'
-                       VerticalAlignment='Top'
-                       Padding='0'
-                       Margin='5 15 5 15'
-                       Foreground='White' />
+                       FontSize='20'
+                       Foreground='DarkGray'
+                       VerticalAlignment='Center'
+                       Content='Loading...' />
 
-                <StackPanel Margin='0 80 0 0'>
+                <ScrollViewer x:Name='content'
+                              Grid.Column='1'
+                              Grid.Row='2'>
 
-                    <Border Background='#FF4D4D4D'
-                            Padding='5'
-                            Margin='0 10'
-                            BorderBrush='DarkGray'
-                            BorderThickness='2 0 0 0'
-                            CornerRadius='0'
-                            Cursor='Hand'>
+                    <ItemsControl x:Name="SensorCards"
+                                  ItemsSource="{Binding Sensors}">
 
-                        <Label Content='Sensors'
-                               FontSize='14'
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Rows="20"
+                                             Columns="4" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <controls:SensorCard />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </ScrollViewer>
+
+                <Grid x:Name='message'
+                      Visibility='Hidden'
+                      Grid.Column='1'
+                      Grid.Row='3'>
+
+                    <Border Margin='20 30 20 30'
+                            Background='LightCoral'
+                            CornerRadius='10'>
+
+                        <Label x:Name='messageContent'
+                               Content='Sensor #4 is overheating!'
+                               Foreground='White'
+                               FontSize='20'
                                FontWeight='Bold'
-                               HorizontalContentAlignment='Center'
                                VerticalContentAlignment='Center'
-                               Foreground='White' />
+                               HorizontalContentAlignment='Center' />
 
                     </Border>
 
-                    <Border x:Name='usersBtn'
-                            Background='#FF343434'
-                            Padding='5'
-                            Margin='0 10'
-                            BorderBrush='DarkGray'
-                            BorderThickness='0 0 0 0'
-                            CornerRadius='0'
-                            Cursor='Hand'
-                            MouseDown='usersBtn_MouseDown'>
+                </Grid>
 
-                        <Label Content='Users'
-                               FontSize='14'
-                               FontWeight='Normal'
-                               HorizontalContentAlignment='Center'
-                               VerticalContentAlignment='Center'
-                               Foreground='White' />
+                <Grid x:Name='menu'
+                      Background='#232323'
+                      Grid.Column='0'
+                      Grid.Row='0'
+                      Grid.RowSpan='4'>
 
-                    </Border>
-
-                    <Border x:Name='logsBtn'
-                            Background='#FF343434'
-                            Padding='5'
-                            Margin='0 10'
-                            BorderBrush='DarkGray'
-                            BorderThickness='0 0 0 0'
-                            CornerRadius='0'
-                            Cursor='Hand'
-                            MouseDown='logsBtn_MouseDown'>
-
-                        <Label Content='Logs'
-                               FontSize='14'
-                               FontWeight='Normal'
-                               HorizontalContentAlignment='Center'
-                               VerticalContentAlignment='Center'
-                               Foreground='White' />
-
-                    </Border>
-
-                    <Border x:Name='settingsBtn' 
-                            Background='#FF343434'
-                            Padding='5'
-                            Margin='0 10'
-                            BorderBrush='DarkGray'
-                            BorderThickness='0 0 0 0'
-                            CornerRadius='0'
-                            Cursor='Hand'
-                            MouseDown='settingsBtn_MouseDown'>
-
-                        <Label Content='Settings'
-                               FontSize='14'
-                               FontWeight='Normal'
-                               HorizontalContentAlignment='Center'
-                               VerticalContentAlignment='Center'
-                               Foreground='White' />
-
-                    </Border>
-
-                </StackPanel>
-
-                <Border x:Name='logoutBtn'
-                        Background='#FF343434'
-                        Padding='5'
-                        Margin='0 10 0 30'
-                        VerticalAlignment='Bottom'
-                        BorderBrush='DarkGray'
-                        BorderThickness='0 0 0 0'
-                        CornerRadius='0'
-                        Cursor='Hand'
-                        MouseDown='logoutBtn_MouseDown'>
-
-                    <Label Content='Logout'
-                           FontSize='14'
-                           FontWeight='Normal'
+                    <Label Content='Syntax Sabberer'
+                           FontWeight='Bold'
+                           FontSize='16'
                            HorizontalContentAlignment='Center'
                            VerticalContentAlignment='Center'
-                           Foreground='LightCoral' />
+                           HorizontalAlignment='Center'
+                           VerticalAlignment='Top'
+                           Padding='0'
+                           Margin='5 15 5 15'
+                           Foreground='White' />
 
-                </Border>
+                    <StackPanel Margin='0 80 0 0'>
+
+                        <Border Background='#FF4D4D4D'
+                                Padding='5'
+                                Margin='0 10'
+                                BorderBrush='DarkGray'
+                                BorderThickness='2 0 0 0'
+                                CornerRadius='0'
+                                Cursor='Hand'>
+
+                            <Label Content='Sensors'
+                                   FontSize='14'
+                                   FontWeight='Bold'
+                                   HorizontalContentAlignment='Center'
+                                   VerticalContentAlignment='Center'
+                                   Foreground='White' />
+
+                        </Border>
+
+                        <Border x:Name='usersBtn'
+                                Background='#FF343434'
+                                Padding='5'
+                                Margin='0 10'
+                                BorderBrush='DarkGray'
+                                BorderThickness='0 0 0 0'
+                                CornerRadius='0'
+                                Cursor='Hand'
+                                MouseDown='usersBtn_MouseDown'>
+
+                            <Label Content='Users'
+                                   FontSize='14'
+                                   FontWeight='Normal'
+                                   HorizontalContentAlignment='Center'
+                                   VerticalContentAlignment='Center'
+                                   Foreground='White' />
+
+                        </Border>
+
+                        <Border x:Name='logsBtn'
+                                Background='#FF343434'
+                                Padding='5'
+                                Margin='0 10'
+                                BorderBrush='DarkGray'
+                                BorderThickness='0 0 0 0'
+                                CornerRadius='0'
+                                Cursor='Hand'
+                                MouseDown='logsBtn_MouseDown'>
+
+                            <Label Content='Logs'
+                                   FontSize='14'
+                                   FontWeight='Normal'
+                                   HorizontalContentAlignment='Center'
+                                   VerticalContentAlignment='Center'
+                                   Foreground='White' />
+
+                        </Border>
+
+                        <Border x:Name='settingsBtn'
+                                Background='#FF343434'
+                                Padding='5'
+                                Margin='0 10'
+                                BorderBrush='DarkGray'
+                                BorderThickness='0 0 0 0'
+                                CornerRadius='0'
+                                Cursor='Hand'
+                                MouseDown='settingsBtn_MouseDown'>
+
+                            <Label Content='Settings'
+                                   FontSize='14'
+                                   FontWeight='Normal'
+                                   HorizontalContentAlignment='Center'
+                                   VerticalContentAlignment='Center'
+                                   Foreground='White' />
+
+                        </Border>
+
+                    </StackPanel>
+
+                    <Border x:Name='logoutBtn'
+                            Background='#FF343434'
+                            Padding='5'
+                            Margin='0 10 0 30'
+                            VerticalAlignment='Bottom'
+                            BorderBrush='DarkGray'
+                            BorderThickness='0 0 0 0'
+                            CornerRadius='0'
+                            Cursor='Hand'
+                            MouseDown='logoutBtn_MouseDown'>
+
+                        <Label Content='Logout'
+                               FontSize='14'
+                               FontWeight='Normal'
+                               HorizontalContentAlignment='Center'
+                               VerticalContentAlignment='Center'
+                               Foreground='LightCoral' />
+
+                    </Border>
+
+                </Grid>
 
             </Grid>
 
         </Grid>
-
-    </Grid>
+    </Border>
 </Window>

@@ -115,12 +115,17 @@
                     const circle = card.querySelector('.circle-temp');
 
                     if (circle) {
-                        const angle = 100 * 1.8; // Adjust factor for desired rotation range
-                        circle.style.transform = `rotate(${angle}deg)`;
+                        const currentTemp = sensor.currentTemperature;
+                        const maxTemp = sensor.maxTemp;
+                        const minTemp = sensor.minTemp;
 
-                        const currentTemp = sensor.currentTemperature ?? 0;
-                        const maxTemp = sensor.maxTemp ?? 100;
-                        const minTemp = sensor.minTemp ?? 0;
+                        let procent = ((currentTemp - minTemp) / (maxTemp - minTemp)) * 100;
+
+                        if(procent > 100) procent = 100;
+                        if(procent < 0) procent = 0;
+
+                        const angle = procent * 1.8;
+                        circle.style.transform = `rotate(${angle}deg)`;
 
                         // to hot?
                         if (currentTemp > maxTemp) {

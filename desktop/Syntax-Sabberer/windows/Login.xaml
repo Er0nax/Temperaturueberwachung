@@ -9,117 +9,146 @@
         Height="450"
         Width="300"
         WindowStartupLocation='CenterScreen'
-        ResizeMode='CanMinimize'
-        Background='#111111'>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height='30'/>
-            <RowDefinition Height='30'/>
-            <RowDefinition />
-            <RowDefinition Height='50' />
-            <RowDefinition Height='50' />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+        ResizeMode='NoResize'
+        Background='{x:Null}'
+        Icon='/assets/images/favicon.ico'
+        WindowStyle='None'
+        AllowsTransparency='True'>
+    <Border Background='#FF111111'
+            CornerRadius='5'>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height='30' />
+                <RowDefinition Height='30' />
+                <RowDefinition />
+                <RowDefinition Height='50' />
+                <RowDefinition Height='50' />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
 
-        <Image x:Name='settingsBtn'
-               Grid.Row='0'
-               Height='20'
-               HorizontalAlignment='Left'
-               Margin='5 0 0 0'
-               Cursor='Hand'
-               Source='/assets/images/settings-white.png'
-               MouseDown='settingsBtn_MouseDown' />
+            <StackPanel x:Name='titleBar' 
+                        Cursor='Hand'
+                        Height='30'
+                        Grid.Row='0'
+                        Orientation='Vertical'
+                        HorizontalAlignment='Right'
+                        MouseDown='titleBar_MouseDown'>
+                
+                <Label x:Name='closeBtn'
+                       Content='X'
+                       Foreground='#FFFF4242' 
+                       Padding='0'
+                       FontSize='18'
+                       Height='30'
+                       Cursor='Hand'
+                       Width='30'
+                       HorizontalContentAlignment='Center'
+                       VerticalContentAlignment='Center'
+                       FontWeight='Bold'
+                       MouseDown='closeBtn_MouseDown' />
+                
+            </StackPanel>
 
-        <Label Grid.Row='2'
-               Grid.ColumnSpan='2'
-               Content='Syntax-Sabberer'
-               HorizontalContentAlignment='Center'
-               VerticalContentAlignment='Center'
-               FontSize='20'
-               Foreground='White'
-               FontWeight='Bold' />
+            <Image x:Name='settingsBtn'
+                   Grid.Row='0'
+                   Height='20'
+                   HorizontalAlignment='Left'
+                   Margin='5 0 0 0'
+                   Cursor='Hand'
+                   Source='/assets/images/settings-white.png'
+                   MouseDown='settingsBtn_MouseDown' />
 
-        <Border Grid.Row='3'
-                Grid.ColumnSpan='2'
-                BorderBrush='LightBlue'
-                BorderThickness='0 0 0 1'
-                Margin='50 10 50 10'>
+            <Label Grid.Row='2'
+                   Grid.ColumnSpan='2'
+                   Content='Syntax-Sabberer'
+                   HorizontalContentAlignment='Center'
+                   VerticalContentAlignment='Center'
+                   FontSize='20'
+                   Foreground='White'
+                   FontWeight='Bold' />
 
-            <TextBox x:Name='usernameInput'
-                     Text='Tim'
-                     BorderBrush='{x:Null}'
-                     Background='{x:Null}'
-                     Foreground='White'
-                     HorizontalContentAlignment='Center'
-                     VerticalContentAlignment='Center'
-                     SelectionBrush='White'
-                     CaretBrush='White' />
+            <Border Grid.Row='3'
+                    Grid.ColumnSpan='2'
+                    BorderBrush='LightBlue'
+                    BorderThickness='0 0 0 1'
+                    Margin='50 10 50 10'>
 
-        </Border>
-
-        <Border Grid.Row='4'
-                Grid.ColumnSpan='2'
-                BorderBrush='LightBlue'
-                BorderThickness='0 0 0 1'
-                Margin='50 10 50 10'>
-
-            <PasswordBox x:Name='passwordInput' 
+                <TextBox x:Name='usernameInput'
+                         Text='Tim'
                          BorderBrush='{x:Null}'
                          Background='{x:Null}'
                          Foreground='White'
                          HorizontalContentAlignment='Center'
                          VerticalContentAlignment='Center'
-                         Password='admin'
                          SelectionBrush='White'
                          CaretBrush='White' />
 
-        </Border>
+            </Border>
 
-        <Border x:Name='loginBtn'
-                Grid.Row='5'
-                Grid.ColumnSpan='2'
-                Height='30'
-                Margin='50 0 50 0'
-                Cursor='Hand'
-                CornerRadius='5'
-                BorderBrush='LightBlue'
-                BorderThickness='1'
-                MouseDown='loginBtn_MouseDown'>
+            <Border Grid.Row='4'
+                    Grid.ColumnSpan='2'
+                    BorderBrush='LightBlue'
+                    BorderThickness='0 0 0 1'
+                    Margin='50 10 50 10'>
 
-            <Border.Background>
-                <LinearGradientBrush EndPoint='1,1'
-                                     StartPoint='0,0'>
-                    <GradientStop Color='#FF372B7B' />
-                    <GradientStop Color='#FF286370'
-                                  Offset='1' />
-                </LinearGradientBrush>
-            </Border.Background>
+                <PasswordBox x:Name='passwordInput'
+                             BorderBrush='{x:Null}'
+                             Background='{x:Null}'
+                             Foreground='White'
+                             HorizontalContentAlignment='Center'
+                             VerticalContentAlignment='Center'
+                             Password='admin'
+                             SelectionBrush='White'
+                             CaretBrush='White' />
 
-            <Border.Effect>
-                <DropShadowEffect BlurRadius='10'
-                                  Opacity='0.5' />
-            </Border.Effect>
+            </Border>
 
-            <Label Content='Login'
-                   Foreground='White'
+            <Border x:Name='loginBtn'
+                    Grid.Row='5'
+                    Grid.ColumnSpan='2'
+                    Height='30'
+                    Margin='50 0 50 0'
+                    Cursor='Hand'
+                    CornerRadius='5'
+                    BorderBrush='LightBlue'
+                    BorderThickness='1'
+                    MouseDown='loginBtn_MouseDown'>
+
+                <Border.Background>
+                    <LinearGradientBrush EndPoint='1,1'
+                                         StartPoint='0,0'>
+                        <GradientStop Color='#FF372B7B' />
+                        <GradientStop Color='#FF286370'
+                                      Offset='1' />
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Border.Effect>
+                    <DropShadowEffect BlurRadius='10'
+                                      Opacity='0.5' />
+                </Border.Effect>
+
+                <Label Content='Login'
+                       Foreground='White'
+                       HorizontalContentAlignment='Center'
+                       VerticalContentAlignment='Center' />
+
+            </Border>
+
+            <Label x:Name='showRegisterBtn'
+                   Grid.Row='6'
+                   Grid.ColumnSpan='2'
+                   Cursor='Hand'
                    HorizontalContentAlignment='Center'
-                   VerticalContentAlignment='Center' />
+                   VerticalContentAlignment='Center'
+                   Margin='50 10 50 10'
+                   Foreground='DarkGray'
+                   Height='30'
+                   Padding='0'
+                   Content='I dont have an account yet.'
+                   MouseDown='showRegisterBtn_MouseDown' />
 
-        </Border>
-
-        <Label x:Name='showRegisterBtn'
-               Grid.Row='6'
-               Grid.ColumnSpan='2'
-               Cursor='Hand'
-               HorizontalContentAlignment='Center'
-               VerticalContentAlignment='Center'
-               Margin='50 10 50 10'
-               Foreground='DarkGray'
-               Height='30'
-               Padding='0'
-               Content='I dont have an account yet.'
-               MouseDown='showRegisterBtn_MouseDown' />
-
-    </Grid>
+        </Grid>
+    </Border>
 </Window>
