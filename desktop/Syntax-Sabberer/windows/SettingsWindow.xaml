@@ -119,7 +119,7 @@
                                         BorderThickness='0 0 0 1'
                                         Padding='5'>
 
-                                    <ComboBox>
+                                    <ComboBox x:Name='imperialSystem'>
                                         <ComboBoxItem IsSelected="True"
                                                       Content='Celsius' />
 

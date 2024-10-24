@@ -43,7 +43,7 @@ class AppController extends BaseController
      */
     public function actionDownload(): void
     {
-/*        // get the application
+        // get the application
         $application = $this->getApplication();
 
         // latest version found?
@@ -66,10 +66,7 @@ class AppController extends BaseController
 
         // get filename
         $filename = $application['name'] . '-' . $application['version'] . '.zip';
-        $file = ASSET_PATH . '\\app\\versions\\' . $application['version'] . '.zip';*/
-
-        $filename = 'setup.exe';
-        $file = ASSET_PATH . '\\app\\files\\setup.exe';
+        $file = ASSET_PATH . '\\app\\versions\\' . $application['version'] . '.zip';
 
         // Send the download headers
         header("Content-disposition: attachment;filename=$filename");

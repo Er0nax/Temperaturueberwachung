@@ -1,3 +1,10 @@
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.exe.config
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.exe.manifest
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.application
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.exe
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.pdb
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Newtonsoft.Json.dll
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Newtonsoft.Json.xml
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.csproj.AssemblyReference.cache
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.csproj.SuggestedBindingRedirects.cache
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\DataTemplates\LogCard.baml
@@ -15,11 +22,6 @@ C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\App.g.c
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer_MarkupCompile.cache
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer_MarkupCompile.lref
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.exe.config
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.exe
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.pdb
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Newtonsoft.Json.dll
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Newtonsoft.Json.xml
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\DataTemplates\SensorCard.baml
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\LogsWindow.baml
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\windows\UsersWindow.baml
@@ -31,10 +33,8 @@ C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax_Sabberer.Properties.Resources.resources
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.csproj.GenerateResource.cache
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.exe.manifest
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.application
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.csproj.CopyComplete
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.exe
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.pdb
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.exe.manifest
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.application
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.exe.manifest
-C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.application

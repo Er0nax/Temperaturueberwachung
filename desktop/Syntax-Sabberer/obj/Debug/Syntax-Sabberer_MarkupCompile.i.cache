@@ -16,5 +16,5 @@ C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\App.xaml
 14-127895518
 windows\DataTemplates\SensorCard.xaml;windows\DataTemplates\LogCard.xaml;windows\DataTemplates\UserCard.xaml;windows\LogsWindow.xaml;windows\UsersWindow.xaml;windows\SettingsWindow.xaml;windows\Register.xaml;windows\Login.xaml;windows\SensorsWindow.xaml;
 
-False
+True
 

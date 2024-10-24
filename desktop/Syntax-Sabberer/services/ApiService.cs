@@ -1,12 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 public class ApiService
 {
@@ -36,7 +33,7 @@ public class ApiService
             return JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
         }
 
-        throw new Exception("Login failed");
+        throw new Exception("Login failed.");
     }
 
     public async Task<RegisterResponse> RegisterAsync(string username, string password, string passwordRepeat)
@@ -55,7 +52,7 @@ public class ApiService
             return JsonConvert.DeserializeObject<RegisterResponse>(jsonResponse);
         }
 
-        throw new Exception("Registration failed");
+        throw new Exception("Registration failed.");
     }
 
     public async Task<List<Sensor>> GetAllSensorsAsync()
@@ -80,7 +77,7 @@ public class ApiService
             }
         }
 
-        throw new Exception("Failed to retrieve sensors");
+        throw new Exception("Failed to retrieve sensors.");
     }
 
     public async Task<List<Log>> GetAllLogsAsync()
@@ -105,7 +102,7 @@ public class ApiService
             }
         }
 
-        throw new Exception("Failed to retrieve sensors");
+        throw new Exception("Failed to retrieve sensors.");
     }
 
     public async Task<List<User>> GetAllUsersAsync()
@@ -123,7 +120,21 @@ public class ApiService
             return result.Response;
         }
 
-        throw new Exception("Failed to retrieve users");
+        throw new Exception("Failed to retrieve users.");
+    }
+
+    public async Task<UserUpdateResponse> UpdateUser(Dictionary<string, string> dictionary)
+    {
+        var content = new FormUrlEncodedContent(dictionary);
+        var response = await _httpClient.PostAsync("user/update", content);
+
+        if (response != null)
+        {
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<UserUpdateResponse>(jsonResponse);
+        }
+
+        throw new Exception("User update failed.");
     }
 }
 
@@ -134,6 +145,16 @@ public class LoginResponse
     public LoginInfo Response { get; set; }
 }
 
+public class UserUpdateResponse
+{
+    public int status { get; set; }
+    public bool cached { get; set; }
+    public UserUpdate response { get; set; }
+}
+public class UserUpdate
+{
+    public string message { get; set; }
+}
 public class LogResponse
 {
     public int Status { get; set; }

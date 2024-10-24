@@ -3,6 +3,7 @@
 namespace src\controllers;
 
 use src\components\Entry;
+use src\Config;
 use src\helpers\ResultHelper;
 use src\helpers\UserHelper;
 
@@ -256,12 +257,18 @@ class UserController extends BaseController
         $snowflake = $this->getParam(2, 'snowflake', null, true);
         $phone = $this->getParam(2, 'phone', null, true);
         $active = $this->getParam(2, 'active', null, true);
+        $imperialSystem = $this->getParam(2, 'imperial_system', null, true);
+        $language = $this->getParam(2, 'language', null, true);
 
         $entry = new Entry();
-        $updates = [];
+        $userUpdates = [];
+        $settingsUpdates = [];
 
         // get current user values
-        $user = $entry->columns(['users' => ['username', 'snowflake', 'phone', 'password', 'active']])->tables('users')->where(['users' => [['id', $currentUser['id']]]])->one();
+        $user = $entry->columns(['users' => ['username', 'snowflake', 'phone', 'password', 'active'], 'user_settings' => ['imperial_system', 'language']])
+            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
+            ->where(['users' => [['id', $currentUser['id']]]])
+            ->one();
 
         // user found?
         if (empty($user)) {
@@ -272,7 +279,6 @@ class UserController extends BaseController
 
         // username exists?
         if (!empty($username) && $username !== $user['username']) {
-
             // check if username is valid
             if (!UserHelper::isValidUsername($username)) {
                 ResultHelper::render([
@@ -286,18 +292,20 @@ class UserController extends BaseController
                     'message' => 'Username already exists.'
                 ], 400, $this->defaultConfig);
             }
+
+            // add username
+            $userUpdates['username'] = $username;
         }
 
         // password exists?
         if (!empty($password)) {
 
             // add password
-            $updates['password'] = password_hash($password, PASSWORD_DEFAULT);
+            $userUpdates['password'] = password_hash($password, PASSWORD_DEFAULT);
         }
 
         // new snowflake?
-        if (!empty($snowflake)) {
-
+        if (!empty($snowflake) && $snowflake != $user['snowflake']) {
             // check if username exists
             $entry->columns(['users' => ['snowflake']])->tables('users')->where(['users' => [['snowflake', $snowflake]]]);
 
@@ -308,45 +316,84 @@ class UserController extends BaseController
                 ], 400, $this->defaultConfig);
             }
 
-            // update username
-            $updates['snowflake'] = $snowflake;
+            // update snowflake
+            $userUpdates['snowflake'] = $snowflake;
         }
 
         // new phone?
-        if (!empty($phone)) {
-            if ($user['phone'] !== $phone)
-                $updates['phone'] = $phone;
+        if (!empty($phone) && $user['phone'] !== $phone) {
+            $userUpdates['phone'] = $phone;
         }
 
         // new active status?
-        if (is_bool($active)) {
-            if ($user['active'] !== $active)
-                $updates['active'] = $active;
+        if (is_bool($active) && $user['active'] !== $active) {
+            $userUpdates['active'] = $active;
+        }
+
+        // new imperial system?
+        if (!empty($imperialSystem) && $user['imperial_system'] != $imperialSystem) {
+            if (in_array($imperialSystem, ['c', 'f', 'k'])) {
+                $settingsUpdates['imperial_system'] = $imperialSystem;
+            }
+        }
+
+        // new imperial system?
+        if (!empty($language) && $user['language'] != $language) {
+            if (in_array($language, Config::getConfig('langs'))) {
+                $settingsUpdates['language'] = $imperialSystem;
+            }
         }
 
         // no values given
-        if (empty($updates)) {
+        if (empty($userUpdates) && empty($settingsUpdates)) {
             ResultHelper::render([
                 'message' => 'Nothing to update.'
             ], 400, $this->defaultConfig);
         }
 
         // update user
-        $updated = $entry->update('users', $updates, ['id' => $currentUser['id']]);
+        if (!empty($userUpdates)) {
+            $userUpdated = $entry->update('users', $userUpdates, ['id' => $currentUser['id']], false);
 
-        // was updated?
-        if (!$updated) {
-            ResultHelper::render([
-                'message' => 'Error while updating account.'
-            ], 500, $this->defaultConfig);
+            // was updated?
+            if (!$userUpdated) {
+                ResultHelper::render([
+                    'message' => 'Error while updating your account.'
+                ], 500, $this->defaultConfig);
+            }
         }
 
-        // insert into logs
-        foreach ($updates as $column => $value) {
+        // update user settings
+        if (!empty($settingsUpdates)) {
+            $settingsUpdated = $entry->update('user_settings', $settingsUpdates, ['user_id' => $currentUser['id']], true);
+
+            // was updated?
+            if (!$settingsUpdated) {
+                ResultHelper::render([
+                    'message' => 'Error while updating your settings.'
+                ], 500, $this->defaultConfig);
+            }
+        }
+
+        // insert new user values to logs
+        foreach ($userUpdates as $column => $value) {
             $this->entry->insert('logs', [
                 'user_id' => $currentUser['id'],
                 'action' => 'update',
                 'relation' => 'users',
+                'relation_id' => $currentUser['id'],
+                'old_value' => $user[$column],
+                'new_value' => $value,
+                'column_name' => $column
+            ], false, true);
+        }
+
+        // insert new user_settings values to logs
+        foreach ($settingsUpdates as $column => $value) {
+            $this->entry->insert('logs', [
+                'user_id' => $currentUser['id'],
+                'action' => 'update',
+                'relation' => 'user_settings',
                 'relation_id' => $currentUser['id'],
                 'old_value' => $user[$column],
                 'new_value' => $value,
