@@ -34,3 +34,7 @@ C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.csproj.CopyComplete
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.exe
 C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.pdb
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.exe.manifest
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\bin\Debug\Syntax-Sabberer.application
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.exe.manifest
+C:\xampp\htdocs\temperaturueberwachung\desktop\Syntax-Sabberer\obj\Debug\Syntax-Sabberer.application

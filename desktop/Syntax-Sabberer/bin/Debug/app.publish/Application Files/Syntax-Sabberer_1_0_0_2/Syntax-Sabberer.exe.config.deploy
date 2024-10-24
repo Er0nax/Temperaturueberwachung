@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <configSections>
+        <sectionGroup name="userSettings" type="System.Configuration.UserSettingsGroup, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" >
+            <section name="Syntax_Sabberer.Properties.Settings" type="System.Configuration.ClientSettingsSection, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" allowExeDefinition="MachineToLocalUser" requirePermission="false" />
+        </sectionGroup>
+    </configSections>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.8" />
+    </startup>
+    <userSettings>
+        <Syntax_Sabberer.Properties.Settings>
+            <setting name="user_id" serializeAs="String">
+                <value>0</value>
+            </setting>
+            <setting name="username" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="snowflake" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="password" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="phone" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="avatar" serializeAs="String">
+                <value>default.png</value>
+            </setting>
+            <setting name="role_name" serializeAs="String">
+                <value>User</value>
+            </setting>
+            <setting name="role_color" serializeAs="String">
+                <value>#ffffff</value>
+            </setting>
+            <setting name="active" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="created_at" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="updated_at" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="language" serializeAs="String">
+                <value>en</value>
+            </setting>
+            <setting name="imperial_system" serializeAs="String">
+                <value>c</value>
+            </setting>
+            <setting name="darkmode" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="token" serializeAs="String">
+                <value />
+            </setting>
+            <setting name="remember_me" serializeAs="String">
+                <value>True</value>
+            </setting>
+            <setting name="apiUrl" serializeAs="String">
+                <value>http://localhost/temperaturueberwachung/api/web/</value>
+            </setting>
+            <setting name="apiConnection" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="logged_in" serializeAs="String">
+                <value>False</value>
+            </setting>
+            <setting name="last_seen" serializeAs="String">
+                <value />
+            </setting>
+        </Syntax_Sabberer.Properties.Settings>
+    </userSettings>
+</configuration>
