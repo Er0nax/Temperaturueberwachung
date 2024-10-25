@@ -42,6 +42,7 @@ namespace Syntax_Sabberer.windows
             var apiService = new ApiService();
             var users = await apiService.GetAllUsersAsync();
 
+            var bc = new BrushConverter();
             Users = new ObservableCollection<User>();
 
             Application.Current.Dispatcher.Invoke(() =>
@@ -52,6 +53,19 @@ namespace Syntax_Sabberer.windows
                 {
                     // custom user logic
                     user.Avatar = Properties.Settings.Default.apiUrl + $"asset/image?src={user.Avatar}&type=avatar&height=100";
+
+                    if(user.Id == Properties.Settings.Default.user_id)
+                    {
+                        Properties.Settings.Default.username = user.Username;
+                        Properties.Settings.Default.role_color = user.Role_Color;
+                        Properties.Settings.Default.role_name = user.Role_Name;
+                        Properties.Settings.Default.snowflake = user.Snowflake;
+                        Properties.Settings.Default.Save();
+
+                        usernameLabel.Content = user.Username;
+                        usernameLabel.Foreground = (Brush)bc.ConvertFrom(user.Role_Color);
+                        user_avatar.ImageSource = new BitmapImage(new Uri(user.Avatar));
+                    }
 
                     Users.Add(user);
                 }
@@ -67,7 +81,6 @@ namespace Syntax_Sabberer.windows
         {
             SettingsWindow settings = new SettingsWindow();
             settings.Show();
-            WindowState = WindowState.Minimized;
         }
 
         private void logoutBtn_MouseDown(object sender, MouseButtonEventArgs e)
@@ -91,7 +104,6 @@ namespace Syntax_Sabberer.windows
         {
             SettingsWindow settings = new SettingsWindow();
             settings.Show();
-            WindowState = WindowState.Minimized;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

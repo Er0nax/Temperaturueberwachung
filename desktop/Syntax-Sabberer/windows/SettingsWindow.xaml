@@ -21,7 +21,7 @@
             <Grid x:Name='Grid'>
 
                 <Grid.RowDefinitions>
-                    <RowDefinition Height='30'/>
+                    <RowDefinition Height='30' />
                     <RowDefinition />
                 </Grid.RowDefinitions>
 
@@ -34,7 +34,7 @@
                         CornerRadius='5 5 0 0'
                         MouseDown='drag_MouseDown' />
 
-                <StackPanel x:Name='titleBar' 
+                <StackPanel x:Name='titleBar'
                             Grid.Row='0'
                             Cursor='Hand'
                             Orientation='Vertical'
@@ -54,7 +54,7 @@
                            MouseDown='closeBtn_MouseDown' />
 
                 </StackPanel>
-                
+
                 <ScrollViewer x:Name='content'
                               Grid.Row='1'>
 
@@ -249,6 +249,60 @@
                                              CaretBrush='White' />
 
                                 </Border>
+
+                            </StackPanel>
+
+                        </Grid>
+
+                        <Grid Grid.Column='0'
+                              Grid.Row='3'>
+
+                            <StackPanel VerticalAlignment='Center'
+                                        Margin='30 10 30 10'>
+
+                                <Label Content='Avatar:'
+                                       FontWeight='Bold'
+                                       Foreground='White' />
+
+                                <StackPanel Orientation='Horizontal'>
+
+
+                                    <Border BorderBrush='LightBlue'
+                                            CornerRadius='500'>
+
+                                        <Ellipse x:Name='settingsUserAvatar'
+                                                 Height='100'
+                                                 Width='100'
+                                                 Stroke='LightBlue'>
+                                            <Ellipse.Fill>
+                                                <ImageBrush ImageSource='/assets/images/favicon.ico'
+                                                            Stretch='UniformToFill' />
+                                            </Ellipse.Fill>
+                                        </Ellipse>
+
+
+                                    </Border>
+
+                                    <Border BorderBrush='LightBlue'
+                                            Padding='5'
+                                            Cursor='Hand'
+                                            Margin='10 0 0 0'
+                                            CornerRadius='5'
+                                            HorizontalAlignment='Center'
+                                            VerticalAlignment='Center'
+                                            Height='30'
+                                            BorderThickness='1'>
+
+                                        <Label Content="Bild auswählen und hochladen"
+                                               HorizontalAlignment="Center"
+                                               Padding='0'
+                                               Foreground='White'
+                                               VerticalAlignment="Center"
+                                               MouseDown="SelectAndUploadImage_Click" />
+
+                                    </Border>
+
+                                </StackPanel>
 
                             </StackPanel>
 

@@ -123,7 +123,8 @@
 
                 <ScrollViewer x:Name='content'
                               Grid.Column='1'
-                              Grid.Row='2'>
+                              Grid.Row='2'
+                              VerticalScrollBarVisibility='Hidden'>
 
                     <ItemsControl x:Name="LogsCards"
                                   ItemsSource="{Binding Logs}">

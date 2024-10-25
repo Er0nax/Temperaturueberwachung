@@ -4,6 +4,7 @@ namespace src\controllers;
 
 use src\components\Entry;
 use src\Config;
+use src\helpers\FileHelper;
 use src\helpers\ResultHelper;
 use src\helpers\UserHelper;
 
@@ -259,15 +260,22 @@ class UserController extends BaseController
         $active = $this->getParam(2, 'active', null, true);
         $imperialSystem = $this->getParam(2, 'imperial_system', null, true);
         $language = $this->getParam(2, 'language', null, true);
+        $avatar = $this->getParam(2, 'avatar', null, true);
 
         $entry = new Entry();
         $userUpdates = [];
         $settingsUpdates = [];
+        $imageUpdates = [];
 
         // get current user values
-        $user = $entry->columns(['users' => ['username', 'snowflake', 'phone', 'password', 'active'], 'user_settings' => ['imperial_system', 'language']])
-            ->tables(['users', ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT']])
-            ->where(['users' => [['id', $currentUser['id']]]])
+        $user = $entry->columns([
+            'users' => ['username', 'snowflake', 'phone', 'password', 'active', 'avatar_id'],
+            'images' => ['src'],
+            'user_settings' => ['imperial_system', 'language']
+        ])->tables(['users',
+            ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT'],
+            ['images', 'users.avatar_id', 'images.id', 'LEFT']
+        ])->where(['users' => [['id', $currentUser['id']]]])
             ->one();
 
         // user found?
@@ -298,8 +306,7 @@ class UserController extends BaseController
         }
 
         // password exists?
-        if (!empty($password)) {
-
+        if (!empty($password) && !password_verify($password, $user['password'])) {
             // add password
             $userUpdates['password'] = password_hash($password, PASSWORD_DEFAULT);
         }
@@ -344,8 +351,34 @@ class UserController extends BaseController
             }
         }
 
+        // new avatar given?
+        if (!empty($avatar) && !empty($avatar['tmp_name'])) {
+            // get name and dir
+            $fileName = 'avatar_' . $currentUser['snowflake'] . '.png';
+            $uploaddir = ASSET_PATH . '/images/avatars/';
+
+            $uploadfile = $uploaddir . $fileName;
+
+            try {
+                if (move_uploaded_file($avatar['tmp_name'], $uploadfile)) {
+                    // clear cached images for user
+                    FileHelper::clearCachedImages('avatar_' . $currentUser['snowflake']);
+
+                    $imageUpdates['src'] = $fileName;
+                } else {
+                    ResultHelper::render([
+                        'message' => 'Error uploading file.'
+                    ], 500, $this->defaultConfig);
+                }
+            } catch (\Exception $e) {
+                ResultHelper::render([
+                    'message' => $e->getMessage()
+                ], 500);
+            }
+        }
+
         // no values given
-        if (empty($userUpdates) && empty($settingsUpdates)) {
+        if (empty($userUpdates) && empty($settingsUpdates) && empty($imageUpdates)) {
             ResultHelper::render([
                 'message' => 'Nothing to update.'
             ], 400, $this->defaultConfig);
@@ -375,6 +408,18 @@ class UserController extends BaseController
             }
         }
 
+        // update images
+        if (!empty($imageUpdates)) {
+            $imageUpdated = $entry->update('images', $imageUpdates, ['id' => $currentUser['avatar_id']], true);
+
+            // was updated?
+            if (!$imageUpdated) {
+                ResultHelper::render([
+                    'message' => 'Error while updating your avatar.'
+                ], 500, $this->defaultConfig);
+            }
+        }
+
         // insert new user values to logs
         foreach ($userUpdates as $column => $value) {
             $this->entry->insert('logs', [
@@ -394,6 +439,19 @@ class UserController extends BaseController
                 'user_id' => $currentUser['id'],
                 'action' => 'update',
                 'relation' => 'user_settings',
+                'relation_id' => $currentUser['id'],
+                'old_value' => $user[$column],
+                'new_value' => $value,
+                'column_name' => $column
+            ], false, true);
+        }
+
+        // insert new images values to logs
+        foreach ($imageUpdates as $column => $value) {
+            $this->entry->insert('logs', [
+                'user_id' => $currentUser['id'],
+                'action' => 'update',
+                'relation' => 'images',
                 'relation_id' => $currentUser['id'],
                 'old_value' => $user[$column],
                 'new_value' => $value,

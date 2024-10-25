@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Drawing;
 using System.Timers;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -100,11 +98,6 @@ namespace Syntax_Sabberer.windows
                     {
                         message.Visibility = Visibility.Visible;
                         messageContent.Content = messageText;
-
-                        var notifyIcon = new NotifyIcon();
-                        notifyIcon.Icon = new Icon("");
-                        notifyIcon.Visible = true;
-                        notifyIcon.ShowBalloonTip(5000, "Info", messageText, ToolTipIcon.Info);
                     }
                     else
                     {
@@ -125,7 +118,6 @@ namespace Syntax_Sabberer.windows
         {
             SettingsWindow settings = new SettingsWindow();
             settings.Show();
-            WindowState = WindowState.Minimized;
         }
 
         private void logoutBtn_MouseDown(object sender, MouseButtonEventArgs e)

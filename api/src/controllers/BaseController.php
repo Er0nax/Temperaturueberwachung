@@ -106,7 +106,7 @@ class BaseController
      * @param string|null $name
      * @param mixed|null $default
      * @param bool $mustBeName
-     * @return mixed|null
+     * @return mixed
      * @author Tim Zapfe
      */
     protected function getParam(int $index, string $name = null, mixed $default = null, bool $mustBeName = false): mixed
@@ -121,6 +121,11 @@ class BaseController
         // check if is given by name and its set
         if (!empty($name) && isset($this->params[$name])) {
             $param = $this->params[$name];
+        }
+
+        // get file
+        if (isset($this->params['files'][$name])) {
+            return $this->params['files'][$name];
         }
 
         // check if the param is given and not empty

@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Syntax_Sabberer.windows
 {
@@ -22,6 +26,10 @@ namespace Syntax_Sabberer.windows
             snowflakeInput.Text = Properties.Settings.Default.snowflake;
             phoneInput.Text = Properties.Settings.Default.phone;
 
+            string avatar = Properties.Settings.Default.avatar;
+            string avatarUrl = Properties.Settings.Default.apiUrl + $"asset/image?src={avatar}&type=avatar&height=100";
+            setSettingsUserAvatar(avatarUrl);
+
             switch (Properties.Settings.Default.imperial_system)
             {
                 case "c":
@@ -34,6 +42,13 @@ namespace Syntax_Sabberer.windows
                     imperialSystem.SelectedIndex = 2;
                     break;
             }
+        }
+
+        private void setSettingsUserAvatar(string src)
+        {
+            // set to settings image fill
+            BitmapImage bitmap = new BitmapImage(new Uri(src));
+            settingsUserAvatar.Fill = new ImageBrush { ImageSource = bitmap, Stretch = Stretch.UniformToFill };
         }
 
         private async void btnSave_MouseDown(object sender, MouseButtonEventArgs e)
@@ -67,9 +82,6 @@ namespace Syntax_Sabberer.windows
                     break;
             }
 
-            // new api service
-            var apiService = new ApiService();
-
             // add values to dictionary
             var content = new Dictionary<string, string>{
                 { "username", usernameValue },
@@ -81,7 +93,8 @@ namespace Syntax_Sabberer.windows
             };
 
             // get the result
-            var result = await apiService.UpdateUser(content);
+            var apiService = new ApiService();
+            var result = await apiService.UpdateUserWithImage(content);
 
             // result ok?
             if(result.status == 200)
@@ -94,14 +107,14 @@ namespace Syntax_Sabberer.windows
                 Properties.Settings.Default.imperial_system = imperialSystemValue;
 
                 // show info
-                MessageBox.Show("New settings saved. Please restart the application to apply the new changes.");
+                MessageBox.Show("New settings saved. Please restart the application to apply the new changes.", "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
 
                 Properties.Settings.Default.Save();
                 Environment.Exit(0);
             } else
             {
                 // show error message
-                MessageBox.Show(result.response.message);
+                MessageBox.Show(result.response.message, "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 Clipboard.SetText(result.response.message);
             }
 
@@ -117,6 +130,55 @@ namespace Syntax_Sabberer.windows
         private void drag_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private async void SelectAndUploadImage_Click(object sender, RoutedEventArgs e)
+        {
+            // OpenFileDialog für die Bildauswahl
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Title = "Wählen Sie ein Bild aus",
+                Filter = "Bilddateien (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png"
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string selectedFilePath = openFileDialog.FileName;
+
+                // Überprüfen der Dateigröße (2 MB = 2 * 1024 * 1024 Bytes)
+                FileInfo fileInfo = new FileInfo(selectedFilePath);
+                if (fileInfo.Length > 2 * 1024 * 1024)
+                {
+                    MessageBox.Show("Das Bild darf nicht größer als 2 MB sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                // Erstelle ein Beispiel-Dictionary mit weiteren Daten (wenn erforderlich)
+                Dictionary<string, string> data = new Dictionary<string, string>
+                {
+                    { "token", Properties.Settings.Default.token }
+                };
+
+                try
+                {
+                    // get the result
+                    var apiService = new ApiService();
+                    var result = await apiService.UpdateUserWithImage(data, selectedFilePath);
+
+                    setSettingsUserAvatar(selectedFilePath);
+
+                    Properties.Settings.Default.avatar = "avatar_" + Properties.Settings.Default.snowflake + ".png";
+                    Properties.Settings.Default.Save();
+
+                    // Erfolgsmeldung anzeigen
+                    MessageBox.Show(result.response.message, "Erfolg", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                catch (Exception ex)
+                {
+                    // Fehlerbehandlung
+                    MessageBox.Show($"Fehler beim Hochladen: {ex.Message}", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
         }
     }
 }

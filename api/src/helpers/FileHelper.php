@@ -12,7 +12,6 @@ use src\Config;
  */
 class FileHelper extends BaseHelper
 {
-
     public static array $IMAGE_HANDLERS = [
         IMAGETYPE_JPEG => [
             'load' => 'imagecreatefromjpeg',
@@ -242,7 +241,7 @@ class FileHelper extends BaseHelper
      * @return void
      * @author Tim Zapfe
      */
-    public static function clearCachedImages(bool $showStatus = false): void
+    public static function clearCachedImages(string $containsName = null): void
     {
         // only work when environment is dev
         if (getenv('ENVIRONMENT') === 'dev') {
@@ -259,15 +258,18 @@ class FileHelper extends BaseHelper
                     // Check if the file name contains "cached" and is an image
                     if ($file->isFile() && str_contains($file->getFilename(), 'cached') && preg_match('/\.(jpg|jpeg|png|gif|bmp)$/i', $file->getFilename())) {
 
-                        // Delete the file
-                        $deleted = unlink($file->getRealPath());
-
-                        if ($showStatus) {
-                            if ($deleted) {
-                                echo 'Deleted: ' . $file->getRealPath() . '<br>';
-                            } else {
-                                echo 'Failed to delete: ' . $file->getRealPath() . '<br>';
+                        // does specific name exist?
+                        if (!empty($containsName)) {
+                            // does name contains searched string?
+                            if (str_contains($file->getFilename(), $containsName)) {
+                                // delete file
+                                unlink($file->getRealPath());
                             }
+
+                            // continue...
+                        } else {
+                            // delete all cached
+                            unlink($file->getRealPath());
                         }
                     }
                 }

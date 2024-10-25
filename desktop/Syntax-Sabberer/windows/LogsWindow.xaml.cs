@@ -90,7 +90,6 @@ namespace Syntax_Sabberer.windows
         {
             SettingsWindow settings = new SettingsWindow();
             settings.Show();
-            WindowState = WindowState.Minimized;
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

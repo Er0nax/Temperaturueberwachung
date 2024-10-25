@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `api_tokens` (
 -- Exportiere Daten aus Tabelle temperatur.api_tokens: ~18 rows (ungefähr)
 DELETE FROM `api_tokens`;
 INSERT INTO `api_tokens` (`id`, `user_id`, `ip`, `token`, `uses`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 2037, 'true', '2024-10-24 13:49:19', '2024-08-15 11:45:40'),
+	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 6330, 'true', '2024-10-25 12:45:24', '2024-08-15 11:45:40'),
 	(2, 4, '10.204.193.170', '8l1Zyohk4V8s0XkPbqlE', 51, 'true', '2024-10-23 13:39:18', '2024-08-16 10:30:24'),
 	(3, 5, '10.204.193.170', '0MVWT7bHr1qstx3GL8LR', 0, 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22'),
 	(4, 6, '10.204.161.165', 'FcxB5RhcT8A9dGgzgzAe', 18, 'true', '2024-10-17 10:08:05', '2024-08-21 11:09:39'),
@@ -49,7 +49,7 @@ INSERT INTO `api_tokens` (`id`, `user_id`, `ip`, `token`, `uses`, `active`, `upd
 	(8, 10, '::1', 'kHEMB7d3v5on4FwIrHcv', 0, 'true', '2024-10-18 11:38:35', '2024-10-18 11:38:35'),
 	(9, 11, '127.0.0.1', 'kxvCKneYkcu8YRbJ0f4O', 0, 'true', '2024-10-18 11:38:58', '2024-10-18 11:38:58'),
 	(10, 12, '::1', 'yFeUEHJdg9XsQ4FTgvIQ', 4, 'true', '2024-10-23 11:25:01', '2024-10-18 11:39:34'),
-	(11, 2, '::1', 'UidO6RLxk83sDUNT75HY', 24, 'true', '2024-10-24 11:52:48', '2024-10-21 11:12:03'),
+	(11, 2, '::1', 'UidO6RLxk83sDUNT75HY', 117, 'true', '2024-10-25 12:08:41', '2024-10-21 11:12:03'),
 	(12, 13, '::1', 'tyeRajEt8ln8FaV3Zzp1', 6, 'true', '2024-10-21 12:27:59', '2024-10-21 11:39:15'),
 	(13, 14, '127.0.0.1', 'Ei7cmxMnVrhcsqJ1z83v', 6, 'true', '2024-10-21 12:41:45', '2024-10-21 11:56:16'),
 	(14, 15, '::1', 'PjmXBOLfx4eUfAPGUzCt', 25, 'true', '2024-10-22 09:31:54', '2024-10-21 12:28:40'),
@@ -93,7 +93,7 @@ INSERT INTO `applications` (`id`, `name`, `version`, `downloads`, `active`, `upd
 DROP TABLE IF EXISTS `images`;
 CREATE TABLE IF NOT EXISTS `images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `src` varchar(255) NOT NULL DEFAULT 'default.png',
+  `src` varchar(1000) NOT NULL DEFAULT 'default.png',
   `active` enum('true','false') NOT NULL DEFAULT 'true',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `images` (
 -- Exportiere Daten aus Tabelle temperatur.images: ~24 rows (ungefähr)
 DELETE FROM `images`;
 INSERT INTO `images` (`id`, `src`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 'default.png', 'true', '2024-08-13 12:26:26', '2024-08-13 12:26:26'),
+	(1, 'avatar_tim.png', 'true', '2024-10-25 12:28:58', '2024-08-13 12:26:26'),
 	(2, 'default.png', 'true', '2024-08-15 07:59:34', '2024-08-15 07:59:34'),
 	(3, 'default.png', 'true', '2024-08-15 11:02:49', '2024-08-15 11:02:49'),
 	(4, 'default.png', 'true', '2024-08-16 10:30:24', '2024-08-16 10:30:24'),
@@ -145,9 +145,9 @@ CREATE TABLE IF NOT EXISTS `logs` (
   PRIMARY KEY (`id`),
   KEY `logs_user` (`user_id`),
   CONSTRAINT `logs_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.logs: ~90 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.logs: ~165 rows (ungefähr)
 DELETE FROM `logs`;
 INSERT INTO `logs` (`id`, `user_id`, `action`, `relation`, `relation_id`, `old_value`, `new_value`, `column_name`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 1, 'update', 'sensors', 1, '90', '90', 'maxTemp', 'true', '2024-10-23 09:12:52', '2024-10-23 09:12:52'),
@@ -249,7 +249,93 @@ INSERT INTO `logs` (`id`, `user_id`, `action`, `relation`, `relation_id`, `old_v
 	(99, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-24 13:47:51', '2024-10-24 13:47:51'),
 	(100, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-24 13:48:32', '2024-10-24 13:48:32'),
 	(101, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-24 13:48:44', '2024-10-24 13:48:44'),
-	(102, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-24 13:49:18', '2024-10-24 13:49:18');
+	(102, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-24 13:49:18', '2024-10-24 13:49:18'),
+	(103, 1, 'update', 'users', 1, '$2y$10$3a5SpsFVr.VPKaWwILo7ie6QxSXO6vNLqnoCLtuhBd/NSixSeSlku', '$2y$10$SW1BgdEpMAzW69R9RmYOseRvdYYmuy53RFjiorUUb/6i8emLjny0u', 'password', 'true', '2024-10-25 10:09:21', '2024-10-25 10:09:21'),
+	(104, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:18:01', '2024-10-25 10:18:01'),
+	(105, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:18:10', '2024-10-25 10:18:10'),
+	(106, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:18:38', '2024-10-25 10:18:38'),
+	(107, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:19:32', '2024-10-25 10:19:32'),
+	(108, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:21:15', '2024-10-25 10:21:15'),
+	(109, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:22:59', '2024-10-25 10:22:59'),
+	(110, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:25:56', '2024-10-25 10:25:56'),
+	(111, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:29:37', '2024-10-25 10:29:37'),
+	(112, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:31:11', '2024-10-25 10:31:11'),
+	(113, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:33:07', '2024-10-25 10:33:07'),
+	(114, 1, 'update', 'users', 1, '$2y$10$SW1BgdEpMAzW69R9RmYOseRvdYYmuy53RFjiorUUb/6i8emLjny0u', '$2y$10$VjlW.CceJwG8HexTMnVyPeA7yHVLt1/Hn4bxqiLNFJ8VnATD9fMMi', 'password', 'true', '2024-10-25 10:33:47', '2024-10-25 10:33:47'),
+	(115, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:36:04', '2024-10-25 10:36:04'),
+	(116, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:36:47', '2024-10-25 10:36:47'),
+	(117, 1, 'update', 'users', 1, 'Tim', 'Eronax', 'username', 'true', '2024-10-25 10:40:06', '2024-10-25 10:40:06'),
+	(118, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:40:28', '2024-10-25 10:40:28'),
+	(119, 1, 'update', 'users', 1, 'Eronax', 'Tim', 'username', 'true', '2024-10-25 10:40:37', '2024-10-25 10:40:37'),
+	(120, 1, 'update', 'users', 1, '$2y$10$VjlW.CceJwG8HexTMnVyPeA7yHVLt1/Hn4bxqiLNFJ8VnATD9fMMi', '$2y$10$jm5aOBRitFEZvOtzfXA02OM/qltcCTgpFu64lpqddpH62kXZpENPe', 'password', 'true', '2024-10-25 10:40:37', '2024-10-25 10:40:37'),
+	(121, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:40:41', '2024-10-25 10:40:41'),
+	(122, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:41:54', '2024-10-25 10:41:54'),
+	(123, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:42:17', '2024-10-25 10:42:17'),
+	(124, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:55:02', '2024-10-25 10:55:02'),
+	(125, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:55:44', '2024-10-25 10:55:44'),
+	(126, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:56:39', '2024-10-25 10:56:39'),
+	(127, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:57:25', '2024-10-25 10:57:25'),
+	(128, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:58:50', '2024-10-25 10:58:50'),
+	(129, 1, 'update', 'users', 1, 'Tim', 'Tim1', 'username', 'true', '2024-10-25 10:59:05', '2024-10-25 10:59:05'),
+	(130, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 10:59:12', '2024-10-25 10:59:12'),
+	(131, 1, 'update', 'users', 1, 'Tim1', 'Tim', 'username', 'true', '2024-10-25 10:59:14', '2024-10-25 10:59:14'),
+	(132, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:09:34', '2024-10-25 11:09:34'),
+	(133, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:09:45', '2024-10-25 11:09:45'),
+	(134, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:10:15', '2024-10-25 11:10:15'),
+	(135, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:11:32', '2024-10-25 11:11:32'),
+	(136, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:16:57', '2024-10-25 11:16:57'),
+	(137, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:27:58', '2024-10-25 11:27:58'),
+	(138, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:30:50', '2024-10-25 11:30:50'),
+	(139, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:32:01', '2024-10-25 11:32:01'),
+	(140, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:38:15', '2024-10-25 11:38:15'),
+	(141, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:39:40', '2024-10-25 11:39:40'),
+	(142, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:40:34', '2024-10-25 11:40:34'),
+	(143, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:42:15', '2024-10-25 11:42:15'),
+	(144, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:43:12', '2024-10-25 11:43:12'),
+	(145, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 11:44:12', '2024-10-25 11:44:12'),
+	(146, 1, 'update', '', 1, 'tim_avatar.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:02:38', '2024-10-25 12:02:38'),
+	(147, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:04:08', '2024-10-25 12:04:08'),
+	(148, 1, 'update', '', 1, 'tim_avatar.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:04:11', '2024-10-25 12:04:11'),
+	(149, 1, 'update', '', 1, 'tim_avatar.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:04:52', '2024-10-25 12:04:52'),
+	(150, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:06:54', '2024-10-25 12:06:54'),
+	(151, 1, 'update', '', 1, 'tim_avatar.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:06:57', '2024-10-25 12:06:57'),
+	(152, 2, 'login', 'users', 2, NULL, NULL, NULL, 'true', '2024-10-25 12:07:14', '2024-10-25 12:07:14'),
+	(153, 2, 'update', '', 2, 'default.png', 'avatar_alex.png', 'src', 'true', '2024-10-25 12:07:18', '2024-10-25 12:07:18'),
+	(154, 2, 'login', 'users', 2, NULL, NULL, NULL, 'true', '2024-10-25 12:08:06', '2024-10-25 12:08:06'),
+	(155, 2, 'update', '', 2, 'default.png', 'avatar_alex.png', 'src', 'true', '2024-10-25 12:08:26', '2024-10-25 12:08:26'),
+	(156, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:08:41', '2024-10-25 12:08:41'),
+	(157, 1, 'update', '', 1, 'tim_avatar.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:08:47', '2024-10-25 12:08:47'),
+	(158, 1, 'update', '', 1, 'tim_avatar.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:09:45', '2024-10-25 12:09:45'),
+	(159, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:09:59', '2024-10-25 12:09:59'),
+	(160, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:10:13', '2024-10-25 12:10:13'),
+	(161, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:10:55', '2024-10-25 12:10:55'),
+	(162, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:11:51', '2024-10-25 12:11:51'),
+	(163, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:11:55', '2024-10-25 12:11:55'),
+	(164, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:12:23', '2024-10-25 12:12:23'),
+	(165, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:13:40', '2024-10-25 12:13:40'),
+	(166, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_timScreenshot_1.jpg', 'src', 'true', '2024-10-25 12:13:44', '2024-10-25 12:13:44'),
+	(167, 1, 'update', '', 1, 'avatar_timScreenshot_1.jpg', 'avatar_tim_9a14f55e15d29fc27f675bfdf2fca56860a52b14c6451a6dbbf94d92b1a86f6f.png', 'src', 'true', '2024-10-25 12:15:00', '2024-10-25 12:15:00'),
+	(168, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:15:48', '2024-10-25 12:15:48'),
+	(169, 1, 'update', '', 1, 'default.png', 'avatar_tim_6459ec51bffa4cf342d753f81290423da893804419f717b4a185c9fd44ea5f9b.png', 'src', 'true', '2024-10-25 12:15:52', '2024-10-25 12:15:52'),
+	(170, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:17:50', '2024-10-25 12:17:50'),
+	(171, 1, 'update', '', 1, 'avatar_tim_6459ec51bffa4cf342d753f81290423da893804419f717b4a185c9fd44ea5f9b.png', 'avatar_tim_8a9dd616310b304675716ec5d51b0aabec953df5ca4cea5787b860587bda77d9.png', 'src', 'true', '2024-10-25 12:17:52', '2024-10-25 12:17:52'),
+	(172, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:18:46', '2024-10-25 12:18:46'),
+	(173, 1, 'update', '', 1, 'avatar_tim_8a9dd616310b304675716ec5d51b0aabec953df5ca4cea5787b860587bda77d9.png', 'avatar_tim_a1915aa5dd63c95ed6860f55a039df587abe198ac2fa526253a8254360d83672.png', 'src', 'true', '2024-10-25 12:18:55', '2024-10-25 12:18:55'),
+	(174, 1, 'update', '', 1, 'avatar_tim_a1915aa5dd63c95ed6860f55a039df587abe198ac2fa526253a8254360d83672.png', 'avatar_tim_849b629b8e163d284f0b90d89fb1bbb34f8e78397aea03b2ce7cc7f210e6e4c5.png', 'src', 'true', '2024-10-25 12:18:59', '2024-10-25 12:18:59'),
+	(175, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:21:31', '2024-10-25 12:21:31'),
+	(176, 1, 'update', '', 1, 'avatar_tim_849b629b8e163d284f0b90d89fb1bbb34f8e78397aea03b2ce7cc7f210e6e4c5.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:21:41', '2024-10-25 12:21:41'),
+	(177, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:22:36', '2024-10-25 12:22:36'),
+	(178, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:23:05', '2024-10-25 12:23:05'),
+	(179, 1, 'update', '', 1, 'default.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:28:58', '2024-10-25 12:28:58'),
+	(180, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:29:37', '2024-10-25 12:29:37'),
+	(181, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:29:47', '2024-10-25 12:29:47'),
+	(182, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:30:25', '2024-10-25 12:30:25'),
+	(183, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:31:14', '2024-10-25 12:31:14'),
+	(184, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:33:10', '2024-10-25 12:33:10'),
+	(185, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:33:28', '2024-10-25 12:33:28'),
+	(186, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:43:55', '2024-10-25 12:43:55'),
+	(187, 1, 'update', '', 1, 'avatar_tim.png', 'avatar_tim.png', 'src', 'true', '2024-10-25 12:44:09', '2024-10-25 12:44:09'),
+	(188, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-25 12:45:16', '2024-10-25 12:45:16');
 
 -- Exportiere Struktur von Tabelle temperatur.manufacturers
 DROP TABLE IF EXISTS `manufacturers`;
@@ -262,7 +348,7 @@ CREATE TABLE IF NOT EXISTS `manufacturers` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.manufacturers: ~3 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.manufacturers: ~2 rows (ungefähr)
 DELETE FROM `manufacturers`;
 INSERT INTO `manufacturers` (`id`, `name`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'Dell', 'true', '2024-10-17 10:48:34', '2024-10-17 10:48:34'),
@@ -309,13 +395,15 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.roles: ~2 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.roles: ~4 rows (ungefähr)
 DELETE FROM `roles`;
 INSERT INTO `roles` (`id`, `name`, `color`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'User', '#6be356', 'true', '2024-10-22 11:20:34', '2024-08-13 12:28:32'),
-	(2, 'Admin', '#ba24ff', 'true', '2024-10-22 11:20:28', '2024-08-13 12:28:37');
+	(2, 'Admin', '#ff2b2b', 'true', '2024-10-25 10:25:52', '2024-08-13 12:28:37'),
+	(3, 'Developer', '#c445ff', 'true', '2024-10-25 10:25:44', '2024-10-25 10:25:16'),
+	(4, 'Team', '#ffce2b', 'true', '2024-10-25 10:26:41', '2024-10-25 10:26:35');
 
 -- Exportiere Struktur von Tabelle temperatur.sensors
 DROP TABLE IF EXISTS `sensors`;
@@ -338,7 +426,7 @@ CREATE TABLE IF NOT EXISTS `sensors` (
   CONSTRAINT `sensors_server` FOREIGN KEY (`server_id`) REFERENCES `servers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='Eintrag für die Sensoren';
 
--- Exportiere Daten aus Tabelle temperatur.sensors: ~6 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.sensors: ~5 rows (ungefähr)
 DELETE FROM `sensors`;
 INSERT INTO `sensors` (`id`, `server_id`, `manufacturer_id`, `maxTemp`, `minTemp`, `name`, `address`, `color`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 1, 1, 90, 30, 'Okay yo', 'Tonndorf', '#ffffff', 'true', '2024-10-24 10:30:07', '2024-08-12 00:00:00'),
@@ -379,9 +467,9 @@ CREATE TABLE IF NOT EXISTS `temperatures` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `temperatures_sensors` (`sensor_id`),
   CONSTRAINT `temperatures_sensors` FOREIGN KEY (`sensor_id`) REFERENCES `sensors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=5456 DEFAULT CHARSET=utf8mb4 COMMENT='Aufnahme der Temperatur';
+) ENGINE=InnoDB AUTO_INCREMENT=5516 DEFAULT CHARSET=utf8mb4 COMMENT='Aufnahme der Temperatur';
 
--- Exportiere Daten aus Tabelle temperatur.temperatures: ~5.455 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.temperatures: ~5.069 rows (ungefähr)
 DELETE FROM `temperatures`;
 INSERT INTO `temperatures` (`id`, `sensor_id`, `temperature`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 1, 23, 'true', '2024-08-12 00:00:00', '2024-08-12 00:00:00'),
@@ -5915,7 +6003,7 @@ CREATE TABLE IF NOT EXISTS `translations` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.translations: ~39 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.translations: ~36 rows (ungefähr)
 DELETE FROM `translations`;
 INSERT INTO `translations` (`id`, `category`, `value`, `de`, `en`, `ru`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 'site', 'controller not found.', 'Der Controller wurde nicht gefunden.', 'Controller not found.', NULL, 'true', '2024-08-13 10:35:53', '2024-08-13 10:27:19'),
@@ -5984,10 +6072,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Exportiere Daten aus Tabelle temperatur.users: ~22 rows (ungefähr)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `username`, `snowflake`, `password`, `phone`, `avatar_id`, `role_id`, `active`, `last_seen`, `created_at`, `updated_at`) VALUES
-	(1, 'Tim', 'timmm', '$2y$10$3a5SpsFVr.VPKaWwILo7ie6QxSXO6vNLqnoCLtuhBd/NSixSeSlku', '01729499985', 1, 2, 'true', '2024-10-24 13:49:18', '2024-10-24 13:49:18', '2024-08-13 12:26:26'),
-	(2, 'Alex', 'alex', '$2y$10$ULr9T0RYziJDgQh2cLwHb.FhPiiBt1QB2Wto/v7uHSDcgM2XllStu', NULL, 2, 2, 'true', '2024-10-24 11:48:11', '2024-10-24 11:48:11', '2024-08-15 07:59:34'),
-	(3, 'Leander', 'leander', '$2y$10$7K4sFPy9GBePczX0rFCeXueAJUQgMk6LEX0ExEQ7dat4m7LIVMwj2', NULL, 3, 2, 'true', '2024-08-15 11:02:49', '2024-10-23 13:45:13', '2024-08-15 11:02:49'),
-	(4, 'Pascal', 'smooth', '$2y$10$UzRrD0rbJQqhvOmj35nP5u1YMCnrcNYrozYWqNRtPl0UPUE7b1fyK', NULL, 4, 2, 'true', '2024-08-16 10:30:24', '2024-10-23 13:38:50', '2024-08-16 10:30:24'),
+	(1, 'Tim', 'tim', '$2y$10$jm5aOBRitFEZvOtzfXA02OM/qltcCTgpFu64lpqddpH62kXZpENPe', '01729499985', 1, 3, 'true', '2024-10-25 12:45:16', '2024-10-25 12:45:16', '2024-08-13 12:26:26'),
+	(2, 'Alex', 'alex', '$2y$10$ULr9T0RYziJDgQh2cLwHb.FhPiiBt1QB2Wto/v7uHSDcgM2XllStu', NULL, 2, 3, 'true', '2024-10-25 12:08:06', '2024-10-25 12:08:06', '2024-08-15 07:59:34'),
+	(3, 'Leander', 'leander', '$2y$10$7K4sFPy9GBePczX0rFCeXueAJUQgMk6LEX0ExEQ7dat4m7LIVMwj2', NULL, 3, 4, 'true', '2024-08-15 11:02:49', '2024-10-25 10:26:49', '2024-08-15 11:02:49'),
+	(4, 'Pascal', 'smooth', '$2y$10$UzRrD0rbJQqhvOmj35nP5u1YMCnrcNYrozYWqNRtPl0UPUE7b1fyK', NULL, 4, 4, 'true', '2024-08-16 10:30:24', '2024-10-25 10:26:50', '2024-08-16 10:30:24'),
 	(5, 'Administrator', 'administrator', '$2y$10$JJDU1ZfGogSzOhUzH8ZIHOuN/y7j2/WI0UYiOXnWPxrohbUbbrGVu', NULL, 5, 1, 'true', '2024-08-16 10:45:22', '2024-10-16 13:03:21', '2024-08-16 10:45:22'),
 	(6, 'le', 'le', '$2y$10$Kn.xj9otH9C11PHyR27.fOGaKEgkju6TZeAW.wmvJ7sN1HAteWCve', NULL, 6, 1, 'true', '2024-08-21 11:09:39', '2024-10-17 10:08:05', '2024-08-21 11:09:39'),
 	(7, 'Root', 'root', '$2y$10$/LNlMSyQ6bOFkFvGoJ39x.wd8P870OK4sRx6p./wjjiBJtAu0VEei', NULL, 7, 1, 'true', '2024-10-17 10:02:50', '2024-10-17 11:16:45', '2024-10-17 10:02:50'),
@@ -6023,7 +6111,7 @@ CREATE TABLE IF NOT EXISTS `user_settings` (
   CONSTRAINT `user_settings_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COMMENT='Nutzereinstellungen';
 
--- Exportiere Daten aus Tabelle temperatur.user_settings: ~18 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.user_settings: ~16 rows (ungefähr)
 DELETE FROM `user_settings`;
 INSERT INTO `user_settings` (`id`, `user_id`, `language`, `imperial_system`, `darkmode`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 4, 'ru', 'c', 'true', 'true', '2024-10-17 08:49:04', '2024-10-17 08:47:59'),

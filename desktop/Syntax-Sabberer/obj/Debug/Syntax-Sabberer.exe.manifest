@@ -55,14 +55,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Syntax-Sabberer.exe" size="143328">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Syntax-Sabberer.exe" size="131552">
       <assemblyIdentity name="Syntax-Sabberer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>vwKdLeeOQ/G4HgQZwDuNNE/5Ja/6hdJA8yq9lHjyHJA=</dsig:DigestValue>
+        <dsig:DigestValue>1TdPgnAZxPCVcG0ndPZVbraWqK/ohQylZV1WbEWj5xw=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

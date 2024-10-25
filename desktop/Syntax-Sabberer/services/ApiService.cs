@@ -1,7 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -123,19 +125,41 @@ public class ApiService
         throw new Exception("Failed to retrieve users.");
     }
 
-    public async Task<UserUpdateResponse> UpdateUser(Dictionary<string, string> dictionary)
+    public async Task<UserUpdateResponse> UpdateUserWithImage(Dictionary<string, string> dictionary, string imagePath = null)
     {
-        var content = new FormUrlEncodedContent(dictionary);
-        var response = await _httpClient.PostAsync("user/update", content);
-
-        if (response != null)
+        using (var form = new MultipartFormDataContent())
         {
-            var jsonResponse = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<UserUpdateResponse>(jsonResponse);
-        }
+            // Füge die anderen Formulardaten hinzu
+            foreach (var item in dictionary)
+            {
+                form.Add(new StringContent(item.Value), item.Key);
+            }
 
-        throw new Exception("User update failed.");
+            // Bild hinzufügen
+            if (imagePath != null && File.Exists(imagePath))
+            {
+                var fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+                var imageContent = new StreamContent(fileStream);
+                imageContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg"); // oder "image/png"
+
+                // Bild hinzufügen (benenne das Feld entsprechend der API-Spezifikation)
+                form.Add(imageContent, "avatar", Path.GetFileName(imagePath));
+            }
+                
+            // Sende den POST-Request
+            var response = await _httpClient.PostAsync("user/update", form);
+
+            if (response != null)
+            {
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<UserUpdateResponse>(jsonResponse);
+                return result;
+            }
+
+            throw new Exception("User update user.");
+        }
     }
+
 }
 
 public class LoginResponse
