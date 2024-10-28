@@ -15,13 +15,13 @@
     <form>
     <!-- Email input -->
     <div data-mdb-input-init class="form-outline mb-4">
-      <input type="Username" id="form2Example1" class="form-control" />
+      <input type="Username" name="username" class="form-control" />
       <label class="form-label" for="form2Example1">Username</label>
     </div>
 
     <!-- Password input -->
     <div data-mdb-input-init class="form-outline mb-4">
-      <input type="password" id="form2Example2" class="form-control" />
+      <input type="password" name="password" class="form-control" />
       <label class="form-label" for="form2Example2">Password</label>
     </div>
 
@@ -37,7 +37,7 @@
     </div>
 
     <!-- Submit button -->
-    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Sign in</button>
+    <button  type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4 login-btn">Sign in</button>
 
     <!-- Register buttons -->
     <div class="text-center">
@@ -46,6 +46,56 @@
 
     <a href="index.php"> abbrechen </a>
 
-  </form>
-</div></center>
+    </form>
+
+  </div></center>
+
+  <script>
+
+    const login_btn = document.querySelector(".login-btn");
+
+    if(login_btn){
+
+      login_btn.addEventListener("click", (e)=> {
+        e.preventDefault();
+
+        const username = document.querySelector("input[name='username']").value;
+        const password = document.querySelector("input[name='password']").value;
+
+
+        const url = 'http://localhost/temperaturueberwachung/api/web/user/login'; // Ersetze diese URL durch die tatsächliche API-URL
+
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
+
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Erfolgreich eingeloggt:', data);
+
+
+
+        })
+        .catch(error => {
+            console.error('Fehler beim Login:', error);
+
+
+
+        });
+
+      });
+    }
+
+  </script>
+
+</body>
 </html>
