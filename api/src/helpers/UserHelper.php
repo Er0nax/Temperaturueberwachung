@@ -145,11 +145,12 @@ class UserHelper extends BaseHelper
         return $entry->columns(['users' => ['id', 'username', 'snowflake', 'phone', 'active', 'last_seen', 'created_at', 'updated_at'],
             'user_settings' => ['language', 'imperial_system', 'darkmode'],
             'images' => ["src AS 'avatar'"],
-            'roles' => ["name AS 'role_name'", "color AS 'role_color'"]
+            'roles' => ["name AS 'role_name'", "color AS 'role_color'"],
         ])->tables(['users',
             ['user_settings', 'users.id', 'user_settings.user_id', 'LEFT'],
             ['images', 'users.avatar_id', 'images.id', 'LEFT'],
-            ['roles', 'users.role_id', 'roles.id', 'LEFT']
+            ['roles', 'users.role_id', 'roles.id', 'LEFT'],
+            ['api_tokens', 'users.id', 'api_tokens.user_id', 'LEFT']
         ]);
     }
 }

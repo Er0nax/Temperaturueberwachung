@@ -1,3 +1,32 @@
+<?php
+
+$loggedin = false;
+$errorMsg = null;
+
+try {
+    // Suppress warnings with @ and check if the result is false
+    $content = @file_get_contents('http://localhost/temperaturueberwachung/api/web/user/info/' . $_COOKIE['api_token']);
+
+    // If the request failed, store the error message
+    if ($content === false) {
+        $errorMsg = 'Failed to fetch user information. The server returned an error.';
+    } else {
+        // Decode the JSON response
+        $content = json_decode($content);
+
+        // Check if the response contains user information
+        if (!empty($content->response)) {
+            $loggedin = true;
+            $user = $content->response;
+        }
+    }
+} catch (Exception $e) {
+    // Catch any exceptions and store the error message
+    $errorMsg = $e->getMessage();
+}
+
+?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -14,21 +43,21 @@
 <header class="d-flex justify-content-center py-3">
     <ul class="nav nav-pills">
         <li class="nav-item"><a href="index.php" class="nav-link active" aria-current="page">Dashboard</a></li>
-        <li class="nav-item"><a href="login.php" class="nav-link">Login</a></li>
+        <li class="nav-item"><a href="login.php" class="nav-link"><?= $loggedin ? $user->username : 'Login' ?></a></li>
         <li class="nav-item"><a href="http://localhost/temperaturueberwachung/api/web/app/download" target="_blank" class="nav-link">Download</a></li>
     </ul>
 </header>
 
 <div class="row justify-content-center text-center">
     <!-- mehrere Leerzeilen -->
-    <h1 class="text-center mt-3"><b>Temperaturüberwachung WEB</b></h1>
+    <h1 class="text-center mt-3"><b><?= $loggedin ? 'Welcome back, ' . $user->username : 'Temperaturüberwachung WEB' ?></b></h1>
 
     <div class="card-container row">
         <!-- card will be here -->
     </div>
-  </div>
+</div>
 
-  <script>
+<script>
     const url = "http://localhost/temperaturueberwachung/api/web/sensor/all";
 
     fetch(url)
@@ -128,11 +157,11 @@
 
                     let procent = ((currentTemp - minTemp) / (maxTemp - minTemp)) * 100;
 
-                        if (procent > 100) procent = 100;
-                        if (procent < 0) procent = 100;
+                    if (procent > 100) procent = 100;
+                    if (procent < 0) procent = 100;
 
-                        const angle = procent * 1.8;
-                        circle.style.transform =`rotate(${angle}deg)`;  
+                    const angle = procent * 1.8;
+                    circle.style.transform = `rotate(${angle}deg)`;
                     // to hot?
                     if (currentTemp > maxTemp) {
                         circle.style.backgroundColor = "#ff1f1f";
@@ -153,6 +182,6 @@
         });
 
 
-  </script>
+</script>
 </body>
 </html>

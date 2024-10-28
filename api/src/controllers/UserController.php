@@ -484,6 +484,7 @@ class UserController extends BaseController
         $userId = $this->getParam(0, 'id');
         $username = $this->getParam(0, 'username');
         $snowflake = $this->getParam(0, 'snowflake');
+        $token = $this->getParam(0, 'token');
 
         if (empty($userId) && empty($username)) {
             ResultHelper::render([
@@ -495,7 +496,16 @@ class UserController extends BaseController
 
         // fetch full user information
         $user = UserHelper::getUserQuery()
-            ->where(['users' => [['username', $username], ['id', $userId], ['snowflake', $snowflake]]], 'OR')
+            ->where([
+                'users' => [
+                    ['username', $username],
+                    ['id', $userId],
+                    ['snowflake', $snowflake]
+                ],
+                'api_tokens' => [
+                    ['token', $token],
+                ]
+            ], 'OR')
             ->one();
 
         // user found?
