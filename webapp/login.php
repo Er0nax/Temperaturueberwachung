@@ -64,53 +64,70 @@
     const login_btn = document.querySelector(".login-btn");
 
     if (login_btn) {
+
+        // on button click
         login_btn.addEventListener("click", (e) => {
             e.preventDefault();
+            login();
+        });
 
-            const username = document.querySelector("input[name='username']").value;
-            const password = document.querySelector("input[name='password']").value;
-            const errorMsg = document.getElementById("errorMsg");
+        // on enter click
+        document.addEventListener("keypress", function (e) {
+            // If the user presses the "Enter" key on the keyboard
+            if (e.key === "Enter") {
+                // Cancel the default action, if needed
+                e.preventDefault();
 
-            const url = 'http://localhost/temperaturueberwachung/api/web/user/login'; // Ersetze diese URL durch die tatsächliche API-URL
+                // login
+                login();
+            }
+        });
+    }
 
-            const formData = new FormData();
-            formData.append('username', username);
-            formData.append('password', password);
+    function login() {
+        const username = document.querySelector("input[name='username']").value;
+        const password = document.querySelector("input[name='password']").value;
+        const errorMsg = document.getElementById("errorMsg");
 
-            fetch(url, {
-                method: 'POST',
-                body: formData,
-            }).then(response => {
-                return response.json();
-            }).then(data => {
+        const url = 'http://localhost/temperaturueberwachung/api/web/user/login'; // Ersetze diese URL durch die tatsächliche API-URL
 
-                // success?
-                if (data.status === 200) {
-                    const cookieName = "api_token";
-                    const cookieValue = data.response.info.token;
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('password', password);
 
-                    // remember me checked?
-                    if (document.getElementById("remember_me").checked) {
-                        // save token for 1 week
-                        const today = new Date();
-                        const expire = new Date();
-                        expire.setTime(today.getTime() + 3600000 * 24 * 7);
-                        document.cookie = cookieName + "=" + encodeURI(cookieValue) + ";expires=" + expire.toGMTString();
-                    } else {
-                        // save cookie only for session
-                        document.cookie = cookieName + "=" + encodeURI(cookieValue);
-                    }
+        fetch(url, {
+            method: 'POST',
+            body: formData,
+        }).then(response => {
+            return response.json();
+        }).then(data => {
 
-                    // redirect to dashboard
-                    location.href = "index.php";
+            // success?
+            if (data.status === 200) {
+                const cookieName = "api_token";
+                const cookieValue = data.response.info.token;
+
+                // remember me checked?
+                if (document.getElementById("remember_me").checked) {
+                    // save token for 1 week
+                    const today = new Date();
+                    const expire = new Date();
+                    expire.setTime(today.getTime() + 3600000 * 24 * 7);
+                    document.cookie = cookieName + "=" + encodeURI(cookieValue) + ";expires=" + expire.toGMTString();
+                } else {
+                    // save cookie only for session
+                    document.cookie = cookieName + "=" + encodeURI(cookieValue);
                 }
-                //error
-                else {
-                    if (errorMsg) {
-                        errorMsg.innerText = data.response.message;
-                    }
+
+                // redirect to dashboard
+                location.href = "index.php";
+            }
+            //error
+            else {
+                if (errorMsg) {
+                    errorMsg.innerText = data.response.message;
                 }
-            });
+            }
         });
     }
 
