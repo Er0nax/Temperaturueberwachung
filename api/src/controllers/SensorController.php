@@ -106,10 +106,23 @@ class SensorController extends BaseController
 
             // add latest temperatures
             foreach ($temperatureQuery->all() as $temp) {
+                $tempColor = '#000000';
+
+                // to hot?
+                if ($temp['temperature'] > $sensor['maxTemp']) {
+                    $tempColor = '#ff2121';
+                }
+
+                // to cold?
+                if ($temp['temperature'] < $sensor['minTemp']) {
+                    $tempColor = '#2197ff';
+                }
+
                 $sensor['temperatures'][] = [
                     'created_at' => date('d.m.y', strtotime($temp['created_at'])),
                     'time' => date('H:i:s', strtotime($temp['created_at'])),
                     'temperature' => $temp['temperature'],
+                    'color' => $tempColor
                 ];
             }
         }

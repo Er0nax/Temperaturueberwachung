@@ -123,7 +123,7 @@ if (!empty($_COOKIE['api_token'])) {
                     <div class="circle-container-bottom"></div>
                 </div>
             </div>
-            <div class="mt-3 Max_Min_Temp">
+            <div class="mt-3 justify-content-center text-center Max_Min_Temp">
                 <div class="d-flex align-items-center mb-2">
                     <div class="bullet-item bg-primary me-2"></div>
                     <h6 class="text-body fw-semibold flex-1 mb-0">Max. Temp.:</h6>
@@ -134,19 +134,29 @@ if (!empty($_COOKIE['api_token'])) {
                     <h6 class="text-body fw-semibold flex-1 mb-0">Min. Temp.:</h6>
                     <h6 class="text-body fw-semibold mb-0">${sensor.minTemp}°C</h6>
                 </div>
-                <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center mb-2">
                     <div class="bullet-item bg-primary-subtle me-2"></div>
                     <h6 class="text-body fw-semibold flex-1 mb-0">Durchs. Temp.:</h6>
                     <h6 class="text-body fw-semibold mb-0">${sensor.avgTemp}°C</h6>
                 </div>
+                <div class="d-flex align-items-center mb-2">
+                    <div class="bullet-item bg-primary-subtle me-2"></div>
+                    <h6 class="text-body fw-semibold flex-1 mb-0">Hersteller: <b>${sensor.manufacturer}</b></h6>
+                </div>
             </div>
-            <button class="btn btn-primary card_User_Temp_history w-100" autofocus type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapse-${sensor.id}" aria-expanded="false" aria-controls="collapse-${sensor.id}">
+            <button class="btn btn-secondary open-temp-log-btn w-100"
+                    autofocus
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapse-${sensor.id}"
+                    aria-expanded="false"
+                    aria-controls="collapse-${sensor.id}">
                 Temperatur Log
             </button>
-            <div style="min-height: 120px;">
-                <div class="collapse collapse-horizontal" id="collapse-${sensor.id}">
-                    <div class="card card-body" style="width: 300px; top: 100px; z-index:250">
+                <div class="collapse collapse-horizontal justify-content-center mt-5"
+                     id="collapse-${sensor.id}">
+                    <div class="card card-body"
+                         style="width: 300px; top: 100px; z-index:250">
                         <table id="temperatureTable">
                             <thead>
                             <tr>
@@ -157,7 +167,7 @@ if (!empty($_COOKIE['api_token'])) {
                             </thead>
                             <tbody>
                                 ${sensor.temperatures.map(temp => `
-                                    <tr>
+                                    <tr style="color: ${temp.color}">
                                         <td>${temp.created_at}</td>
                                         <td>${temp.time}</td>
                                         <td>${temp.temperature}°C</td>
@@ -166,9 +176,7 @@ if (!empty($_COOKIE['api_token'])) {
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-            <h6 class="Text-center"><b>Hersteller: ${sensor.manufacturer} </b></h6>`;
+                </div>`;
                 // Append the card to the container
                 container.appendChild(card);
 
