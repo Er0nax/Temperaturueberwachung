@@ -76,7 +76,7 @@ if (!empty($_COOKIE['api_token'])) {
     <!-- mehrere Leerzeilen -->
     <h1 class="text-center mt-3"><b><?= $loggedin ? 'Welcome back, ' . $user->username : 'Temperaturüberwachung WEB' ?></b></h1>
 
-    <div class="card-container row">
+    <div class="card-container row justify-content-center">
         <!-- card will be here -->
     </div>
 </div>
