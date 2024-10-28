@@ -116,7 +116,7 @@ if (!empty($_COOKIE['api_token'])) {
             </div>
             <div class="d-flex justify-content-left pt-3 flex-1">
                 <div class="circle-container">
-                    <div class="circle-temp"></div>
+                    <div class="circle-temp" style="background-color: ${sensor.infoColor};"></div>
                     <div class="my-circle">
                         <h1 class="Temp_Text">${sensor.currentTemperature}°C</h1>
                     </div>
@@ -186,18 +186,6 @@ if (!empty($_COOKIE['api_token'])) {
 
                     const angle = procent * 1.8;
                     circle.style.transform = `rotate(${angle}deg)`;
-                    // to hot?
-                    if (currentTemp > maxTemp) {
-                        circle.style.backgroundColor = "#ff1f1f";
-                    }
-                    // to cold?
-                    else if (currentTemp < minTemp) {
-                        circle.style.backgroundColor = "#1fbcff";
-                    }
-                    // perfect?
-                    else {
-                        circle.style.backgroundColor = "#4bd31f";
-                    }
                 }
             });
         })

@@ -81,6 +81,29 @@ class SensorController extends BaseController
             $sensor['lowestTemp'] = $minMaxTempQuery->min();
             $sensor['avgTemp'] = $minMaxTempQuery->avg();
 
+            // sensor good temperature
+            $sensor['infoColor'] = '#23c235';
+
+            // sensor one before to hot?
+            if ($sensor['currentTemperature'] == ($sensor['maxTemp'] - 1)) {
+                $sensor['infoColor'] = '#ff6721';
+            }
+
+            // sensor to hot?
+            if ($sensor['currentTemperature'] > $sensor['maxTemp']) {
+                $sensor['infoColor'] = '#ff2121';
+            }
+
+            // sensor one before to cold?
+            if ($sensor['currentTemperature'] == ($sensor['minTemp'] + 1)) {
+                $sensor['infoColor'] = '#c421ff';
+            }
+
+            // sensor to cold?
+            if ($sensor['currentTemperature'] < $sensor['minTemp']) {
+                $sensor['infoColor'] = '#2197ff';
+            }
+
             // add latest temperatures
             foreach ($temperatureQuery->all() as $temp) {
                 $sensor['temperatures'][] = [
