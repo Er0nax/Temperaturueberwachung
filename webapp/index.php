@@ -56,6 +56,15 @@ if (!empty($_COOKIE['api_token'])) {
         </li>
 
         <li class="nav-item">
+            <a href="doku.html"
+               class="nav-link"
+               target="_blank"
+               aria-current="page">
+                API-Doku
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a href="http://localhost/temperaturueberwachung/api/web/app/download"
                target="_blank"
                class="nav-link">
