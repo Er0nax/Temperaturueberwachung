@@ -199,7 +199,7 @@ if (!empty($_COOKIE['api_token'])) {
                     let procent = ((currentTemp - minTemp) / (maxTemp - minTemp)) * 100;
 
                     if (procent > 100) procent = 100;
-                    if (procent < 0) procent = 100;
+                    if (procent < 0) procent = 0;
 
                     const angle = procent * 1.8;
                     circle.style.transform = `rotate(${angle}deg)`;
