@@ -1,8 +1,0 @@
-# Aktiviert das Rewrite-Engine-Modul
-RewriteEngine On
-
-# Verhindert eine Endlosschleife für die index.html Datei
-RewriteCond %{REQUEST_URI} !^/index\.html$
-
-# Alle Anfragen werden auf index.html umgeleitet
-RewriteRule ^.*$ /index.html [L]

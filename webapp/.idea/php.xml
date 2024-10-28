@@ -12,8 +12,8 @@
   </component>
   <component name="PhpIncludePathManager">
     <include_path>
-      <path value="$PROJECT_DIR$/../../../../Entwicklung/craft" />
-      <path value="$PROJECT_DIR$/../../../../Entwicklung/plugins" />
+      <path value="$PROJECT_DIR$/../../../../../Entwicklung/craft" />
+      <path value="$PROJECT_DIR$/../../../../../Entwicklung/plugins" />
     </include_path>
   </component>
   <component name="PhpStanOptionsConfiguration">

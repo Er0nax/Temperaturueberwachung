@@ -1,28 +1,33 @@
 <?php
 
+// default values
 $loggedin = false;
 $errorMsg = null;
+$response = null;
+$user = null;
 
-try {
-    // Suppress warnings with @ and check if the result is false
-    $content = @file_get_contents('http://localhost/temperaturueberwachung/api/web/user/info/' . $_COOKIE['api_token']);
+if (!empty($_COOKIE['api_token'])) {
+    try {
+        // Suppress warnings with @ and check if the result is false
+        $content = @file_get_contents('http://localhost/temperaturueberwachung/api/web/user/info/' . $_COOKIE['api_token']);
 
-    // If the request failed, store the error message
-    if ($content === false) {
-        $errorMsg = 'Failed to fetch user information. The server returned an error.';
-    } else {
-        // Decode the JSON response
-        $content = json_decode($content);
+        // If the request failed, store the error message
+        if ($content === false) {
+            $errorMsg = 'Failed to fetch user information. The server returned an error.';
+        } else {
+            // Decode the JSON response
+            $content = json_decode($content);
 
-        // Check if the response contains user information
-        if (!empty($content->response)) {
-            $loggedin = true;
-            $user = $content->response;
+            // Check if the response contains user information
+            if (!empty($content->response)) {
+                $loggedin = true;
+                $user = $content->response;
+            }
         }
+    } catch (Exception $e) {
+        // Catch any exceptions and store the error message
+        $errorMsg = $e->getMessage();
     }
-} catch (Exception $e) {
-    // Catch any exceptions and store the error message
-    $errorMsg = $e->getMessage();
 }
 
 ?>
@@ -42,9 +47,28 @@ try {
 
 <header class="d-flex justify-content-center py-3">
     <ul class="nav nav-pills">
-        <li class="nav-item"><a href="index.php" class="nav-link active" aria-current="page">Dashboard</a></li>
-        <li class="nav-item"><a href="login.php" class="nav-link"><?= $loggedin ? $user->username : 'Login' ?></a></li>
-        <li class="nav-item"><a href="http://localhost/temperaturueberwachung/api/web/app/download" target="_blank" class="nav-link">Download</a></li>
+        <li class="nav-item">
+            <a href="index.php"
+               class="nav-link active"
+               aria-current="page">
+                Dashboard
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="http://localhost/temperaturueberwachung/api/web/app/download"
+               target="_blank"
+               class="nav-link">
+                Download</a>
+        </li>
+
+        <li class="nav-item">
+            <a href="<?= $loggedin ? 'logout' : 'login' ?>.php"
+                <?= $loggedin ? 'style="color: lightcoral;"' : '' ?>
+               class="nav-link">
+                <?= $loggedin ? 'Logout' : 'Login' ?>
+            </a>
+        </li>
     </ul>
 </header>
 
