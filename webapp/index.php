@@ -69,6 +69,13 @@ if (!empty($_COOKIE['api_token'])) {
                 <?= $loggedin ? 'Logout' : 'Login' ?>
             </a>
         </li>
+
+        <li class="nav-item">
+          <a href="log-tabelle.php"
+             class="nav-link"
+             aria-current="page">
+            Log-Tabelle </a>
+        </li>
     </ul>
 </header>
 
