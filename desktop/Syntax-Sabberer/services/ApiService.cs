@@ -225,6 +225,7 @@ public class UserInfo
     public string role_color { get; set; }
     public string Password { get; set; }
     public string Token { get; set; }
+    public bool isAdmin { get; set; }
 }
 
 public class RegisterResponse
@@ -261,6 +262,7 @@ public class Sensor
     public string Manufacturer { get; set; }
     public double CurrentTemperature { get; set; }
     public List<Temperature> Temperatures { get; set; }
+    public bool isAdmin { get; set; }
 }
 
 public class Temperature

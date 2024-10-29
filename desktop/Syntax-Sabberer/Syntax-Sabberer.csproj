@@ -102,6 +102,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="helpers\settingsHelper.cs" />
     <Compile Include="services\ApiService.cs" />
     <Compile Include="windows\DataTemplates\SensorCard.xaml.cs">
       <DependentUpon>SensorCard.xaml</DependentUpon>
