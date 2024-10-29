@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `api_tokens` (
 -- Exportiere Daten aus Tabelle temperatur.api_tokens: ~18 rows (ungefähr)
 DELETE FROM `api_tokens`;
 INSERT INTO `api_tokens` (`id`, `user_id`, `ip`, `token`, `uses`, `active`, `updated_at`, `created_at`) VALUES
-	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 6517, 'true', '2024-10-28 11:39:15', '2024-08-15 11:45:40'),
+	(1, 1, '10.204.194.51', 'ae5Lh9E3YY2zsV1oBP7B', 6518, 'true', '2024-10-28 11:51:38', '2024-08-15 11:45:40'),
 	(2, 4, '10.204.193.170', '8l1Zyohk4V8s0XkPbqlE', 51, 'true', '2024-10-23 13:39:18', '2024-08-16 10:30:24'),
 	(3, 5, '10.204.193.170', '0MVWT7bHr1qstx3GL8LR', 0, 'true', '2024-08-16 10:45:22', '2024-08-16 10:45:22'),
 	(4, 6, '10.204.161.165', 'FcxB5RhcT8A9dGgzgzAe', 18, 'true', '2024-10-17 10:08:05', '2024-08-21 11:09:39'),
@@ -145,9 +145,9 @@ CREATE TABLE IF NOT EXISTS `logs` (
   PRIMARY KEY (`id`),
   KEY `logs_user` (`user_id`),
   CONSTRAINT `logs_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=211 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=utf8mb4;
 
--- Exportiere Daten aus Tabelle temperatur.logs: ~207 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.logs: ~209 rows (ungefähr)
 DELETE FROM `logs`;
 INSERT INTO `logs` (`id`, `user_id`, `action`, `relation`, `relation_id`, `old_value`, `new_value`, `column_name`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 1, 'update', 'sensors', 1, '90', '90', 'maxTemp', 'true', '2024-10-23 09:12:52', '2024-10-23 09:12:52'),
@@ -357,7 +357,8 @@ INSERT INTO `logs` (`id`, `user_id`, `action`, `relation`, `relation_id`, `old_v
 	(207, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-28 11:00:24', '2024-10-28 11:00:24'),
 	(208, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-28 11:04:04', '2024-10-28 11:04:04'),
 	(209, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-28 11:04:25', '2024-10-28 11:04:25'),
-	(210, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-28 11:38:58', '2024-10-28 11:38:58');
+	(210, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-28 11:38:58', '2024-10-28 11:38:58'),
+	(211, 1, 'login', 'users', 1, NULL, NULL, NULL, 'true', '2024-10-28 11:51:38', '2024-10-28 11:51:38');
 
 -- Exportiere Struktur von Tabelle temperatur.manufacturers
 DROP TABLE IF EXISTS `manufacturers`;
@@ -448,7 +449,7 @@ CREATE TABLE IF NOT EXISTS `sensors` (
   CONSTRAINT `sensors_server` FOREIGN KEY (`server_id`) REFERENCES `servers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='Eintrag für die Sensoren';
 
--- Exportiere Daten aus Tabelle temperatur.sensors: ~6 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.sensors: ~5 rows (ungefähr)
 DELETE FROM `sensors`;
 INSERT INTO `sensors` (`id`, `server_id`, `manufacturer_id`, `maxTemp`, `minTemp`, `name`, `address`, `color`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 1, 1, 100, 30, 'Okay yo', 'Tonndorf', '#ffffff', 'true', '2024-10-28 08:38:48', '2024-08-12 00:00:00'),
@@ -491,7 +492,7 @@ CREATE TABLE IF NOT EXISTS `temperatures` (
   CONSTRAINT `temperatures_sensors` FOREIGN KEY (`sensor_id`) REFERENCES `sensors` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=5579 DEFAULT CHARSET=utf8mb4 COMMENT='Aufnahme der Temperatur';
 
--- Exportiere Daten aus Tabelle temperatur.temperatures: ~5.578 rows (ungefähr)
+-- Exportiere Daten aus Tabelle temperatur.temperatures: ~5.132 rows (ungefähr)
 DELETE FROM `temperatures`;
 INSERT INTO `temperatures` (`id`, `sensor_id`, `temperature`, `active`, `updated_at`, `created_at`) VALUES
 	(1, 1, 23, 'true', '2024-08-12 00:00:00', '2024-08-12 00:00:00'),
@@ -6157,7 +6158,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Exportiere Daten aus Tabelle temperatur.users: ~22 rows (ungefähr)
 DELETE FROM `users`;
 INSERT INTO `users` (`id`, `username`, `snowflake`, `password`, `phone`, `avatar_id`, `role_id`, `active`, `last_seen`, `created_at`, `updated_at`) VALUES
-	(1, 'Tim', 'tim', '$2y$10$jm5aOBRitFEZvOtzfXA02OM/qltcCTgpFu64lpqddpH62kXZpENPe', '01729499985', 1, 2, 'true', '2024-10-28 11:38:58', '2024-10-28 11:38:58', '2024-08-13 12:26:26'),
+	(1, 'Tim', 'tim', '$2y$10$jm5aOBRitFEZvOtzfXA02OM/qltcCTgpFu64lpqddpH62kXZpENPe', '01729499985', 1, 2, 'true', '2024-10-28 11:51:38', '2024-10-28 11:51:38', '2024-08-13 12:26:26'),
 	(2, 'Alex', 'alex', '$2y$10$ULr9T0RYziJDgQh2cLwHb.FhPiiBt1QB2Wto/v7uHSDcgM2XllStu', NULL, 2, 3, 'true', '2024-10-25 12:08:06', '2024-10-25 12:08:06', '2024-08-15 07:59:34'),
 	(3, 'Leander', 'leander', '$2y$10$7K4sFPy9GBePczX0rFCeXueAJUQgMk6LEX0ExEQ7dat4m7LIVMwj2', NULL, 3, 4, 'true', '2024-08-15 11:02:49', '2024-10-25 10:26:49', '2024-08-15 11:02:49'),
 	(4, 'Pascal', 'smooth', '$2y$10$UzRrD0rbJQqhvOmj35nP5u1YMCnrcNYrozYWqNRtPl0UPUE7b1fyK', NULL, 4, 4, 'true', '2024-08-16 10:30:24', '2024-10-25 10:26:50', '2024-08-16 10:30:24'),

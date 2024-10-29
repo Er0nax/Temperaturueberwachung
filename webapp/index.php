@@ -56,6 +56,15 @@ if (!empty($_COOKIE['api_token'])) {
         </li>
 
         <li class="nav-item">
+            <a href="doku.html"
+               class="nav-link"
+               target="_blank"
+               aria-current="page">
+                API-Doku
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a href="http://localhost/temperaturueberwachung/api/web/app/download"
                target="_blank"
                class="nav-link">
@@ -197,7 +206,7 @@ if (!empty($_COOKIE['api_token'])) {
                     let procent = ((currentTemp - minTemp) / (maxTemp - minTemp)) * 100;
 
                     if (procent > 100) procent = 100;
-                    if (procent < 0) procent = 100;
+                    if (procent < 0) procent = 0;
 
                     const angle = procent * 1.8;
                     circle.style.transform = `rotate(${angle}deg)`;

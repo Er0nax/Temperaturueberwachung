@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace Syntax_Sabberer.windows.DataTemplates
 {
@@ -10,6 +12,13 @@ namespace Syntax_Sabberer.windows.DataTemplates
         public SensorCard()
         {
             InitializeComponent();
+        }
+
+        private void editSensorBtn_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            int id = (int)sensorId.Content;
+
+            MessageBox.Show(id.ToString());
         }
     }
 }

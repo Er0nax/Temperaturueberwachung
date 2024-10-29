@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Dokumentation - Temperaturüberwachung</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        h1, h2 {
+            color: #444;
+        }
+        .section {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .endpoint {
+            margin-bottom: 15px;
+        }
+        .endpoint h3 {
+            margin: 0;
+            padding: 10px;
+            background: #f7f7f7;
+            border-left: 5px solid #007bff;
+            border-radius: 3px;
+        }
+        .details {
+            padding: 10px;
+        }
+        .details p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>API Dokumentation - Temperaturüberwachung</h1>
+
+    <!-- App Endpunkte -->
+    <div class="section">
+        <h2>App Endpunkte</h2>
+        <div class="endpoint">
+            <h3>GET /api/web/app/download</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Schickt die aktuelle App Version als .zip Datei zurück.</p>
+                <p><strong>Erforderliche Parameter:</strong> Keine</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>GET /api/web/app/info</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Gibt die Informationen der aktuellen App zurück. Alternativ können auch Informationen einer bestimmten Version zurückgegeben werden.</p>
+                <p><strong>Erforderliche Parameter:</strong> Keine</p>
+                <p><strong>Optionale Parameter:</strong> version</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>GET /api/web/app/checkapi</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Gibt „true“ oder „false“ zurück, ob die API ordnungsgemäß funktioniert.</p>
+                <p><strong>Erforderliche Parameter:</strong> Keine</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Asset Endpunkte -->
+    <div class="section">
+        <h2>Asset Endpunkte</h2>
+        <div class="endpoint">
+            <h3>GET /api/web/asset/image</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Rendert ein Bild aus dem asset Ordner der API.</p>
+                <p><strong>Erforderliche Parameter:</strong> src, type</p>
+                <p><strong>Optionale Parameter:</strong> height, width</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Log Endpunkte -->
+    <div class="section">
+        <h2>Log Endpunkte</h2>
+        <div class="endpoint">
+            <h3>GET /api/web/log/all</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Gibt alle Logs zurück. Alternativ kann nach einer Relation gefiltert werden.</p>
+                <p><strong>Erforderliche Parameter:</strong> Keine</p>
+                <p><strong>Optionale Parameter:</strong> relation</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Role Endpunkte -->
+    <div class="section">
+        <h2>Role Endpunkte</h2>
+        <div class="endpoint">
+            <h3>GET /api/web/role/all</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Gibt alle Rollen mit deren Informationen zurück.</p>
+                <p><strong>Erforderliche Parameter:</strong> Keine</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sensor Endpunkte -->
+    <div class="section">
+        <h2>Sensor Endpunkte</h2>
+        <div class="endpoint">
+            <h3>GET /api/web/sensor/all</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Gibt alle Sensoren mit den letzten gemessenen Temperaturen zurück. Alternativ kann auch das Limit der Temperaturen geändert werden.</p>
+                <p><strong>Erforderliche Parameter:</strong> Keine</p>
+                <p><strong>Optionale Parameter:</strong> tempLimit</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>POST /api/web/sensor/simulate</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Erstellt jede Sekunde neue Werte für alle Sensoren. Es kann eine Dauer der Simulation angegeben werden.</p>
+                <p><strong>Erforderliche Parameter:</strong> Keine</p>
+                <p><strong>Optionale Parameter:</strong> loops</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>PUT /api/web/sensor/update</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Updated einen Sensor mit neuen Werten. Erfordert einen angemeldeten Benutzer mit der „Admin“ Rolle.</p>
+                <p><strong>Erforderliche Parameter:</strong> token, sensor_id</p>
+                <p><strong>Optionale Parameter:</strong> maxTemp, minTemp, name, color, address, active</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>POST /api/web/sensor/create</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Erstellt einen neuen Sensor. Erfordert einen angemeldeten Benutzer mit der „Admin“ Rolle.</p>
+                <p><strong>Erforderliche Parameter:</strong> token, server_id, manufacturer_id</p>
+                <p><strong>Optionale Parameter:</strong> maxTemp, minTemp, address, color</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Server Endpunkte -->
+    <div class="section">
+        <h2>Server Endpunkte</h2>
+        <div class="endpoint">
+            <h3>GET /api/web/server/all</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Gibt alle Server zurück.</p>
+                <p><strong>Erforderliche Parameter:</strong> Keine</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>POST /api/web/server/create</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Erstellt einen neuen Server. Erfordert einen angemeldeten Benutzer mit der „Admin“ Rolle.</p>
+                <p><strong>Erforderliche Parameter:</strong> name</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>PUT /api/web/server/update</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Updated einen Server. Erfordert einen angemeldeten Benutzer mit der „Admin“ Rolle.</p>
+                <p><strong>Erforderliche Parameter:</strong> server_id</p>
+                <p><strong>Optionale Parameter:</strong> name, active</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Translation Endpunkte -->
+    <div class="section">
+        <h2>Translation Endpunkte</h2>
+        <div class="endpoint">
+            <h3>GET /api/web/translation/all</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Gibt alle Übersetzungen zurück.</p>
+                <p><strong>Erforderliche Parameter:</strong> Keine</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>GET /api/web/translation/translate</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Gibt einen übersetzten String zurück.</p>
+                <p><strong>Erforderliche Parameter:</strong> t</p>
+                <p><strong>Optionale Parameter:</strong> language, category</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Endpunkte -->
+    <div class="section">
+        <h2>User Endpunkte</h2>
+        <div class="endpoint">
+            <h3>POST /api/web/user/login</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Loggt einen Benutzer ein und gibt Informationen zurück.</p>
+                <p><strong>Erforderliche Parameter:</strong> username, password</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>POST /api/web/user/register</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Registriert einen Benutzer und gibt die Informationen zurück.</p>
+                <p><strong>Erforderliche Parameter:</strong> username, password, passwordRepeat</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>PUT /api/web/user/update</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Updated einen Benutzer. Benötigt den api_token eines Users, um zu updaten.</p>
+                <p><strong>Erforderliche Parameter:</strong> token, user_id</p>
+                <p><strong>Optionale Parameter:</strong> username, snowflake, phone, active, imperial_system, language, avatar</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>GET /api/web/user/info</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Gibt die Informationen eines Benutzers zurück. Es kann nur einer der erforderlichen Parameter angegeben werden.</p>
+                <p><strong>Erforderliche Parameter:</strong> id, username, snowflake, token</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>POST /api/web/user/logout</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Loggt einen Benutzer aus. Setzt alle api_tokens des Benutzers auf inaktiv.</p>
+                <p><strong>Erforderliche Parameter:</strong> token</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+        <div class="endpoint">
+            <h3>GET /api/web/user/all</h3>
+            <div class="details">
+                <p><strong>Beschreibung:</strong> Gibt alle Benutzer mit deren Informationen zurück.</p>
+                <p><strong>Erforderliche Parameter:</strong> Keine</p>
+                <p><strong>Optionale Parameter:</strong> Keine</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

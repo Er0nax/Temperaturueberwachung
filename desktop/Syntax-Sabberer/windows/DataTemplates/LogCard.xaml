@@ -5,7 +5,10 @@
     <Border x:Name="card"
             Background='#232323'
             CornerRadius='10'
-            Margin='10 10'>
+            Margin='10 10'
+            Height='70'
+            BorderThickness='1'
+            BorderBrush='#FF6D6969'>
 
         <Border.Effect>
             <DropShadowEffect BlurRadius='10'
@@ -28,57 +31,68 @@
             </Grid.RowDefinitions>
 
 
-            <Image Grid.Column='0'
-                   Grid.Row='0'
-                   Grid.RowSpan='2'
-                   Height='30'
-                   Width='30'
-                   Source='{Binding User.Avatar}'
-                   Stretch='UniformToFill' />
+            <Ellipse Grid.Column='0'
+                     Grid.Row='0'
+                     Grid.RowSpan='2'
+                     Height='40'
+                     Width='40'
+                     StrokeThickness='1'
+                     Stroke='White'>
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource='{Binding User.Avatar, FallbackValue=assets/images/default.png}'
+                                Stretch='UniformToFill' />
+                </Ellipse.Fill>
+            </Ellipse>
 
             <Label Grid.Column='1'
                    Grid.Row='0'
-                   Content='{Binding User.Username}'
+                   Content='{Binding User.Username, FallbackValue=Eronax}'
                    HorizontalAlignment='Center'
                    FontWeight='Bold'
-                   Foreground='{Binding User.role_color}'
+                   Foreground='{Binding User.role_color, FallbackValue=lightcoral}'
                    Margin='10 0 10 0'
+                   VerticalAlignment='Center'
                    FontSize='16' />
 
             <Label Grid.Column='2'
                    Grid.Row='0'
-                   Content='{Binding action}'
+                   Content='{Binding action, FallbackValue=update}'
                    FontSize='12'
+                   VerticalAlignment='Center'
                    HorizontalAlignment='Center'
                    Foreground='White' />
 
             <Label Grid.Column='3'
                    Grid.Row='0'
-                   Content='{Binding relation}'
+                   Content='{Binding relation, FallbackValue=sensors}'
                    ContentStringFormat="table: {0}"
                    FontSize='12'
+                   VerticalAlignment='Center'
                    HorizontalAlignment='Center'
                    Foreground='White' />
 
             <Label Grid.Column='1'
                    Grid.Row='1'
-                   Content='{Binding column_name}'
+                   Content='{Binding column_name, FallbackValue=maxTemp}'
                    ContentStringFormat="column: {0}"
                    FontSize='12'
+                   VerticalAlignment='Center'
                    HorizontalAlignment='Center'
                    Foreground='White' />
 
             <Label Grid.Column='2'
                    Grid.Row='1'
-                   Content='{Binding old_value}'
+                   Content='{Binding old_value, FallbackValue=80}'
                    ContentStringFormat="from: {0}"
                    FontSize='12'
+                   VerticalAlignment='Center'
                    HorizontalAlignment='Center'
                    Foreground='White' />
 
             <Label Grid.Column='3'
                    Grid.Row='1'
-                   Content='{Binding new_value}'
+                   VerticalAlignment='Center'
+                   Content='{Binding new_value, FallbackValue=90}'
                    ContentStringFormat="to: {0}"
                    FontSize='12'
                    HorizontalAlignment='Center'
@@ -87,8 +101,11 @@
             <Label Grid.Column='4'
                    Grid.Row='0'
                    Grid.RowSpan='2'
-                   Content='{Binding created_at}'
+                   Content='{Binding created_at, FallbackValue=28.10.2024 19:22}'
                    FontSize='12'
+                   Padding='0'
+                   Margin='5'
+                   VerticalAlignment='Center'
                    HorizontalAlignment='Center'
                    Foreground='White' />
 
